@@ -1,6 +1,6 @@
 {
   "name": "node-explorers",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "our eCommerce site for senior phase",
   "engines": {
     "node": ">= 7.0.0"
