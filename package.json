@@ -1,7 +1,7 @@
 {
-  "name": "boilermaker",
+  "name": "node-explorers",
   "version": "1.0.0",
-  "description": "Some boilerplate code to get you started - get shakin'!",
+  "description": "our eCommerce site for senior phase",
   "engines": {
     "node": ">= 7.0.0"
   },
