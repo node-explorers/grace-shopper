@@ -1,10 +1,10 @@
 import React from 'react'
 import {connect} from 'react-redux'
-//import {fetchProduct} from '../store/product'
+import {fetchProduct} from '../store/product'
 import {Card, CardImg, CardText, CardBody,
   CardTitle, CardSubtitle, Button} from 'reactstrap'
 
-/* function mapState(state){
+function mapState(state){
   return{
     products:state.products
   }
@@ -14,7 +14,7 @@ function mapDispatch(dispatch){
     fetchingProduct:()=>dispatch(fetchProduct())
   }
 }
- */
+
 
 export class AllProduct extends React.Component{
   constructor(){
@@ -22,7 +22,7 @@ export class AllProduct extends React.Component{
 
   }
   componentDidMount(){
-    //this.props.fetchingProduct()
+    this.props.fetchingProduct()
   }
   render(){
     return (
@@ -45,4 +45,4 @@ export class AllProduct extends React.Component{
   }
 
 }
-//export default connect(mapState,mapDispatch)(AllProduct)
+export default connect(mapState,mapDispatch)(AllProduct)
