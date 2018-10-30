@@ -32,7 +32,6 @@ export class AllProduct extends React.Component {
     this.props.fetchingProduct()
   }
   render() {
-    console.log(this.props)
     if (!this.props.products) return <div>No Products</div>
 
     return (
