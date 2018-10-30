@@ -15,7 +15,10 @@ Order.belongsTo(User)
 User.hasMany(Order)
 
 Cart.belongsTo(User)
-User.hasOne(Cart)
+User.hasMany(Cart)
+
+Cart.belongsTo(Product)
+Product.hasMany(Cart)
 
 Product.hasMany(Review)
 Review.belongsTo(Product)

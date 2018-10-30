@@ -1,11 +1,14 @@
-
 const Sequelize = require('sequelize')
 const db = require('../db')
 
 const Cart = db.define('cart', {
-  productList: {
-    type: Sequelize.ARRAY(Sequelize.JSON)
+  quantity: {
+    type: Sequelize.INTEGER,
+    defaultValue: 1,
+    validate: {
+      min: 0
+    }
   }
 })
 
-module.exports = Cart;
+module.exports = Cart
