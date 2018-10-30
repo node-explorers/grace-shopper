@@ -29,7 +29,7 @@ const Product = db.define('product', {
     allowNull: false,
     validate: {
       min: 0,
-      isFloat: true
+      isDecimal: true
     }
   }
 })

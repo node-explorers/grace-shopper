@@ -33,7 +33,7 @@ describe('Product model', () => {
         name: 'boots',
         description: 'boots are for walking',
         category: '',
-        price: 100.5
+        price: 100.53
       })
 
       try {
