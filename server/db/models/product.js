@@ -25,11 +25,11 @@ const Product = db.define('product', {
     type: Sequelize.ARRAY(Sequelize.TEXT)
   },
   price: {
-    type: Sequelize.FLOAT(10, 2),
+    type: Sequelize.DECIMAL(10, 2),
     allowNull: false,
     validate: {
       min: 0,
-      isFloat: true
+      isDecimal: true
     }
   }
 })
