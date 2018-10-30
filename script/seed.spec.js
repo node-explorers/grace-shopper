@@ -34,7 +34,7 @@ describe('seed script', () => {
       const product = Product.findById(1)
       expect(product.category).to.equal('snowsports')
     } catch (err) {
-      console.err(err)
+      console.error(err)
     }
   })
 })
