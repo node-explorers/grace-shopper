@@ -2,31 +2,48 @@
 
 const {expect} = require('chai')
 const db = require('../index')
-const User = db.model('user')
+const Product = db.model('product')
 
-describe('User model', () => {
+describe('Product model', () => {
   beforeEach(() => {
     return db.sync({force: true})
   })
 
-  describe('instanceMethods', () => {
-    describe('correctPassword', () => {
-      let cody
-
-      beforeEach(async () => {
-        cody = await User.create({
-          email: 'cody@puppybook.com',
-          password: 'bones'
-        })
+  describe('Validations', () => {
+    it('requires name', async () => {
+      const product = Product.build({
+        name: '',
+        description: 'boots are for walking',
+        category: 'hiking',
+        price: 100.5
       })
 
-      it('returns true if the password is correct', () => {
-        expect(cody.correctPassword('bones')).to.be.equal(true)
+      try {
+        await product.validate()
+        throw Error(
+          'validation was successful but should have failed without `name`'
+        )
+      } catch (err) {
+        expect(err.message).to.contain('notEmpty on name failed')
+      }
+    })
+
+    it('requires category', async () => {
+      const product = Product.build({
+        name: 'boots',
+        description: 'boots are for walking',
+        category: '',
+        price: 100.5
       })
 
-      it('returns false if the password is incorrect', () => {
-        expect(cody.correctPassword('bonez')).to.be.equal(false)
-      })
-    }) // end describe('correctPassword')
-  }) // end describe('instanceMethods')
-}) // end describe('User model')
+      try {
+        await product.validate()
+        throw Error(
+          'validation was successful but should have failed if price was null'
+        )
+      } catch (err) {
+        expect(err.message).to.contain('Validation error')
+      }
+    })
+  })
+})
