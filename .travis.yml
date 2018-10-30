@@ -16,12 +16,13 @@ install:
 before_script:
   - psql -c 'create database "node-explorers-test";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
 
-# before_deploy:
-#   - npm run build-client # make the bundle
-#   - rm -rf node_modules # omit from the tarball, since we skip cleanup
-# deploy:
-#   skip_cleanup: true # prevents travis from deleting the build
-#   provider: heroku
-#   app: YOUR-HEROKU-APP-NAME-HERE # see README
-#   api_key:
-#     secure: YOUR-***ENCRYPTED***-API-KEY-HERE # see README
+before_deploy:
+  - npm run build-client # make the bundle
+  - rm -rf node_modules # omit from the tarball, since we skip cleanup
+deploy:
+  skip_cleanup: true # prevents travis from deleting the build
+  provider: heroku
+  app: node-explorers # see README
+  api_key:
+    secure: XAttuASum18LdE+Oe2Sb9bn/cCzslAgB4nBWYiFqox+z3IPFjkb5ttqZXqQdVViTSue129fd8/Lrezo0dtOvUsebZTea74JeE6WW8FHRry/ZKhkRmh7N4EMPQTWvUlzvWwCGAaPlFKlMJbSLM66W7d0pYlap07jq4oIU3HvTFSTd8OGpzZKX1Vsb2ye6UUHh6YghdnZPl7ev8P/O5mW8aIRIe/L0YA397W8o8oEqjIhQavom/nDfusbWde4ivVF+wuFD6+R77XeUR3fQ/ULUyz1xHrP8kruTY9c23YgPvkxYdg8yfyL9acjPxtV2wjKZQrR3debi3kIurFHfQWj6NkbWv9wtgOovIQszLFlwpSBYELrb3YFTaSxSH9F8Grh118mb1l6AcQNJc3k2YC8IgDse5YfXOHO3FGQSuumA7ZWC37jLzC1yq1guzQ1ieT4BxNAOlFwNjmfdoJM7DLDa119cujZOdsMZB8TIe38Bn5wZQefbpmpE2jHhTfk9r5LV/Lr4ci3VJoS28fxQSitSb6dUJWoeFObTLiwMJ0SbDIZpUFhTnwejpe/MvORmJC1WrFQsHV6m0ndbAKxqdKS8j9r4xUm5z69tO8h3UJXqL4bBtUmGG8j0gIu16Zp8Ut7ZFTaWhAu34m5CJqn5ho5DSbgqx2r0yEv0h9Z0lKCdvR4=
+    # see README
