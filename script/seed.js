@@ -117,6 +117,19 @@ const dummyProducts = [
       'https://www.rei.com/media/0304c676-519d-4976-953b-8891670d8125?size=784x588',
     price: 219.95,
     keyWords: ['hiking', 'trek', 'poles', 'Leki']
+  },
+  {
+    category: 'hiking',
+    name: 'REI Co-op Flash Carbon Trekking Poles',
+    description: `REI exclusive grips offer light, breathable EVA foam in ergonomic shapes that accommodate a variety of hand sizes and positions comfortably
+    Carbon-composite construction and a 3-section design combine to minimize trail weight without sacrificing sturdiness
+    Adjustable wrist-straps help you control your poles
+    Low-profile Powerlock 3.0 enables easy adjustments while out on the trail
+    Trail basket has a minimalist profile to cut down on weight while retaining stability`,
+    imageUrl:
+      'https://www.rei.com/media/a994411c-f172-4373-9624-1301ffe9723b?size=784x588',
+    price: 139,
+    keyWords: ['hiking', 'trek', 'poles', 'REI']
   }
 ]
 
