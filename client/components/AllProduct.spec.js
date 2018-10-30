@@ -8,7 +8,14 @@ import {AllProduct} from './AllProduct'
 const adapter = new Adapter()
 enzyme.configure({adapter})
 
-const dummy_products=[
+const dummy_products = [
+  {
+    name:"Camping Shoes",
+    category:"Camping",
+    imageUrl:'image.png',
+    description:'Really nice shoes '
+
+  },
   {
     name:"Camping Shoes",
     category:"Camping",
@@ -23,11 +30,11 @@ describe('AllProduct', () => {
   let product
 
   beforeEach(() => {
-    product = shallow(<AllProduct products={dummy_products}/>)
+    product = shallow(<AllProduct fetchingProduct={()=>{}} products={dummy_products}/>)
+
   })
 
-  it('renders the image correctly', () => {
-    console.log(product.find('CardTitle'))
-    expect(product.find('CardTitle').length).to.be.equal(1)
+  it('renders the Title correctly', () => {
+    expect(product.find('CardTitle').length).to.be.equal(2)
   })
 })
