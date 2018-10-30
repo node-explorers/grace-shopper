@@ -31,7 +31,7 @@ describe('seed script', () => {
   it('seeds the db successfully', async () => {
     try {
       await seed()
-      const product = Product.findById(1)
+      const product = await Product.findById(1)
       expect(product.category).to.equal('snowsports')
     } catch (err) {
       console.error(err)
