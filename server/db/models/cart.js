@@ -8,6 +8,10 @@ const Cart = db.define('cart', {
     validate: {
       min: 0.0
     }
+  },
+  sessionId: {
+    type: Sequelize.STRING,
+    allowNull: false
   }
 })
 

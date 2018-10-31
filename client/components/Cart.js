@@ -9,6 +9,7 @@ import {
   CardSubtitle,
   Button
 } from 'reactstrap'
+import { fetchCartThunk } from '../store/cart'
 
 class Cart extends Component {
   componentDidMount() {
