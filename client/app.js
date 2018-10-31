@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Navbar, AllProduct } from './components'
+import { Navbar, AllProduct, SingleProduct } from './components'
 import Routes from './routes'
 
 const App = () => {
