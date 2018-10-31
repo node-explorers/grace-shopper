@@ -46,8 +46,6 @@ const initialState = {
   singleProduct: {}
 }
 
-
-
 //REDUCER
 
 export default function(state = initialState, action) {
