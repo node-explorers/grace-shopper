@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
+
 const Product = db.define('product', {
   name: {
     type: Sequelize.STRING,
@@ -35,8 +36,5 @@ const Product = db.define('product', {
 })
 
 Product.findByCategory = category => Product.findAll({where: {category}})
-
-Product.findByName = name => Product.findAll(
-  {where: {name}})
 
 module.exports = Product

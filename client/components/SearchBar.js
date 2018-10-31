@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { connect } from 'react-redux';
 
 class SearchBar extends Component {
@@ -22,7 +22,7 @@ class SearchBar extends Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <h1>Enter name to search by:</h1>
+        <h1>Enter Product to search by:</h1>
         <input
           type="text"
           name="name"
@@ -32,12 +32,6 @@ class SearchBar extends Component {
         <button type="submit">Submit</button>
       </form>
     );
-  }
-}
-
-const mapDispatchToProps = dispatch => {
-  return {
-
   }
 }
 

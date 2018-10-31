@@ -48,6 +48,7 @@
     "passport-google-oauth": "^1.0.0",
     "pg": "^6.1.2",
     "pg-hstore": "^2.3.2",
+    "pg-search-sequelize": "0.0.10",
     "prop-types": "^15.6.2",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
