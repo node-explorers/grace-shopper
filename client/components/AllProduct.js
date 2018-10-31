@@ -1,6 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { fetchProducts } from '../store/product'
+import history from '../history'
+import {Link} from 'react-router-dom';
 import {
   Card,
   CardImg,
@@ -32,7 +34,6 @@ export class AllProduct extends React.Component {
     this.props.fetchingProduct()
   }
   render() {
-    console.log(this.props)
     if (!this.props.products) return <div>No Products</div>
 
     return (
@@ -40,12 +41,14 @@ export class AllProduct extends React.Component {
         {this.props.products.map(product => (
           <div key={product.id}>
             <Card>
+              {/* <Link to={`/products/${product.id}`}> */}
               <CardImg
                 top
                 width="100%"
                 src={product.imageUrl}
                 alt="Card image cap"
               />
+              {/* </Link> */}
               <CardBody>
                 <CardTitle>{product.name}</CardTitle>
                 <CardSubtitle>Card subtitle</CardSubtitle>
