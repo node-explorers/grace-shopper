@@ -23,6 +23,7 @@ export const fetchProducts = () => {
   return async dispatch => {
     try {
       const { data } = await axios.get('/api/products')
+      console.log("IN THE THUNK",  data)
       dispatch(getProductsFromServer(data))
     } catch (err) {
       console.log(err)
@@ -51,9 +52,9 @@ const initialState = {
 export default function(state = initialState, action) {
   switch (action.type) {
     case GET_PRODUCTS:
-      return action.products
+      return {...state, products: action.products}
     case GET_SINGLE_PRODUCT:
-      return action.singleProduct
+      return {...state, singleProduct: action.product}
     default:
       return state
   }

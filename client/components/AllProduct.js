@@ -15,7 +15,7 @@ import {
 
 function mapState(state) {
   return {
-    products: state.products
+    products: state.products.products
   }
 }
 function mapDispatch(dispatch) {
@@ -37,6 +37,7 @@ export class AllProduct extends React.Component {
     if (!this.props.products) return <div>No Products</div>
 
     return (
+
       <div>
         {this.props.products.map(product => (
           <div key={product.id}>
