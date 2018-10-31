@@ -18,11 +18,10 @@ class SearchBar extends Component {
   }
   handleSubmit(event){
     event.preventDefault()
-
   }
   render() {
     return (
-      <form>
+      <form onSubmit={this.handleSubmit}>
         <h1>Enter name to search by:</h1>
         <input
           type="text"
@@ -30,6 +29,7 @@ class SearchBar extends Component {
           placeholder="Enter Name"
           onChange={this.handleChange}
         />
+        <button type="submit">Submit</button>
       </form>
     );
   }
@@ -37,7 +37,7 @@ class SearchBar extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    
+
   }
 }
 
