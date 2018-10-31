@@ -21,4 +21,8 @@ router.get('/:productId', async (req, res, next) => {
   }
 })
 
+
+
+
+
 module.exports = router;
