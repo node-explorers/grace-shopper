@@ -10,7 +10,7 @@ describe('product thunk creator', () => {
   let mockAxios
 
   const middlewares = [thunkMiddleware]
-const mockStore = configureMockStore(middlewares)
+  const mockStore = configureMockStore(middlewares)
 
   const initialState = {product: []}
 
@@ -34,7 +34,4 @@ const mockStore = configureMockStore(middlewares)
       expect(actions[0].products).to.be.deep.equal(product)
     })
   })
-
-
-
 })

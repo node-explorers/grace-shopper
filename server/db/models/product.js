@@ -36,4 +36,7 @@ const Product = db.define('product', {
 
 Product.findByCategory = category => Product.findAll({where: {category}})
 
+Product.findByName = name => Product.findAll(
+  {where: {name}})
+
 module.exports = Product
