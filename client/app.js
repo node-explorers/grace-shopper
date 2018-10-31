@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Navbar, AllProduct, SingleProduct } from './components'
+import { Navbar } from './components'
 import Routes from './routes'
 
 const App = () => {
@@ -8,7 +8,6 @@ const App = () => {
     <div>
       <Navbar />
       <Routes />
-      <AllProduct />
     </div>
   )
 }

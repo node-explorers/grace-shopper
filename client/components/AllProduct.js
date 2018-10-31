@@ -3,10 +3,12 @@ import { connect } from 'react-redux'
 import { fetchProducts } from '../store/product'
 import history from '../history'
 import { Link } from 'react-router-dom'
+
 import MakeCard from './MakeCard'
 import { withStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
+
 
 function mapState(state) {
   return {
@@ -43,6 +45,7 @@ export class AllProduct extends React.Component {
     if (!this.props.products) return <div>No Products</div>
 
     return (
+
       <div className={this.props.classes.root}>
         <Grid container spacing={24}>
           {this.props.products.map(product => (
@@ -51,6 +54,7 @@ export class AllProduct extends React.Component {
             </div>
           ))}
         </Grid>
+
       </div>
     )
   }
