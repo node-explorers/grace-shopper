@@ -3,15 +3,12 @@ import { connect } from 'react-redux'
 import { fetchProducts } from '../store/product'
 import history from '../history'
 import { Link } from 'react-router-dom'
-import {
-  Card,
-  CardImg,
-  CardText,
-  CardBody,
-  CardTitle,
-  CardSubtitle,
-  Button
-} from 'reactstrap'
+
+import MakeCard from './MakeCard'
+import { withStyles } from '@material-ui/core/styles'
+import Paper from '@material-ui/core/Paper'
+import Grid from '@material-ui/core/Grid'
+
 
 function mapState(state) {
   return {
@@ -26,6 +23,17 @@ function mapDispatch(dispatch) {
   }
 }
 
+const styles = theme => ({
+  root: {
+    flexGrow: 1
+  },
+  paper: {
+    padding: theme.spacing.unit * 2,
+    textAlign: 'center',
+    color: theme.palette.text.secondary
+  }
+})
+
 export class AllProduct extends React.Component {
   constructor() {
     super()
@@ -37,29 +45,18 @@ export class AllProduct extends React.Component {
     if (!this.props.products) return <div>No Products</div>
 
     return (
-      <div>
-        {this.props.products.map(product => (
-          <div key={product.id}>
-            <Card>
-              {/* <Link to={`/products/${product.id}`}> */}
-              <CardImg
-                top
-                width="100%"
-                src={product.imageUrl}
-                alt="Card image cap"
-              />
-              {/* </Link> */}
-              <CardBody>
-                <CardTitle>{product.name}</CardTitle>
-                <CardSubtitle>Card subtitle</CardSubtitle>
-                <CardText>{product.description}</CardText>
-                <Button color="primary">Add to Cart</Button>
-              </CardBody>
-            </Card>
-          </div>
-        ))}
+
+      <div className={this.props.classes.root}>
+        <Grid container spacing={24}>
+          {this.props.products.map(product => (
+            <div key={product.id}>
+              <MakeCard product={product} />
+            </div>
+          ))}
+        </Grid>
+
       </div>
     )
   }
 }
-export default connect(mapState, mapDispatch)(AllProduct)
+export default connect(mapState, mapDispatch)(withStyles(styles)(AllProduct))
