@@ -41,7 +41,7 @@ export const fetchProduct = productId => {
   return async dispatch => {
     try {
       const { data } = await axios.get(`/api/products/${productId}`)
-      console.log('IN THE SINGLE THUNK'.data)
+      console.log('IN THE SINGLE THUNK', data)
       dispatch(getSingleProductsFromServer(data))
     } catch (err) {
       console.log(err)
@@ -51,10 +51,10 @@ export const fetchProduct = productId => {
 
 export const searchProduct = productName => {
   return async dispatch => {
-    try{
+    try {
       const { data } = await axios.get(`/api/products/${productName}`)
       dispatch(getProductBySearch(data))
-    }catch(err){
+    } catch (err) {
       console.log(err)
     }
   }
@@ -62,7 +62,7 @@ export const searchProduct = productName => {
 
 const initialState = {
   products: [],
-  singleProduct: {},
+  singleProduct: {}
 }
 
 //REDUCER
@@ -72,7 +72,7 @@ export default function(state = initialState, action) {
     case GET_PRODUCTS:
       return { ...state, products: action.products }
     case GET_SINGLE_PRODUCT:
-       return { ...state, singleProduct: action.product }
+      return { ...state, singleProduct: action.product }
     case GET_PRODUCT_BY_SEARCH:
       return action.search
     default:
