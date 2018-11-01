@@ -6,10 +6,8 @@ import { Link } from 'react-router-dom'
 
 import MakeCard from './MakeCard'
 import { withStyles } from '@material-ui/core/styles'
-import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
 import { addCartItemThunk } from '../store/cart'
-
 
 function mapState(state) {
   return {
@@ -57,7 +55,6 @@ export class AllProduct extends React.Component {
           </Grid>
         </Grid>
       </React.Fragment>
-
     )
   }
 }

@@ -13,8 +13,7 @@ const Cart = db.define(
       }
     },
     sessionId: {
-      type: Sequelize.STRING,
-      allowNull: false
+      type: Sequelize.STRING
     }
   },
   {
