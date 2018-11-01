@@ -11,6 +11,27 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+router.post('/', async (req, res, next) => {
+  try {
+    let product = await Product.create(req.body)
+    res.json(product)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.put('/:productId', async (req, res, next) => {
+  try {
+    const productToUpdate = await Product.findById(req.params.id)
+    if (productToUpdate) {
+      await productToUpdate.update(req.body)
+      res.send(productToUpdate)
+    }
+  } catch (err) {
+    next(err)
+  }
+})
+
 router.get('/:productId', async (req, res, next) => {
   try {
     let id = req.params.productId
@@ -22,20 +43,17 @@ router.get('/:productId', async (req, res, next) => {
   }
 })
 
-
 router.get('/category/:name', async (req, res, next) => {
-  try{
+  try {
     let products = await Product.findAll({
       where: {
         category: req.params.name
       }
     })
     res.json(products)
-  }catch(err){
+  } catch (err) {
     next(err)
   }
 })
 
-
-module.exports = router;
-
+module.exports = router

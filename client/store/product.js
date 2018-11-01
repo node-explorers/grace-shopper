@@ -5,6 +5,8 @@ import axios from 'axios'
 const GET_PRODUCTS = 'GET_PRODUCTS'
 const GET_SINGLE_PRODUCT = 'GET_SINGLE_PRODUCT'
 const GET_PRODUCT_BY_SEARCH = 'GET_PRODUCT_BY_SEARCH'
+const UPDATE_PRODUCT = 'UPDATE_PRODUCT'
+const ADD_PRODUCT = 'ADD_PRODUCT'
 
 //ACTION CREATORS
 
@@ -15,6 +17,11 @@ const getProductsFromServer = products => ({
 
 const getSingleProductsFromServer = product => ({
   type: GET_SINGLE_PRODUCT,
+  product
+})
+
+const updateProduct = product => ({
+  type: UPDATE_PRODUCT,
   product
 })
 
@@ -49,12 +56,30 @@ export const fetchProduct = productId => {
   }
 }
 
+export const updatingProduct = product => {
+  return async dispatch => {
+    console.log('In Thunk update')
+    try {
+      const newProduct = (await axios.put(
+        `/api/products/${product.id}`,
+        product
+      )).data
+      //console.log(' In Thunk new Campus  ', newProduct)
+      const action = updateProduct(newProduct)
+      console.log(' In Thunk action ', action)
+      dispatch(action)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+}
+
 export const searchProduct = productName => {
   return async dispatch => {
-    try{
+    try {
       const { data } = await axios.get(`/api/products/${productName}`)
       dispatch(getProductBySearch(data))
-    }catch(err){
+    } catch (err) {
       console.log(err)
     }
   }
@@ -62,7 +87,7 @@ export const searchProduct = productName => {
 
 const initialState = {
   products: [],
-  singleProduct: {},
+  singleProduct: {}
 }
 
 //REDUCER
@@ -72,9 +97,12 @@ export default function(state = initialState, action) {
     case GET_PRODUCTS:
       return { ...state, products: action.products }
     case GET_SINGLE_PRODUCT:
-       return { ...state, singleProduct: action.product }
+      return { ...state, singleProduct: action.product }
     case GET_PRODUCT_BY_SEARCH:
       return action.search
+    case UPDATE_PRODUCT:
+      const newproduct = state.filter(prd => prd.id !== action.product.id)
+      return { ...state, products: [...newproduct, action.product] }
     default:
       return state
   }
