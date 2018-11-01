@@ -43,12 +43,12 @@ export const fetchCartThunk = () => {
   }
 }
 
-//NOT HOOKED UP TO BACKEND ROUTE YET
-export const deleteCartItemThunk = id => {
+export const deleteCartItemThunk = cartItemDeleteInfo => {
   return async dispatch => {
     try {
-      await axios.delete('/api/cartItems', id)
-      const deleteAction = deleteItem(id)
+      await axios.delete(`/api/cartItems/${cartItemDeleteInfo}`)
+
+      const deleteAction = deleteItem(cartItemDeleteInfo)
       dispatch(deleteAction)
     } catch (err) {
       console.error(err)

@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 
-import { fetchCartThunk } from '../store/cart'
+import { fetchCartThunk, deleteCartItemThunk } from '../store/cart'
 
 class Cart extends Component {
   componentDidMount() {
@@ -18,8 +18,10 @@ class Cart extends Component {
     //do this on checkout
   }
 
-  handleRemove = evt => {
+  handleRemove = productId => {
     //remove item from cart
+
+    this.props.deleteItem(productId)
   }
 
   render() {
@@ -57,7 +59,10 @@ class Cart extends Component {
                     </span>
 
                     {/* remove items  */}
-                    <button type="button" onClick={this.handleRemove}>
+                    <button
+                      type="button"
+                      onClick={() => this.handleRemove(item.id)}
+                    >
                       Remove from cart
                     </button>
                   </div>
@@ -83,7 +88,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     fetchCart: () => dispatch(fetchCartThunk()),
-    increment: () => dispatch(incrementThunk)
+    increment: () => dispatch(incrementThunk),
+    deleteItem: deleteItemInfo => dispatch(deleteCartItemThunk(deleteItemInfo))
   }
 }
 

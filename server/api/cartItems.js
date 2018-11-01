@@ -23,4 +23,19 @@ router.post('/', async (req, res, next) => {
     next(err)
   }
 })
+
+router.delete('/:itemId', async (req, res, next) => {
+  try {
+    console.log(req.params.itemId)
+    await CartItem.destroy({
+      where: {
+        id: req.params.itemId
+      }
+    })
+    res.status(202)
+    res.send('cart entry removed')
+  } catch (err) {
+    next(err)
+  }
+})
 module.exports = router
