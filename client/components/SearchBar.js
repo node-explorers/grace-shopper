@@ -1,38 +1,47 @@
-import React, {Component} from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { searchProduct } from '../store/product'
 
 class SearchBar extends Component {
-  constructor(){
+  constructor() {
     super()
     this.state = {
-      name:''
+      name: ''
     }
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
-  handleChange(event){
-    event.preventDefault()
+  handleChange(event) {
     this.setState({
       [event.target.name]: event.target.value
     })
   }
-  handleSubmit(event){
+  handleSubmit(event) {
     event.preventDefault()
+    console.log(this.state.name)
+    this.props.findProducts(this.state.name)
   }
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <h1>Enter Product to search by:</h1>
         <input
           type="text"
           name="name"
-          placeholder="Enter Name"
+          placeholder="Search..."
           onChange={this.handleChange}
         />
         <button type="submit">Submit</button>
       </form>
-    );
+    )
   }
 }
 
-export default connect(null, mapDispatchToProps)(SearchBar)
+const mapDispatch = dispatch => {
+  return {
+    findProducts: keyword => {
+      dispatch(searchProduct(keyword))
+    }
+  }
+}
+
+export default connect(null, mapDispatch)(SearchBar)

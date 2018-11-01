@@ -11,6 +11,7 @@ import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
+import SearchBar from './SearchBar'
 
 const styles = {
   root: {
@@ -25,8 +26,8 @@ const styles = {
   }
 }
 
-const Navbar = (props, { handleClick, isLoggedIn }) => {
-  const { classes } = props
+const Navbar = props => {
+  const { classes, handleClick, isLoggedIn } = props
 
   return (
     <div className={classes.root}>
@@ -42,6 +43,7 @@ const Navbar = (props, { handleClick, isLoggedIn }) => {
           <Typography variant="h6" color="inherit" className={classes.grow}>
             NODE EXPLORERS
           </Typography>
+          <SearchBar />
           <Button
             type="button"
             variant="contained"

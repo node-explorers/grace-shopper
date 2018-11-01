@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const { Product } = require('../db/models')
+const Sequelize = require('Sequelize')
 
 router.get('/', async (req, res, next) => {
   try {
@@ -22,20 +23,21 @@ router.get('/:productId', async (req, res, next) => {
   }
 })
 
-
-router.get('/category/:name', async (req, res, next) => {
-  try{
-    let products = await Product.findAll({
+router.get('/search/:keyword', async (req, res, next) => {
+  try {
+    const keyword = req.params.keyword
+    const products = await Product.findAll({
       where: {
-        category: req.params.name
+        name: {
+          [Sequelize.Op.iLike]: `%${keyword}%`
+        }
       }
     })
+    console.log(products)
     res.json(products)
-  }catch(err){
+  } catch (err) {
     next(err)
   }
 })
 
-
-module.exports = router;
-
+module.exports = router
