@@ -29,7 +29,7 @@ const Navbar = (props, { handleClick, isLoggedIn }) => {
   const { classes } = props
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar position="fixed">
         <Toolbar>
           <IconButton
             className={classes.menuButton}
