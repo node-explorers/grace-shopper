@@ -23,4 +23,38 @@ router.post('/', async (req, res, next) => {
     next(err)
   }
 })
+
+router.put('/:itemId', async (req, res, next) => {
+  try {
+    const { style } = req.body
+
+    const currItem = await CartItem.findOne({
+      where: {
+        id: req.params.itemId
+      }
+    })
+    if (style === 'decrementer') {
+      await currItem.decrement('quantity')
+    } else {
+      await currItem.increment('quantity')
+    }
+    res.json(currItem)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.delete('/:itemId', async (req, res, next) => {
+  try {
+    await CartItem.destroy({
+      where: {
+        id: req.params.itemId
+      }
+    })
+    res.status(202)
+    res.send('cart entry removed')
+  } catch (err) {
+    next(err)
+  }
+})
 module.exports = router
