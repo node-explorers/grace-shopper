@@ -14,8 +14,7 @@ import MenuIcon from '@material-ui/icons/Menu'
 
 import SearchBar from './SearchBar'
 
-import ProductCategory from './ProductCategory';
-
+import ProductCategory from './ProductCategory'
 
 const styles = {
   root: {
@@ -30,19 +29,12 @@ const styles = {
   }
 }
 
-
-const Navbar = props => {
-  const { classes, handleClick, isLoggedIn } = props
-
 const SNOW_SPORTS = '/products/category/snowsports'
 const CAMPING = '/products/category/camping'
 const HIKING = '/products/category/hiking'
 
-
-
-const Navbar = (props, { handleClick, isLoggedIn }) => {
-  const { classes } = props
-
+const Navbar = props => {
+  const { classes, handleClick, isLoggedIn } = props
 
   return (
     <div className={classes.root}>
@@ -71,39 +63,38 @@ const Navbar = (props, { handleClick, isLoggedIn }) => {
             Home
           </Button>
 
-
           <Link to={SNOW_SPORTS}>
-          <Button
-            type="button"
-            variant="contained"
-            color="primary"
-            size="large"
-            value="snowsports"
-          >
-          Snowsports
-          </Button>
+            <Button
+              type="button"
+              variant="contained"
+              color="primary"
+              size="large"
+              value="snowsports"
+            >
+              Snowsports
+            </Button>
           </Link>
 
           <Link to={CAMPING}>
-          <Button
-            type="button"
-            variant="contained"
-            color="primary"
-            size="large"
-           >
-            Camping
-          </Button>
+            <Button
+              type="button"
+              variant="contained"
+              color="primary"
+              size="large"
+            >
+              Camping
+            </Button>
           </Link>
 
           <Link to={HIKING}>
-          <Button
-            type="button"
-            variant="contained"
-            color="primary"
-            size="large"
-          >
-            Hiking
-          </Button>
+            <Button
+              type="button"
+              variant="contained"
+              color="primary"
+              size="large"
+            >
+              Hiking
+            </Button>
           </Link>
 
           <Button
