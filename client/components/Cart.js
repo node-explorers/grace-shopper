@@ -1,25 +1,36 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 
-import { fetchCartThunk } from '../store/cart'
+import {
+  fetchCartThunk,
+  deleteCartItemThunk,
+  incrementCartItemThunk
+} from '../store/cart'
 
 class Cart extends Component {
   componentDidMount() {
     this.props.fetchCart()
   }
-  incrementer = evt => {
-    if (evt.target.name === 'incrementer') {
-      //dispatch increment
-    } else {
-    } // dispatch decrement
+  incrementer = (id, currQuant, event) => {
+    console.log(currQuant)
+    if (currQuant === 0 && event.target.name === 'decrementer') return
+    const dispatchObject = {
+      id,
+      style: event.target.name
+    }
+
+    this.props.increment(dispatchObject)
+    // dispatch decrement
   }
 
   handleCheckout = evt => {
     //do this on checkout
   }
 
-  handleRemove = evt => {
+  handleRemove = productId => {
     //remove item from cart
+
+    this.props.deleteItem(productId)
   }
 
   render() {
@@ -43,21 +54,28 @@ class Cart extends Component {
                       <button
                         type="button"
                         name="incrementer"
-                        onClick={this.incrementer}
+                        onClick={e =>
+                          this.incrementer(item.id, item.quantity, e)
+                        }
                       >
                         +
                       </button>
                       <button
                         type="button"
                         name="decrementer"
-                        onClick={this.incrementer}
+                        onClick={e =>
+                          this.incrementer(item.id, item.quantity, e)
+                        }
                       >
                         -
                       </button>
                     </span>
 
                     {/* remove items  */}
-                    <button type="button" onClick={this.handleRemove}>
+                    <button
+                      type="button"
+                      onClick={() => this.handleRemove(item.id)}
+                    >
                       Remove from cart
                     </button>
                   </div>
@@ -83,7 +101,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     fetchCart: () => dispatch(fetchCartThunk()),
-    increment: () => dispatch(incrementThunk)
+    increment: incrementItemInfo =>
+      dispatch(incrementCartItemThunk(incrementItemInfo)),
+    deleteItem: deleteItemInfo => dispatch(deleteCartItemThunk(deleteItemInfo))
   }
 }
 

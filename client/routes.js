@@ -10,8 +10,12 @@ import {
   SingleProduct
 } from './components'
 import { me } from './store'
+
+import ProductCategory from './components/ProductCategory';
+
 import Cart from './components/Cart'
 import { fetchCartThunk } from './store/cart'
+
 /**
  * COMPONENT
  */
@@ -29,6 +33,9 @@ class Routes extends Component {
           {/* Routes placed here are available to all visitors */}
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
+
+          <Route path="/products/category/:name" component={ProductCategory} />
+
           <Route exact path="/cart" component={Cart} />
           <Route exact path="/products" component={AllProduct} />
           <Route path="/products/:productId" component={SingleProduct} />

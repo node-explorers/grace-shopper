@@ -12,12 +12,12 @@ const getCategoryFromServer = category => ({
   category
 })
 
-//Thunk Creators
+//Thunk Creator
 
 export const getCategoryItems = categoryName => {
   return async dispatch => {
     try {
-      const { data } = await axios.get(`/api/category/${categoryName}`)
+      const { data } = await axios.get(`/api/products/category/${categoryName}`)
       dispatch(getCategoryFromServer(data))
     } catch (err) {
       console.log(err)
