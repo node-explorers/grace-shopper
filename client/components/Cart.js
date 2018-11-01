@@ -1,32 +1,36 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
+
 import {
-  Card,
-  CardImg,
-  CardText,
-  CardBody,
-  CardTitle,
-  CardSubtitle,
-  Button
-} from 'reactstrap'
+  fetchCartThunk,
+  deleteCartItemThunk,
+  incrementCartItemThunk
+} from '../store/cart'
 
 class Cart extends Component {
   componentDidMount() {
-    // send cart data thunk
+    this.props.fetchCart()
   }
-  incrementer = evt => {
-    if (evt.target.name === 'incrementer') {
-      //dispatch increment
-    } else {
-    } // dispatch decrement
+  incrementer = (id, currQuant, event) => {
+    console.log(currQuant)
+    if (currQuant === 0 && event.target.name === 'decrementer') return
+    const dispatchObject = {
+      id,
+      style: event.target.name
+    }
+
+    this.props.increment(dispatchObject)
+    // dispatch decrement
   }
 
   handleCheckout = evt => {
     //do this on checkout
   }
 
-  handleRemove = evt => {
+  handleRemove = productId => {
     //remove item from cart
+
+    this.props.deleteItem(productId)
   }
 
   render() {
@@ -34,37 +38,44 @@ class Cart extends Component {
       <Fragment>
         <h2>Your Cart!</h2>
         <div>
-          {!this.props.cart.length ? (
+          {!this.props.cart.cartItems ? (
             <p>No Items</p>
           ) : (
             <div>
-              {this.props.cart.map(item => {
+              {this.props.cart.cartItems.map(item => {
                 return (
                   <div key={item.id}>
-                    <h1>{item.name}</h1>
+                    <h1>{item.product.name}</h1>
                     <small>{item.price}</small>
-                    <img src={item.imageUrl} />
+                    <img src={item.product.imageUrl} />
                     <h4>Quantity: {item.quantity}</h4>
                     <span>
                       {/* change quantity */}
                       <button
                         type="button"
                         name="incrementer"
-                        onClick={this.incrementer}
+                        onClick={e =>
+                          this.incrementer(item.id, item.quantity, e)
+                        }
                       >
                         +
                       </button>
                       <button
                         type="button"
                         name="decrementer"
-                        onClick={this.incrementer}
+                        onClick={e =>
+                          this.incrementer(item.id, item.quantity, e)
+                        }
                       >
                         -
                       </button>
                     </span>
 
                     {/* remove items  */}
-                    <button type="button" onClick={this.handleRemove}>
+                    <button
+                      type="button"
+                      onClick={() => this.handleRemove(item.id)}
+                    >
                       Remove from cart
                     </button>
                   </div>
@@ -90,8 +101,10 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     fetchCart: () => dispatch(fetchCartThunk()),
-    increment: () => dispatch(incrementThunk)
+    increment: incrementItemInfo =>
+      dispatch(incrementCartItemThunk(incrementItemInfo)),
+    deleteItem: deleteItemInfo => dispatch(deleteCartItemThunk(deleteItemInfo))
   }
 }
 
-export default Cart
+export default connect(mapStateToProps, mapDispatchToProps)(Cart)

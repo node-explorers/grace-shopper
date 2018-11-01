@@ -4,6 +4,7 @@ import axios from 'axios'
 
 const GET_PRODUCTS = 'GET_PRODUCTS'
 const GET_SINGLE_PRODUCT = 'GET_SINGLE_PRODUCT'
+const GET_PRODUCT_BY_SEARCH = 'GET_PRODUCT_BY_SEARCH'
 
 //ACTION CREATORS
 
@@ -17,12 +18,18 @@ const getSingleProductsFromServer = product => ({
   product
 })
 
+const getProductBySearch = search => ({
+  type: GET_PRODUCT_BY_SEARCH,
+  search
+})
+
 //THUNK CREATORS
 
 export const fetchProducts = () => {
   return async dispatch => {
     try {
       const { data } = await axios.get('/api/products')
+
       dispatch(getProductsFromServer(data))
     } catch (err) {
       console.log(err)
@@ -34,7 +41,19 @@ export const fetchProduct = productId => {
   return async dispatch => {
     try {
       const { data } = await axios.get(`/api/products/${productId}`)
+      console.log('IN THE SINGLE THUNK', data)
       dispatch(getSingleProductsFromServer(data))
+    } catch (err) {
+      console.log(err)
+    }
+  }
+}
+
+export const searchProduct = productName => {
+  return async dispatch => {
+    try {
+      const { data } = await axios.get(`/api/products/${productName}`)
+      dispatch(getProductBySearch(data))
     } catch (err) {
       console.log(err)
     }
@@ -51,9 +70,11 @@ const initialState = {
 export default function(state = initialState, action) {
   switch (action.type) {
     case GET_PRODUCTS:
-      return {...state, products: action.products}
+      return { ...state, products: action.products }
     case GET_SINGLE_PRODUCT:
-      return {...state, singleProduct: action.product}
+      return { ...state, singleProduct: action.product }
+    case GET_PRODUCT_BY_SEARCH:
+      return action.search
     default:
       return state
   }

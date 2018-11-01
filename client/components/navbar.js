@@ -35,9 +35,10 @@ const HIKING = '/products/category/hiking'
 
 const Navbar = (props, { handleClick, isLoggedIn }) => {
   const { classes } = props
+
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar position="fixed">
         <Toolbar>
           <IconButton
             className={classes.menuButton}
@@ -101,7 +102,7 @@ const Navbar = (props, { handleClick, isLoggedIn }) => {
             variant="contained"
             color="primary"
             size="large"
-            onClick={() => history.push('/allproducts')}
+            onClick={() => history.push('/products')}
           >
             All Products
           </Button>
