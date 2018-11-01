@@ -29,6 +29,7 @@ const styles = {
 
 function MakeCard(props) {
   const { classes, product } = props
+
   return (
     <React.Fragment>
       <Card className={classes.card} raised={false}>

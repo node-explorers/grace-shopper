@@ -1,18 +1,11 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
-import {
-  Card,
-  CardImg,
-  CardText,
-  CardBody,
-  CardTitle,
-  CardSubtitle,
-  Button
-} from 'reactstrap'
+
+import { fetchCartThunk } from '../store/cart'
 
 class Cart extends Component {
   componentDidMount() {
-    // send cart data thunk
+    this.props.fetchCart()
   }
   incrementer = evt => {
     if (evt.target.name === 'incrementer') {
@@ -34,16 +27,16 @@ class Cart extends Component {
       <Fragment>
         <h2>Your Cart!</h2>
         <div>
-          {!this.props.cart.length ? (
+          {!this.props.cart.cartItems ? (
             <p>No Items</p>
           ) : (
             <div>
-              {this.props.cart.map(item => {
+              {this.props.cart.cartItems.map(item => {
                 return (
                   <div key={item.id}>
-                    <h1>{item.name}</h1>
+                    <h1>{item.product.name}</h1>
                     <small>{item.price}</small>
-                    <img src={item.imageUrl} />
+                    <img src={item.product.imageUrl} />
                     <h4>Quantity: {item.quantity}</h4>
                     <span>
                       {/* change quantity */}
@@ -94,4 +87,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default Cart
+export default connect(mapStateToProps, mapDispatchToProps)(Cart)

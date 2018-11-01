@@ -10,6 +10,7 @@ import {
   SingleProduct
 } from './components'
 import { me } from './store'
+import Cart from './components/Cart'
 
 /**
  * COMPONENT
@@ -28,8 +29,10 @@ class Routes extends Component {
           {/* Routes placed here are available to all visitors */}
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
+          <Route exact path="/cart" component={Cart} />
           <Route exact path="/products" component={AllProduct} />
           <Route path="/products/:productId" component={SingleProduct} />
+
           {isLoggedIn && (
             <Switch>
               {/* Routes placed here are only available after logging in */}

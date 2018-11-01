@@ -8,7 +8,8 @@ import MakeCard from './MakeCard'
 import { withStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
-import { Card } from '@material-ui/core'
+import { addCartItemThunk } from '../store/cart'
+
 
 function mapState(state) {
   return {
@@ -19,7 +20,8 @@ function mapDispatch(dispatch) {
   return {
     fetchingProduct: () => {
       dispatch(fetchProducts())
-    }
+    },
+    addItem: () => dispatch(addCartItemThunk())
   }
 }
 
@@ -39,7 +41,6 @@ export class AllProduct extends React.Component {
 
   render() {
     if (!this.props.products) return <div>No Products</div>
-
     const { classes } = this.props
 
     return (
@@ -56,6 +57,7 @@ export class AllProduct extends React.Component {
           </Grid>
         </Grid>
       </React.Fragment>
+
     )
   }
 }
