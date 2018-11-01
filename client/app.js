@@ -8,7 +8,9 @@ import Cart from './components/Cart'
 const App = () => {
   return (
     <div>
-      <Navbar />
+      <nav>
+        <Navbar />
+      </nav>
       <Routes />
     </div>
   )

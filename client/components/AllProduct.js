@@ -8,8 +8,8 @@ import MakeCard from './MakeCard'
 import { withStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
-
 import { addCartItemThunk } from '../store/cart'
+
 
 function mapState(state) {
   return {
@@ -27,35 +27,37 @@ function mapDispatch(dispatch) {
 
 const styles = theme => ({
   root: {
-    flexGrow: 1
-  },
-  paper: {
-    padding: theme.spacing.unit * 2,
-    textAlign: 'center',
-    color: theme.palette.text.secondary
+    flexGrow: 1,
+    direction: 'row',
+    justify: 'flex-start',
+    alignItems: 'baseline'
   }
 })
 
 export class AllProduct extends React.Component {
-  constructor() {
-    super()
-  }
   componentDidMount() {
     this.props.fetchingProduct()
   }
+
   render() {
     if (!this.props.products) return <div>No Products</div>
+    const { classes } = this.props
 
     return (
-      <div className={this.props.classes.root}>
-        <Grid container spacing={24}>
-          {this.props.products.map(product => (
-            <div key={product.id}>
-              <MakeCard product={product} />
-            </div>
-          ))}
+      <React.Fragment>
+        <Grid container className={classes.root} spacing={16}>
+          <Grid item xs={12}>
+            <Grid container justify="center" spacing={16}>
+              {this.props.products.map(product => (
+                <Grid key={product.id} item>
+                  <MakeCard product={product} />
+                </Grid>
+              ))}
+            </Grid>
+          </Grid>
         </Grid>
-      </div>
+      </React.Fragment>
+
     )
   }
 }
