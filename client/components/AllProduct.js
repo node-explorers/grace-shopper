@@ -2,20 +2,17 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { fetchProducts } from '../store/product'
 import history from '../history'
-import {Link} from 'react-router-dom';
-import {
-  Card,
-  CardImg,
-  CardText,
-  CardBody,
-  CardTitle,
-  CardSubtitle,
-  Button
-} from 'reactstrap'
+import { Link } from 'react-router-dom'
+
+import MakeCard from './MakeCard'
+import { withStyles } from '@material-ui/core/styles'
+import Paper from '@material-ui/core/Paper'
+import Grid from '@material-ui/core/Grid'
+import { Card } from '@material-ui/core'
 
 function mapState(state) {
   return {
-    products: state.products
+    products: state.products.products
   }
 }
 function mapDispatch(dispatch) {
@@ -26,40 +23,40 @@ function mapDispatch(dispatch) {
   }
 }
 
-export class AllProduct extends React.Component {
-  constructor() {
-    super()
+const styles = theme => ({
+  root: {
+    flexGrow: 1,
+    direction: 'row',
+    justify: 'flex-start',
+    alignItems: 'baseline'
   }
+})
+
+export class AllProduct extends React.Component {
   componentDidMount() {
     this.props.fetchingProduct()
   }
+
   render() {
     if (!this.props.products) return <div>No Products</div>
 
+    const { classes } = this.props
+
     return (
-      <div>
-        {this.props.products.map(product => (
-          <div key={product.id}>
-            <Card>
-              {/* <Link to={`/products/${product.id}`}> */}
-              <CardImg
-                top
-                width="100%"
-                src={product.imageUrl}
-                alt="Card image cap"
-              />
-              {/* </Link> */}
-              <CardBody>
-                <CardTitle>{product.name}</CardTitle>
-                <CardSubtitle>Card subtitle</CardSubtitle>
-                <CardText>{product.description}</CardText>
-                <Button color="primary">Add to Cart</Button>
-              </CardBody>
-            </Card>
-          </div>
-        ))}
-      </div>
+      <React.Fragment>
+        <Grid container className={classes.root} spacing={16}>
+          <Grid item xs={12}>
+            <Grid container justify="center" spacing={16}>
+              {this.props.products.map(product => (
+                <Grid key={product.id} item>
+                  <MakeCard product={product} />
+                </Grid>
+              ))}
+            </Grid>
+          </Grid>
+        </Grid>
+      </React.Fragment>
     )
   }
 }
-export default connect(mapState, mapDispatch)(AllProduct)
+export default connect(mapState, mapDispatch)(withStyles(styles)(AllProduct))
