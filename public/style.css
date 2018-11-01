@@ -20,3 +20,16 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+div.sp {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+div.sp img {
+  max-height: 400px;
+  width: auto;
+}

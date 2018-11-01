@@ -8,6 +8,7 @@ import CardContent from '@material-ui/core/CardContent'
 import CardMedia from '@material-ui/core/CardMedia'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
+import history from '../history'
 
 const styles = {
   card: {
@@ -31,7 +32,10 @@ function MakeCard(props) {
   return (
     <React.Fragment>
       <Card className={classes.card} raised={false}>
-        <CardActionArea className={classes.actionArea}>
+        <CardActionArea
+          className={classes.actionArea}
+          onClick={() => history.push(`/products/${product.id}`)}
+        >
           <CardMedia
             className={classes.media}
             image={product.imageUrl}

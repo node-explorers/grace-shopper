@@ -55,7 +55,7 @@ const Navbar = (props, { handleClick, isLoggedIn }) => {
             variant="contained"
             color="primary"
             size="large"
-            onClick={() => history.push('/allproducts')}
+            onClick={() => history.push('/products')}
           >
             All Products
           </Button>
