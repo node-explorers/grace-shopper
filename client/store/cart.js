@@ -43,6 +43,20 @@ export const fetchCartThunk = () => {
   }
 }
 
+export const incrementCartItemThunk = incrementInfo => {
+  return async dispatch => {
+    try {
+      const { id } = incrementInfo
+      const { data } = await axios.put(`/api/cartItems/${id}`, incrementInfo)
+
+      const dispatchAction = incrementer(data)
+      dispatch(dispatchAction)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+}
+
 export const deleteCartItemThunk = cartItemDeleteInfo => {
   return async dispatch => {
     try {
@@ -77,6 +91,15 @@ export default function(state = initialState, action) {
   switch (action.type) {
     case GET_CART:
       return action.items
+    case INCREMENT:
+      return {
+        ...state,
+        cartItems: state.cartItems.map(item => {
+          if (item.id !== action.item.id) {
+            return item
+          } else return action.item
+        })
+      }
     case DELETE_ITEM:
       return {
         ...state,
