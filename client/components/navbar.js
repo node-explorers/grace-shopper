@@ -11,6 +11,8 @@ import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
+//new
+import ProductCategory from './ProductCategory';
 
 const styles = {
   root: {
@@ -24,6 +26,12 @@ const styles = {
     marginRight: 20
   }
 }
+
+const SNOW_SPORTS = '/products/category/snowsports'
+const CAMPING = '/products/category/camping'
+const HIKING = '/products/category/hiking'
+
+
 
 const Navbar = (props, { handleClick, isLoggedIn }) => {
   const { classes } = props
@@ -41,6 +49,8 @@ const Navbar = (props, { handleClick, isLoggedIn }) => {
           <Typography variant="h6" color="inherit" className={classes.grow}>
             NODE EXPLORERS
           </Typography>
+
+
           <Button
             type="button"
             variant="contained"
@@ -50,6 +60,42 @@ const Navbar = (props, { handleClick, isLoggedIn }) => {
           >
             Home
           </Button>
+
+
+          <Link to={SNOW_SPORTS}>
+          <Button
+            type="button"
+            variant="contained"
+            color="primary"
+            size="large"
+            value="snowsports"
+          >
+          Snowsports
+          </Button>
+          </Link>
+
+          <Link to={CAMPING}>
+          <Button
+            type="button"
+            variant="contained"
+            color="primary"
+            size="large"
+           >
+            Camping
+          </Button>
+          </Link>
+
+          <Link to={HIKING}>
+          <Button
+            type="button"
+            variant="contained"
+            color="primary"
+            size="large"
+          >
+            Hiking
+          </Button>
+          </Link>
+
           <Button
             type="button"
             variant="contained"

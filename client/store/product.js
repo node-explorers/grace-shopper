@@ -23,7 +23,6 @@ export const fetchProducts = () => {
   return async dispatch => {
     try {
       const { data } = await axios.get('/api/products')
-      console.log("IN THE THUNK",  data)
       dispatch(getProductsFromServer(data))
     } catch (err) {
       console.log(err)
