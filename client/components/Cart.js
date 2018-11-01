@@ -13,7 +13,7 @@ import { fetchCartThunk } from '../store/cart'
 
 class Cart extends Component {
   componentDidMount() {
-    // send cart data thunk
+    this.props.fetchCart()
   }
   incrementer = evt => {
     if (evt.target.name === 'incrementer') {

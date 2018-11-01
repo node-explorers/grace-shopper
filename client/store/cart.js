@@ -43,10 +43,11 @@ export const fetchCartThunk = () => {
   }
 }
 
+//NOT HOOKED UP TO BACKEND ROUTE YET
 export const deleteCartItemThunk = id => {
   return async dispatch => {
     try {
-      await axios.delete('/api/cart', id)
+      await axios.delete('/api/cartItems', id)
       const deleteAction = deleteItem(id)
       dispatch(deleteAction)
     } catch (err) {
@@ -55,11 +56,12 @@ export const deleteCartItemThunk = id => {
   }
 }
 
-export const addCartItemThunk = productId => {
+export const addCartItemThunk = cartItemInfo => {
   return async dispatch => {
     try {
-      const { data } = await axios.post('api/cart', productId)
+      const { data } = await axios.post('api/cartItems', cartItemInfo)
       const addAction = addItem(data)
+      console.log(addAction)
       dispatch(addAction)
     } catch (err) {
       console.err(err)
@@ -76,9 +78,12 @@ export default function(state = initialState, action) {
     case GET_CART:
       return action.items
     case DELETE_ITEM:
-      return state.filter(item => item.id !== action.id)
+      return {
+        ...state,
+        cartItems: state.cartItems.filter(item => item.id !== action.id)
+      }
     case ADD_ITEM:
-      return state.concat(action.item)
+      return { ...state, cartItems: state.cartItems.concat(action.item) }
     default:
       return state
   }

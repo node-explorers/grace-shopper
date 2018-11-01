@@ -9,6 +9,7 @@ import { withStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
 
+import { addCartItemThunk } from '../store/cart'
 
 function mapState(state) {
   return {
@@ -45,7 +46,6 @@ export class AllProduct extends React.Component {
     if (!this.props.products) return <div>No Products</div>
 
     return (
-
       <div className={this.props.classes.root}>
         <Grid container spacing={24}>
           {this.props.products.map(product => (
@@ -54,7 +54,6 @@ export class AllProduct extends React.Component {
             </div>
           ))}
         </Grid>
-
       </div>
     )
   }

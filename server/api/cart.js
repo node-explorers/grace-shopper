@@ -13,21 +13,15 @@ router.get('/', async (req, res, next) => {
           sessionId: req.session.id
         }
       })
-      console.log(newCart)
-      res.json(newCart)
+      res.json(newCart[0])
     } else {
       const existingCart = await Cart.findOrCreate({
         where: {
           userId: req.session.passport.user
         }
       })
+      res.json(existingCart[0])
     }
-
-    let obj = {
-      // session: req.session.passport.user,
-      id: req.session.id
-    }
-    // res.send(obj)
   } catch (err) {
     next(err)
   }
