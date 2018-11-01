@@ -11,7 +11,8 @@ import { addCartItemThunk } from '../store/cart'
 
 function mapState(state) {
   return {
-    products: state.products.products
+    products: state.products.products,
+    cart: state.cart
   }
 }
 function mapDispatch(dispatch) {
@@ -19,7 +20,14 @@ function mapDispatch(dispatch) {
     fetchingProduct: () => {
       dispatch(fetchProducts())
     },
-    addItem: () => dispatch(addCartItemThunk())
+    addItem: (productId, cartId, price) =>
+      dispatch(
+        addCartItemThunk({
+          productId,
+          cartId,
+          price
+        })
+      )
   }
 }
 
@@ -48,7 +56,11 @@ export class AllProduct extends React.Component {
             <Grid container justify="center" spacing={16}>
               {this.props.products.map(product => (
                 <Grid key={product.id} item>
-                  <MakeCard product={product} />
+                  <MakeCard
+                    cart={this.props.cart}
+                    addItem={this.props.addItem}
+                    product={product}
+                  />
                 </Grid>
               ))}
             </Grid>
