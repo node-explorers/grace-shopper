@@ -20,6 +20,7 @@ const styles = {
 
 function MakeCard(props) {
   const { classes, product } = props
+
   return (
     <Card className={classes.card}>
       <CardActionArea>

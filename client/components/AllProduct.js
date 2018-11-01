@@ -20,7 +20,8 @@ function mapDispatch(dispatch) {
   return {
     fetchingProduct: () => {
       dispatch(fetchProducts())
-    }
+    },
+    addItem: () => dispatch(addCartItemThunk())
   }
 }
 
