@@ -46,7 +46,6 @@ export const fetchProduct = productId => {
   return async dispatch => {
     try {
       const { data } = await axios.get(`/api/products/${productId}`)
-      console.log('IN THE SINGLE THUNK', data)
       dispatch(getSingleProductsFromServer(data))
     } catch (err) {
       console.log(err)
@@ -54,10 +53,10 @@ export const fetchProduct = productId => {
   }
 }
 
-export const searchProduct = productName => {
+export const searchProduct = keyword => {
   return async dispatch => {
     try {
-      const { data } = await axios.get(`/api/products/${productName}`)
+      const { data } = await axios.get(`/api/products/search/${keyword}`)
       dispatch(getProductBySearch(data))
     } catch (err) {
       console.log(err)

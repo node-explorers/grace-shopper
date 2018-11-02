@@ -11,8 +11,10 @@ import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
-//new
-import ProductCategory from './ProductCategory';
+
+import SearchBar from './SearchBar'
+
+import ProductCategory from './ProductCategory'
 
 const styles = {
   root: {
@@ -31,10 +33,8 @@ const SNOW_SPORTS = '/products/category/snowsports'
 const CAMPING = '/products/category/camping'
 const HIKING = '/products/category/hiking'
 
-
-
-const Navbar = (props, { handleClick, isLoggedIn }) => {
-  const { classes } = props
+const Navbar = props => {
+  const { classes, handleClick, isLoggedIn } = props
 
   return (
     <div className={classes.root}>
@@ -51,6 +51,7 @@ const Navbar = (props, { handleClick, isLoggedIn }) => {
             NODE EXPLORERS
           </Typography>
 
+          <SearchBar />
 
           <Button
             type="button"
@@ -62,39 +63,38 @@ const Navbar = (props, { handleClick, isLoggedIn }) => {
             Home
           </Button>
 
-
           <Link to={SNOW_SPORTS}>
-          <Button
-            type="button"
-            variant="contained"
-            color="primary"
-            size="large"
-            value="snowsports"
-          >
-          Snowsports
-          </Button>
+            <Button
+              type="button"
+              variant="contained"
+              color="primary"
+              size="large"
+              value="snowsports"
+            >
+              Snowsports
+            </Button>
           </Link>
 
           <Link to={CAMPING}>
-          <Button
-            type="button"
-            variant="contained"
-            color="primary"
-            size="large"
-           >
-            Camping
-          </Button>
+            <Button
+              type="button"
+              variant="contained"
+              color="primary"
+              size="large"
+            >
+              Camping
+            </Button>
           </Link>
 
           <Link to={HIKING}>
-          <Button
-            type="button"
-            variant="contained"
-            color="primary"
-            size="large"
-          >
-            Hiking
-          </Button>
+            <Button
+              type="button"
+              variant="contained"
+              color="primary"
+              size="large"
+            >
+              Hiking
+            </Button>
           </Link>
 
           <Button
