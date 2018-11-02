@@ -16,6 +16,11 @@ import ProductCategory from './components/ProductCategory'
 import Cart from './components/Cart'
 import { fetchCartThunk } from './store/cart'
 
+import UserAcct from './components/UserAcct/UserAcct'
+
+import SearchResults from './components/SearchResults'
+
+
 /**
  * COMPONENT
  */
@@ -31,10 +36,12 @@ class Routes extends Component {
       <div>
         <Switch>
           {/* Routes placed here are available to all visitors */}
+          <Route exact path="/test" component={UserAcct} />
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
 
           <Route path="/products/category/:name" component={ProductCategory} />
+          <Route path="/products/search/:keyword" component={SearchResults} />
 
           <Route exact path="/cart" component={Cart} />
           <Route exact path="/products" component={AllProduct} />
