@@ -40,15 +40,15 @@ router.get('/search/:keyword', async (req, res, next) => {
   }
 })
 
-router.get('/category/:name', async (req, res, next) => {
-  try{
+router.get('/category/:category', async (req, res, next) => {
+  try {
     let products = await Product.findAll({
       where: {
-        category: req.params.name
+        category: req.params.category
       }
     })
     res.json(products)
-  }catch(err){
+  } catch (err) {
     next(err)
   }
 })

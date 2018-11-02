@@ -63,39 +63,36 @@ const Navbar = props => {
             Home
           </Button>
 
-          <Link to={SNOW_SPORTS}>
-            <Button
-              type="button"
-              variant="contained"
-              color="primary"
-              size="large"
-              value="snowsports"
-            >
-              Snowsports
-            </Button>
-          </Link>
+          <Button
+            type="button"
+            variant="contained"
+            color="primary"
+            size="large"
+            value="snowsports"
+            onClick={() => history.push(SNOW_SPORTS)}
+          >
+            Snowsports
+          </Button>
 
-          <Link to={CAMPING}>
-            <Button
-              type="button"
-              variant="contained"
-              color="primary"
-              size="large"
-            >
-              Camping
-            </Button>
-          </Link>
+          <Button
+            type="button"
+            variant="contained"
+            color="primary"
+            size="large"
+            onClick={() => history.push(CAMPING)}
+          >
+            Camping
+          </Button>
 
-          <Link to={HIKING}>
-            <Button
-              type="button"
-              variant="contained"
-              color="primary"
-              size="large"
-            >
-              Hiking
-            </Button>
-          </Link>
+          <Button
+            type="button"
+            variant="contained"
+            color="primary"
+            size="large"
+            onClick={() => history.push(HIKING)}
+          >
+            Hiking
+          </Button>
 
           <Button
             type="button"

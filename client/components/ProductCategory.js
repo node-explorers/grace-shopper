@@ -4,7 +4,7 @@ import { getCategoryItems } from '../store/category'
 import MakeCard from './MakeCard'
 import Grid from '@material-ui/core/Grid'
 import { withStyles } from '@material-ui/core/styles'
-
+import { withRouter } from 'react-router-dom'
 
 class ProductCategory extends Component {
   componentDidMount() {
@@ -13,18 +13,28 @@ class ProductCategory extends Component {
   }
 
   render() {
+    console.log(this.props)
+    if (!this.props.category) return <div>No Products</div>
+    const { classes } = this.props
+
     return (
-      <div >
-        <Grid container spacing={24}>
-        {
-          this.props.category.map(product => (
-            <div key={product.id}>
-            <MakeCard product={product} />
-            </div>
-          ))
-        }
+      <React.Fragment>
+        <Grid container className={classes.root} spacing={16}>
+          <Grid item xs={12}>
+            <Grid container justify="center" spacing={16}>
+              {this.props.category.map(product => (
+                <Grid key={product.id} item>
+                  <MakeCard
+                    cart={this.props.cart}
+                    addItem={this.props.addItem}
+                    product={product}
+                  />
+                </Grid>
+              ))}
+            </Grid>
+          </Grid>
         </Grid>
-        </div>
+      </React.Fragment>
     )
   }
 }
@@ -46,10 +56,14 @@ function mapStateToProps(state) {
   }
 }
 
-function mapDispatchToProps(dispach) {
+function mapDispatchToProps(dispatch) {
   return {
-    getCategoryItems: category => dispach(getCategoryItems(category))
+    getCategoryItems: category => dispatch(getCategoryItems(category))
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(ProductCategory))
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(
+    withStyles(styles)(ProductCategory)
+  )
+)
