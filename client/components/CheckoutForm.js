@@ -22,15 +22,14 @@ class CheckoutForm extends Component {
 
   handleSubmit(event){
     event.preventDefault()
-
-
   }
-
+  
   handleChange(event){
     event.preventDefault();
     this.setState({
       [event.target.name]: event.target.value
     })
+    console.log("In the checkout form ", this.state)
   }
 
   render() {
@@ -59,7 +58,8 @@ class CheckoutForm extends Component {
         type="submit"
         size="small"
         color="primary"
-       />
+       > Submit
+       </Button>
       </form>
     );
   }

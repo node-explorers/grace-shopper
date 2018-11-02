@@ -9,8 +9,20 @@ import {
 } from '../store/cart'
 
 class Cart extends Component {
+  constructor(){
+    super()
+    this.state = {
+      isHidden: true
+    }
+  }
   componentDidMount() {
     this.props.fetchCart()
+  }
+
+  toggleHidden () {
+    this.setState({
+      isHidden: !this.state.isHidden
+    })
   }
 
   incrementer = (id, currQuant, event) => {
@@ -87,10 +99,11 @@ class Cart extends Component {
 
 
           <button
-              type="button"
-              onClick={() => <CheckoutForm/> }>
+          type="submit"
+          onClick={this.toggleHidden.bind(this)} >
             Checkout
           </button>
+          {!this.state.isHidden && <CheckoutForm />}
 
 
 
