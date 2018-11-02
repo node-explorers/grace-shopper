@@ -7,9 +7,26 @@ import { withStyles } from '@material-ui/core/styles'
 import { withRouter } from 'react-router-dom'
 
 class ProductCategory extends Component {
+  constructor() {
+    super()
+    this.state = {
+      category: ''
+    }
+  }
+
   componentDidMount() {
     const category = this.props.match.params.name
+    this.setState({ category })
     this.props.getCategoryItems(category)
+  }
+
+  componentDidUpdate() {
+    console.log('category component update')
+    const category = this.props.match.params.name
+    if (this.state.category !== category) {
+      this.setState({ category })
+      this.props.getCategoryItems(category)
+    }
   }
 
   render() {
