@@ -60,6 +60,7 @@ class Cart extends Component {
 
     this.priceSetter()
   }
+
   priceSetter = () => {
     if (this.props.cart.cartItems) {
       let sum = 0
