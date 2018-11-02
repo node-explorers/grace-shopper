@@ -5,6 +5,7 @@ import axios from 'axios'
 const GET_PRODUCTS = 'GET_PRODUCTS'
 const GET_SINGLE_PRODUCT = 'GET_SINGLE_PRODUCT'
 const GET_PRODUCT_BY_SEARCH = 'GET_PRODUCT_BY_SEARCH'
+const DELETE_ITEM = 'DELETE_ITEM'
 
 //ACTION CREATORS
 
@@ -21,6 +22,10 @@ const getSingleProductsFromServer = product => ({
 const getProductBySearch = search => ({
   type: GET_PRODUCT_BY_SEARCH,
   search
+})
+
+export const deleteSingleItem = () => ({
+  type: DELETE_ITEM
 })
 
 //THUNK CREATORS
@@ -74,6 +79,8 @@ export default function(state = initialState, action) {
       return { ...state, singleProduct: action.product }
     case GET_PRODUCT_BY_SEARCH:
       return action.search
+    case DELETE_ITEM:
+      return { ...state, singleProduct: {} }
     default:
       return state
   }
