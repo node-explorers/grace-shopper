@@ -54,7 +54,13 @@ function MakeCard(props) {
           <Button size="small" color="primary">
             Reviews
           </Button>
-          <Button size="small" color="primary">
+          <Button
+            onClick={() =>
+              props.addItem(product.id, props.cart.id, product.price)
+            }
+            size="small"
+            color="primary"
+          >
             Add To Cart
           </Button>
         </CardActions>

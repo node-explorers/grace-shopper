@@ -11,6 +11,8 @@ import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
+//new
+import ProductCategory from './ProductCategory'
 
 const styles = {
   root: {
@@ -25,62 +27,109 @@ const styles = {
   }
 }
 
-const Navbar = (props, { handleClick, isLoggedIn }) => {
-  const { classes } = props
+const SNOW_SPORTS = '/products/category/snowsports'
+const CAMPING = '/products/category/camping'
+const HIKING = '/products/category/hiking'
 
-  return (
-    <div className={classes.root}>
-      <AppBar position="fixed">
-        <Toolbar>
-          <IconButton
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="Menu"
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" color="inherit" className={classes.grow}>
-            NODE EXPLORERS
-          </Typography>
-          <Button
-            type="button"
-            variant="contained"
-            color="primary"
-            size="large"
-            onClick={() => history.push('/')}
-          >
-            Home
-          </Button>
-          <Button
-            type="button"
-            variant="contained"
-            color="primary"
-            size="large"
-            onClick={() => history.push('/products')}
-          >
-            All Products
-          </Button>
-          <nav>
-            {isLoggedIn ? (
-              <div>
-                {/* The navbar will show these links after you log in */}
-                <Link to="/home">Home</Link>
-                <a href="#" onClick={handleClick}>
-                  Logout
-                </a>
-              </div>
-            ) : (
-              <div>
-                {/* The navbar will show these links before you log in */}
-                <Link to="/login">Login</Link>
-                <Link to="/signup">Sign Up</Link>
-              </div>
-            )}
-          </nav>
-        </Toolbar>
-      </AppBar>
-    </div>
-  )
+//const Navbar = (props, { handleClick, isLoggedIn }) => {
+class Navbar extends React.Component {
+  constructor() {
+    super()
+  }
+
+  render() {
+    const { classes } = this.props
+    //console.log(this.props.isLoggedIn)
+    return (
+      <div className={classes.root}>
+        <AppBar position="fixed">
+          <Toolbar>
+            <IconButton
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="Menu"
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" color="inherit" className={classes.grow}>
+              NODE EXPLORERS
+            </Typography>
+
+            <Button
+              type="button"
+              variant="contained"
+              color="primary"
+              size="large"
+              onClick={() => history.push('/home')}
+            >
+              Home
+            </Button>
+
+            <Link to={SNOW_SPORTS}>
+              <Button
+                type="button"
+                variant="contained"
+                color="primary"
+                size="large"
+                value="snowsports"
+              >
+                Snowsports
+              </Button>
+            </Link>
+
+            <Link to={CAMPING}>
+              <Button
+                type="button"
+                variant="contained"
+                color="primary"
+                size="large"
+              >
+                Camping
+              </Button>
+            </Link>
+
+            <Link to={HIKING}>
+              <Button
+                type="button"
+                variant="contained"
+                color="primary"
+                size="large"
+              >
+                Hiking
+              </Button>
+            </Link>
+
+            <Button
+              type="button"
+              variant="contained"
+              color="primary"
+              size="large"
+              onClick={() => history.push('/products')}
+            >
+              All Products
+            </Button>
+            <nav>
+              {this.props.isLoggedIn ? (
+                <div>
+                  {/* The navbar will show these links after you log in */}
+                  <Link to="/home">Home</Link>
+                  <Link to="#" onClick={this.props.handleClick}>
+                    Logout
+                  </Link>
+                </div>
+              ) : (
+                <div>
+                  {/* The navbar will show these links before you log in */}
+                  <Link to="/login">Login</Link>
+                  <Link to="/signup">Sign Up</Link>
+                </div>
+              )}
+            </nav>
+          </Toolbar>
+        </AppBar>
+      </div>
+    )
+  }
 }
 
 /**

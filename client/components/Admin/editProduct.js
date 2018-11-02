@@ -6,6 +6,7 @@ import { withStyles } from '@material-ui/core/styles'
 import MenuItem from '@material-ui/core/MenuItem'
 import TextField from '@material-ui/core/TextField'
 import { updatingProduct } from '../../store/product'
+import Button from '@material-ui/core/Button'
 
 function mapState(state) {
   return {}
@@ -102,8 +103,7 @@ class EditProduct extends React.Component {
         <TextField
           id="standard-description"
           label="Description"
-          multiline
-          rowsMax="4"
+          rowsMax="1"
           value={this.state.description}
           onChange={this.handleChange('description')}
           className={classes.textField}
@@ -124,6 +124,9 @@ class EditProduct extends React.Component {
           }}
           margin="normal"
         />
+        <Button type="submit" size="small" color="primary">
+          Update
+        </Button>
       </form>
     )
   }

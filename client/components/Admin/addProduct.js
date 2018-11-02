@@ -6,15 +6,14 @@ import { withStyles } from '@material-ui/core/styles'
 import MenuItem from '@material-ui/core/MenuItem'
 import TextField from '@material-ui/core/TextField'
 import { postingProduct } from '../../store/product'
+import Button from '@material-ui/core/Button'
 
-function mapState(state) {
+/* function mapState(state) {
   return {}
-}
+} */
 function mapDispatch(dispatch) {
   return {
-    post: () => {
-      dispatch(postingProduct())
-    }
+    post: product => dispatch(postingProduct(product))
   }
 }
 
@@ -41,7 +40,7 @@ class AddProduct extends React.Component {
     super()
     this.state = {
       name: '',
-      categorie: '',
+      category: '',
       price: 0.0,
       description: '',
       imageUrl: ''
@@ -51,7 +50,13 @@ class AddProduct extends React.Component {
   }
 
   handleSubmit() {
-    this.props.post(this.state)
+    this.props.post({
+      name: this.state.name,
+      category: this.state.category,
+      price: this.state.price,
+      description: this.state.description,
+      imageUrl: this.state.imageUrl
+    })
   }
 
   handleChange = name => event => {
@@ -64,67 +69,74 @@ class AddProduct extends React.Component {
     const { classes } = this.props
 
     return (
-      <form onSubmit={this.handleSubmit} className={classes.container}>
-        <TextField
-          required
-          id="standard-name"
-          label="Name"
-          helperText="Please enter name!"
-          className={classes.textField}
-          value={this.state.name}
-          onChange={this.handleChange('name')}
-          margin="normal"
-        />
+      <div>
+        <h2>Add Product</h2>
+        <br />
+        <hr />
+        <br />
+        <form onSubmit={this.handleSubmit} className={classes.container}>
+          <TextField
+            required
+            id="standard-name"
+            label="Name"
+            helperText="Please enter name!"
+            className={classes.textField}
+            value={this.state.name}
+            onChange={this.handleChange('name')}
+            margin="normal"
+          />
 
-        <TextField
-          required
-          id="standard-categorie"
-          label="Categorie"
-          defaultValue=""
-          value={this.state.categorie}
-          helperText="Please enter the categorie!"
-          onChange={this.handleChange('categorie')}
-          className={classes.textField}
-          margin="normal"
-        />
+          <TextField
+            required
+            id="standard-category"
+            label="Category"
+            defaultValue=""
+            value={this.state.category}
+            helperText="Please enter the category!"
+            onChange={this.handleChange('category')}
+            className={classes.textField}
+            margin="normal"
+          />
 
-        <TextField
-          id="standard-image"
-          label="ImageUrl"
-          defaultValue=""
-          value={this.state.imageUrl}
-          helperText="Please enter the categorie!"
-          onChange={this.handleChange('imageUrl')}
-          className={classes.textField}
-          margin="normal"
-        />
+          <TextField
+            id="standard-image"
+            label="ImageUrl"
+            defaultValue=""
+            value={this.state.imageUrl}
+            onChange={this.handleChange('imageUrl')}
+            className={classes.textField}
+            margin="normal"
+          />
 
-        <TextField
-          id="standard-description"
-          label="Description"
-          multiline
-          rowsMax="4"
-          value={this.state.description}
-          onChange={this.handleChange('description')}
-          className={classes.textField}
-          margin="normal"
-        />
+          <TextField
+            id="standard-description"
+            label="Description"
+            rowsMax="1"
+            value={this.state.description}
+            onChange={this.handleChange('description')}
+            className={classes.textField}
+            margin="normal"
+          />
 
-        <TextField
-          required
-          id="standard-price"
-          label="Price"
-          value={this.state.price}
-          onChange={this.handleChange('price')}
-          type="number"
-          helperText="Please enter the price!"
-          className={classes.textField}
-          InputLabelProps={{
-            shrink: true
-          }}
-          margin="normal"
-        />
-      </form>
+          <TextField
+            required
+            id="standard-price"
+            label="Price"
+            value={this.state.price}
+            onChange={this.handleChange('price')}
+            type="number"
+            helperText="Please enter the price!"
+            className={classes.textField}
+            InputLabelProps={{
+              shrink: true
+            }}
+            margin="normal"
+          />
+          <Button type="submit" size="small" color="primary">
+            Add Product
+          </Button>
+        </form>
+      </div>
     )
   }
 }
@@ -133,4 +145,4 @@ AddProduct.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-export default connect(mapState, mapDispatch)(withStyles(styles)(AddProduct))
+export default connect(null, mapDispatch)(withStyles(styles)(AddProduct))

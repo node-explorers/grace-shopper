@@ -36,7 +36,7 @@ router.get('/:productId', async (req, res, next) => {
   try {
     let id = req.params.productId
     let product = await Product.findOne({ where: { id } })
-    console.log(product)
+    //console.log(product)
     res.json(product)
   } catch (err) {
     next(err)

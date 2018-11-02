@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { runInNewContext } from 'vm'
 
 //ACTION TYPES
 
@@ -13,6 +14,11 @@ const ADD_PRODUCT = 'ADD_PRODUCT'
 const getProductsFromServer = products => ({
   type: GET_PRODUCTS,
   products
+})
+
+const addProduct = product => ({
+  type: ADD_PRODUCT,
+  product
 })
 
 const getSingleProductsFromServer = product => ({
@@ -36,8 +42,19 @@ export const fetchProducts = () => {
   return async dispatch => {
     try {
       const { data } = await axios.get('/api/products')
-      console.log('IN THE THUNK', data)
+
       dispatch(getProductsFromServer(data))
+    } catch (err) {
+      console.log(err)
+    }
+  }
+}
+
+export const postingProduct = product => {
+  return async dispatch => {
+    try {
+      const newProduct = (await axios.post('/api/products', product)).data
+      dispatch(addProduct(newProduct))
     } catch (err) {
       console.log(err)
     }
@@ -48,7 +65,7 @@ export const fetchProduct = productId => {
   return async dispatch => {
     try {
       const { data } = await axios.get(`/api/products/${productId}`)
-      console.log('IN THE SINGLE THUNK'.data)
+      //console.log('IN THE SINGLE THUNK', data)
       dispatch(getSingleProductsFromServer(data))
     } catch (err) {
       console.log(err)
@@ -66,7 +83,7 @@ export const updatingProduct = product => {
       )).data
       //console.log(' In Thunk new Campus  ', newProduct)
       const action = updateProduct(newProduct)
-      console.log(' In Thunk action ', action)
+      //console.log(' In Thunk action ', action)
       dispatch(action)
     } catch (err) {
       console.log(err)
@@ -100,6 +117,8 @@ export default function(state = initialState, action) {
       return { ...state, singleProduct: action.product }
     case GET_PRODUCT_BY_SEARCH:
       return action.search
+    case ADD_PRODUCT:
+      return { ...state, products: [...state.products, action.product] }
     case UPDATE_PRODUCT:
       const newproduct = state.filter(prd => prd.id !== action.product.id)
       return { ...state, products: [...newproduct, action.product] }
