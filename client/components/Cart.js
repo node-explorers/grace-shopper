@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
+import CheckoutForm from './CheckoutForm';
 
 import {
   fetchCartThunk,
@@ -11,6 +12,7 @@ class Cart extends Component {
   componentDidMount() {
     this.props.fetchCart()
   }
+
   incrementer = (id, currQuant, event) => {
     if (currQuant === 0 && event.target.name === 'decrementer') return
     const dispatchObject = {
@@ -82,9 +84,16 @@ class Cart extends Component {
               })}
             </div>
           )}
-          <button type="button" onClick={this.handleCheckout}>
+
+
+          <button
+              type="button"
+              onClick={() => <CheckoutForm/> }>
             Checkout
           </button>
+
+
+
         </div>
       </Fragment>
     )
