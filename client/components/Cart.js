@@ -39,8 +39,6 @@ class Cart extends Component {
   }
   async componentDidMount() {
     await this.props.fetchCart()
-
-    console.log(this.priceSetter())
   }
   incrementer = async (id, currQuant, event) => {
     if (currQuant === 0 && event.target.name === 'decrementer') return
@@ -69,9 +67,8 @@ class Cart extends Component {
     //do this on checkout
   }
 
+  //remove item from cart
   handleRemove = productId => {
-    //remove item from cart
-
     this.props.deleteItem(productId)
   }
 
@@ -81,8 +78,14 @@ class Cart extends Component {
       paddingTop: '12vh'
     }
     const color = {
-      color: 'red'
+      backgroundColor: 'black',
+      color: 'red',
+      fontWeight: '900'
     }
+    const bold = {
+      fontWeight: 'bold'
+    }
+
     let rows
     if (this.props.cart.cartItems) {
       rows = this.props.cart.cartItems.map(item =>
@@ -109,7 +112,7 @@ class Cart extends Component {
                   {rows.map(row => {
                     return (
                       <TableRow key={row.id}>
-                        <TableCell component="th" scope="row">
+                        <TableCell component="th" scope="row" style={bold}>
                           <button
                             type="button"
                             onClick={() => this.handleRemove(row.id)}
