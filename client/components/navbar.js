@@ -11,7 +11,9 @@ import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
-//new
+
+import SearchBar from './SearchBar'
+
 import ProductCategory from './ProductCategory'
 
 const styles = {
@@ -54,7 +56,41 @@ class Navbar extends React.Component {
             <Typography variant="h6" color="inherit" className={classes.grow}>
               NODE EXPLORERS
             </Typography>
+            <SearchBar />
 
+            {/* =======
+const Navbar = props => {
+  const { classes, handleClick, isLoggedIn } = props
+
+  return (
+    <div className={classes.root}>
+      <AppBar position="fixed">
+        <Toolbar>
+          <IconButton
+            className={classes.menuButton}
+            color="inherit"
+            aria-label="Menu"
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" color="inherit" className={classes.grow}>
+            NODE EXPLORERS
+          </Typography>
+
+          <SearchBar />
+
+          <Button
+            type="button"
+            variant="contained"
+            color="primary"
+            size="large"
+            onClick={() => history.push('/')}
+          >
+            Home
+          </Button>
+
+          <Link to={SNOW_SPORTS}>
+>>>>>>> master */}
             <Button
               type="button"
               variant="contained"
@@ -99,6 +135,26 @@ class Navbar extends React.Component {
               </Button>
             </Link>
 
+            {/* =======
+              value="snowsports"
+            >
+              Snowsports
+            </Button>
+          </Link>
+
+          <Link to={CAMPING}>
+            <Button
+              type="button"
+              variant="contained"
+              color="primary"
+              size="large"
+            >
+              Camping
+            </Button>
+          </Link>
+
+          <Link to={HIKING}>
+>>>>>>> master */}
             <Button
               type="button"
               variant="contained"
@@ -130,6 +186,47 @@ class Navbar extends React.Component {
       </div>
     )
   }
+  /* =======
+            >
+              Hiking
+            </Button>
+          </Link>
+
+          <Button
+            type="button"
+            variant="contained"
+            color="primary"
+            size="large"
+            onClick={() => history.push('/products')}
+          >
+            All Products
+          </Button>
+          <nav>
+            {isLoggedIn ? (
+              <div>
+                {/* The navbar will show these links after you log in */
+}
+{
+  /*<Link to="/home">Home</Link>
+                <a href="#" onClick={handleClick}>
+                  Logout
+                </a>
+              </div>
+            ) : (
+              <div>
+                {/* The navbar will show these links before you log in */
+}
+{
+  /* <Link to="/login">Login</Link>
+                <Link to="/signup">Sign Up</Link>
+              </div>
+            )}
+          </nav>
+        </Toolbar>
+      </AppBar>
+    </div>
+  )
+            >>>>>>> master */
 }
 
 /**
