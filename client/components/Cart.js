@@ -39,6 +39,7 @@ class Cart extends Component {
       isHidden: true
     }
   }
+
   componentDidMount() {
     this.props.fetchCart()
   }
@@ -60,6 +61,7 @@ class Cart extends Component {
 
     this.priceSetter()
   }
+
   priceSetter = () => {
     if (this.props.cart.cartItems) {
       let sum = 0
@@ -90,10 +92,12 @@ class Cart extends Component {
       backgroundColor: 'black',
       color: 'red',
       fontWeight: '900'
+
     }
     const bold = {
       fontWeight: 'bold'
     }
+
 
     let rows
     if (this.props.cart.cartItems) {

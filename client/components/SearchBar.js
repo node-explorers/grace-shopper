@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { searchProduct } from '../store/product'
+import history from '../history'
 
 class SearchBar extends Component {
   constructor() {
@@ -19,9 +20,12 @@ class SearchBar extends Component {
   handleSubmit(event) {
     event.preventDefault()
     console.log(this.state.name)
-    this.props.findProducts(this.state.name)
+    const name = this.state.name
+    this.setState({ name: '' })
+    history.push(`/products/search/${name}`)
   }
   render() {
+    const isEnabled = this.state.name.length > 0
     return (
       <form onSubmit={this.handleSubmit}>
         <input
@@ -29,19 +33,15 @@ class SearchBar extends Component {
           name="name"
           placeholder="Search..."
           onChange={this.handleChange}
+          value={this.state.name}
+          required
         />
-        <button type="submit">Submit</button>
+        <button type="submit" disabled={!isEnabled}>
+          Submit
+        </button>
       </form>
     )
   }
 }
 
-const mapDispatch = dispatch => {
-  return {
-    findProducts: keyword => {
-      dispatch(searchProduct(keyword))
-    }
-  }
-}
-
-export default connect(null, mapDispatch)(SearchBar)
+export default SearchBar
