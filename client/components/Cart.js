@@ -8,7 +8,32 @@ import {
   incrementCartItemThunk
 } from '../store/cart'
 
+import PropTypes from 'prop-types'
+import { withStyles } from '@material-ui/core/styles'
+import Table from '@material-ui/core/Table'
+import TableBody from '@material-ui/core/TableBody'
+import TableCell from '@material-ui/core/TableCell'
+import TableHead from '@material-ui/core/TableHead'
+import TableRow from '@material-ui/core/TableRow'
+import Paper from '@material-ui/core/Paper'
+
+const styles = theme => ({
+  root: {
+    width: '70%',
+    marginTop: theme.spacing.unit * 3,
+    overflowX: 'auto'
+  },
+  table: {
+    minWidth: 700
+  }
+})
+
+function createData(id, name, quantity, price) {
+  return { id, name, quantity, price }
+}
+
 class Cart extends Component {
+
   constructor(){
     super()
     this.state = {
@@ -32,8 +57,20 @@ class Cart extends Component {
       style: event.target.name
     }
 
-    this.props.increment(dispatchObject)
-    // dispatch decrement
+    await this.props.increment(dispatchObject)
+
+    this.priceSetter()
+  }
+  priceSetter = () => {
+    if (this.props.cart.cartItems) {
+      let sum = 0
+      this.props.cart.cartItems.forEach(element => {
+        sum += element.quantity * +element.price
+      })
+      this.setState({
+        price: `$ ${Number(sum).toFixed(2)}`
+      })
+    }
   }
 
   handleCheckout = evt => {
@@ -47,54 +84,77 @@ class Cart extends Component {
   }
 
   render() {
+    const { classes } = this.props
+    const padding = {
+      paddingTop: '12vh'
+    }
+    const color = {
+      color: 'red'
+    }
+    let rows
+    if (this.props.cart.cartItems) {
+      rows = this.props.cart.cartItems.map(item =>
+        createData(item.id, item.product.name, item.quantity, item.price)
+      )
+    }
     return (
       <Fragment>
-        <h2>Your Cart!</h2>
+        <h2 style={padding}>Your Cart!</h2>
         <div>
           {!this.props.cart.cartItems ? (
             <p>No Items</p>
           ) : (
-            <div>
-              {this.props.cart.cartItems.map(item => {
-                return (
-                  <div key={item.id}>
-                    <h1>{item.product.name}</h1>
-                    <small>{item.price}</small>
-                    <img src={item.product.imageUrl} />
-                    <h4>Quantity: {item.quantity}</h4>
-                    <span>
-                      {/* change quantity */}
-                      <button
-                        type="button"
-                        name="incrementer"
-                        onClick={e =>
-                          this.incrementer(item.id, item.quantity, e)
-                        }
-                      >
-                        +
-                      </button>
-                      <button
-                        type="button"
-                        name="decrementer"
-                        onClick={e =>
-                          this.incrementer(item.id, item.quantity, e)
-                        }
-                      >
-                        -
-                      </button>
-                    </span>
-
-                    {/* remove items  */}
-                    <button
-                      type="button"
-                      onClick={() => this.handleRemove(item.id)}
-                    >
-                      Remove from cart
-                    </button>
-                  </div>
-                )
-              })}
-            </div>
+            <Paper className={classes.root}>
+              <Table className={classes.table}>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Item Name</TableCell>
+                    <TableCell numeric>Price</TableCell>
+                    <TableCell numeric>Quantity</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {rows.map(row => {
+                    return (
+                      <TableRow key={row.id}>
+                        <TableCell component="th" scope="row">
+                          <button
+                            type="button"
+                            onClick={() => this.handleRemove(row.id)}
+                            style={color}
+                          >
+                            X
+                          </button>
+                          &ensp; {row.name}
+                        </TableCell>
+                        <TableCell numeric>{row.price}</TableCell>
+                        <TableCell numeric>
+                          {row.quantity} &ensp;
+                          <button
+                            type="button"
+                            name="incrementer"
+                            onClick={e =>
+                              this.incrementer(row.id, row.quantity, e)
+                            }
+                          >
+                            +
+                          </button>
+                          <button
+                            type="button"
+                            name="decrementer"
+                            onClick={e =>
+                              this.incrementer(row.id, row.quantity, e)
+                            }
+                          >
+                            -
+                          </button>
+                        </TableCell>
+                      </TableRow>
+                    )
+                  })}
+                </TableBody>
+              </Table>
+            </Paper>
           )}
 
 
@@ -106,11 +166,23 @@ class Cart extends Component {
           {!this.state.isHidden && <CheckoutForm />}
 
 
+          <br />
+          <span>
+            <small>Your Total:</small>
+            <h2>{this.state.price}</h2>
+            <button type="button" onClick={this.handleCheckout}>
+              Checkout
+            </button>
+          </span>
 
         </div>
       </Fragment>
     )
   }
+}
+
+Cart.propTypes = {
+  classes: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => {
@@ -128,4 +200,6 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Cart)
+export default connect(mapStateToProps, mapDispatchToProps)(
+  withStyles(styles)(Cart)
+)

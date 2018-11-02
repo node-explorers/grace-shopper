@@ -62,44 +62,32 @@ class Navbar extends React.Component {
               variant="contained"
               color="primary"
               size="large"
-              onClick={() => history.push('/home')}
+              value="snowsports"
+              onClick={() => history.push(SNOW_SPORTS)}
             >
-              Home
+              Snowsports
             </Button>
 
-            <Link to={SNOW_SPORTS}>
-              <Button
-                type="button"
-                variant="contained"
-                color="primary"
-                size="large"
-                value="snowsports"
-              >
-                Snowsports
-              </Button>
-            </Link>
+            <Button
+              type="button"
+              variant="contained"
+              color="primary"
+              size="large"
+              onClick={() => history.push(CAMPING)}
+            >
+              Camping
+            </Button>
 
-            <Link to={CAMPING}>
-              <Button
-                type="button"
-                variant="contained"
-                color="primary"
-                size="large"
-              >
-                Camping
-              </Button>
-            </Link>
+            <Button
+              type="button"
+              variant="contained"
+              color="primary"
+              size="large"
+              onClick={() => history.push(HIKING)}
+            >
+              Hiking
+            </Button>
 
-            <Link to={HIKING}>
-              <Button
-                type="button"
-                variant="contained"
-                color="primary"
-                size="large"
-              >
-                Hiking
-              </Button>
-            </Link>
             <Button
               type="button"
               variant="contained"
