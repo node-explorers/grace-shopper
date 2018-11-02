@@ -11,7 +11,7 @@ import {
 } from './components'
 import { me } from './store'
 
-import ProductCategory from './components/ProductCategory';
+import ProductCategory from './components/ProductCategory'
 
 import Cart from './components/Cart'
 import { fetchCartThunk } from './store/cart'
@@ -43,7 +43,7 @@ class Routes extends Component {
           {isLoggedIn && (
             <Switch>
               {/* Routes placed here are only available after logging in */}
-              <Route path="/userhome" component={UserHome} />
+              <Route path="/home" component={UserHome} />
             </Switch>
           )}
           {/* Displays our Login component as a fallback */}
