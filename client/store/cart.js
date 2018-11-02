@@ -74,9 +74,10 @@ export const addCartItemThunk = cartItemInfo => {
   return async dispatch => {
     try {
       const { data } = await axios.post('api/cartItems', cartItemInfo)
-      const addAction = addItem(data)
-      console.log(addAction)
-      dispatch(addAction)
+      if (data) {
+        const addAction = addItem(data)
+        dispatch(addAction)
+      }
     } catch (err) {
       console.err(err)
     }

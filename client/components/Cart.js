@@ -12,7 +12,6 @@ class Cart extends Component {
     this.props.fetchCart()
   }
   incrementer = (id, currQuant, event) => {
-    console.log(currQuant)
     if (currQuant === 0 && event.target.name === 'decrementer') return
     const dispatchObject = {
       id,
