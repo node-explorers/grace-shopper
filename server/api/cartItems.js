@@ -5,20 +5,21 @@ const CartItem = require('../db/models/cartItems')
 
 router.post('/', async (req, res, next) => {
   try {
-    const itemCreated = await CartItem.create(
-      {
+    const itemCreated = await CartItem.findOrCreate({
+      where: {
         productId: req.body.productId,
         cartId: req.body.cartId,
         price: req.body.price
-      },
-      {
-        returning: true
       }
-    )
+    })
 
-    const fetchWithAssociationsHack = await CartItem.findById(itemCreated.id)
-
-    res.json(fetchWithAssociationsHack)
+    if (itemCreated[1]) {
+      res.status = 201
+      res.json(itemCreated[0])
+    } else {
+      res.status = 304
+      res.send()
+    }
   } catch (err) {
     next(err)
   }
