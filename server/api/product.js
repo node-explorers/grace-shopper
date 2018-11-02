@@ -40,4 +40,17 @@ router.get('/search/:keyword', async (req, res, next) => {
   }
 })
 
+router.get('/category/:name', async (req, res, next) => {
+  try{
+    let products = await Product.findAll({
+      where: {
+        category: req.params.name
+      }
+    })
+    res.json(products)
+  }catch(err){
+    next(err)
+  }
+})
+
 module.exports = router
