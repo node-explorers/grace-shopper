@@ -50,7 +50,7 @@ class Cart extends Component {
     })
   }
 
-  incrementer = (id, currQuant, event) => {
+   incrementer = async (id, currQuant, event) => {
     if (currQuant === 0 && event.target.name === 'decrementer') return
     const dispatchObject = {
       id,
