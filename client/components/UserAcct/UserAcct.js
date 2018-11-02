@@ -6,6 +6,7 @@ import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
 import Typography from '@material-ui/core/Typography'
 import UserOrders from './UserOrders'
+import Cart from '../Cart'
 
 function TabContainer(props) {
   return (
@@ -46,6 +47,7 @@ class UserAcct extends React.Component {
             <Tab label="Your Account Information:" disabled />
             <Tab label="Orders" />
             <Tab label="Reviews" />
+            <Tab label="Shopping Cart" />
           </Tabs>
         </AppBar>
         {value === 1 && (
@@ -54,6 +56,11 @@ class UserAcct extends React.Component {
           </TabContainer>
         )}
         {value === 2 && <TabContainer>Reviews</TabContainer>}
+        {value === 3 && (
+          <TabContainer>
+            <Cart />
+          </TabContainer>
+        )}
       </div>
     )
   }
