@@ -34,3 +34,4 @@ export class SingleProduct extends React.Component {
 }
 
 export default withRouter(connect(mapState, mapDispatch)(SingleProduct))
+ 
