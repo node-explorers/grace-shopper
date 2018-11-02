@@ -49,12 +49,16 @@ router.get('/search/:keyword', async (req, res, next) => {
     const keyword = req.params.keyword
     const products = await Product.findAll({
       where: {
-        name: {
-          [Sequelize.Op.iLike]: `%${keyword}%`
+        [Sequelize.Op.or]: {
+          name: {
+            [Sequelize.Op.iLike]: `%${keyword}%`
+          },
+          description: {
+            [Sequelize.Op.iLike]: `% ${keyword}%`
+          }
         }
       }
     })
-    console.log(products)
     res.json(products)
   } catch (err) {
     next(err)
