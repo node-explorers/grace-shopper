@@ -6,8 +6,11 @@ import { runInNewContext } from 'vm'
 const GET_PRODUCTS = 'GET_PRODUCTS'
 const GET_SINGLE_PRODUCT = 'GET_SINGLE_PRODUCT'
 const GET_PRODUCT_BY_SEARCH = 'GET_PRODUCT_BY_SEARCH'
+
 const UPDATE_PRODUCT = 'UPDATE_PRODUCT'
 const ADD_PRODUCT = 'ADD_PRODUCT'
+
+const DELETE_ITEM = 'DELETE_ITEM'
 
 //ACTION CREATORS
 
@@ -34,6 +37,10 @@ const updateProduct = product => ({
 const getProductBySearch = search => ({
   type: GET_PRODUCT_BY_SEARCH,
   search
+})
+
+export const deleteSingleItem = () => ({
+  type: DELETE_ITEM
 })
 
 //THUNK CREATORS
@@ -121,6 +128,9 @@ export default function(state = initialState, action) {
     case UPDATE_PRODUCT:
       const newproduct = state.filter(prd => prd.id !== action.product.id)
       return { ...state, products: [...newproduct, action.product] }
+    case DELETE_ITEM:
+      return { ...state, singleProduct: {} }
+
     default:
       return state
   }
