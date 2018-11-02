@@ -1,8 +1,8 @@
 'use strict'
 
 const db = require('../server/db')
-const {User} = require('../server/db/models')
-const {Product} = require('../server/db/models')
+const { User } = require('../server/db/models')
+const { Product } = require('../server/db/models')
 
 const dummyProducts = [
   {
@@ -141,11 +141,16 @@ const dummyUsers = [
   {
     email: 'murphy@email.com',
     password: '123'
+  },
+  {
+    email: 'lily@email.com',
+    password: '123',
+    isAdmin: true
   }
 ]
 
 const seed = async () => {
-  await db.sync({force: true})
+  await db.sync({ force: true })
   console.log('db synced!')
   try {
     await Promise.all(

@@ -33,100 +33,104 @@ const SNOW_SPORTS = '/products/category/snowsports'
 const CAMPING = '/products/category/camping'
 const HIKING = '/products/category/hiking'
 
-const Navbar = props => {
-  const { classes, handleClick, isLoggedIn } = props
+//const Navbar = (props, { handleClick, isLoggedIn }) => {
+class Navbar extends React.Component {
+  constructor() {
+    super()
+  }
 
-  return (
-    <div className={classes.root}>
-      <AppBar position="fixed">
-        <Toolbar>
-          <IconButton
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="Menu"
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" color="inherit" className={classes.grow}>
-            NODE EXPLORERS
-          </Typography>
-
-          <SearchBar />
-
-          <Button
-            type="button"
-            variant="contained"
-            color="primary"
-            size="large"
-            onClick={() => history.push('/')}
-          >
-            Home
-          </Button>
-
-          <Link to={SNOW_SPORTS}>
+  render() {
+    const { classes } = this.props
+    //console.log(this.props.isLoggedIn)
+    return (
+      <div className={classes.root}>
+        <AppBar position="fixed">
+          <Toolbar>
+            <IconButton
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="Menu"
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" color="inherit" className={classes.grow}>
+              NODE EXPLORERS
+            </Typography>
+            <SearchBar />
             <Button
               type="button"
               variant="contained"
               color="primary"
               size="large"
-              value="snowsports"
+              onClick={() => history.push('/home')}
             >
-              Snowsports
+              Home
             </Button>
-          </Link>
 
-          <Link to={CAMPING}>
+            <Link to={SNOW_SPORTS}>
+              <Button
+                type="button"
+                variant="contained"
+                color="primary"
+                size="large"
+                value="snowsports"
+              >
+                Snowsports
+              </Button>
+            </Link>
+
+            <Link to={CAMPING}>
+              <Button
+                type="button"
+                variant="contained"
+                color="primary"
+                size="large"
+              >
+                Camping
+              </Button>
+            </Link>
+
+            <Link to={HIKING}>
+              <Button
+                type="button"
+                variant="contained"
+                color="primary"
+                size="large"
+              >
+                Hiking
+              </Button>
+            </Link>
             <Button
               type="button"
               variant="contained"
               color="primary"
               size="large"
+              onClick={() => history.push('/products')}
             >
-              Camping
+              All Products
             </Button>
-          </Link>
-
-          <Link to={HIKING}>
-            <Button
-              type="button"
-              variant="contained"
-              color="primary"
-              size="large"
-            >
-              Hiking
-            </Button>
-          </Link>
-
-          <Button
-            type="button"
-            variant="contained"
-            color="primary"
-            size="large"
-            onClick={() => history.push('/products')}
-          >
-            All Products
-          </Button>
-          <nav>
-            {isLoggedIn ? (
-              <div>
-                {/* The navbar will show these links after you log in */}
-                <Link to="/home">Home</Link>
-                <a href="#" onClick={handleClick}>
-                  Logout
-                </a>
-              </div>
-            ) : (
-              <div>
-                {/* The navbar will show these links before you log in */}
-                <Link to="/login">Login</Link>
-                <Link to="/signup">Sign Up</Link>
-              </div>
-            )}
-          </nav>
-        </Toolbar>
-      </AppBar>
-    </div>
-  )
+            <nav>
+              {this.props.isLoggedIn ? (
+                <div>
+                  {/* The navbar will show these links after you log in */}
+                  <Link to="/home">Home</Link>
+                  <Link to="#" onClick={this.props.handleClick}>
+                    Logout
+                  </Link>
+                </div>
+              ) : (
+                <div>
+                  {/* The navbar will show these links before you log in */}
+                  <Link to="/login">Login</Link>
+                  <Link to="/signup">Sign Up</Link>
+                </div>
+              )}
+            </nav>
+          </Toolbar>
+        </AppBar>
+      </div>
+    )
+  }
 }
 
 /**
