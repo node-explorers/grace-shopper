@@ -99,9 +99,9 @@ class Cart extends Component {
 
 
           <button
-          type="submit"
-          onClick={this.toggleHidden.bind(this)} >
-            Checkout
+           type="submit"
+           onClick={this.toggleHidden.bind(this)} >
+           Checkout
           </button>
           {!this.state.isHidden && <CheckoutForm />}
 

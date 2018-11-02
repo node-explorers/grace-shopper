@@ -23,35 +23,39 @@ class CheckoutForm extends Component {
   handleSubmit(event){
     event.preventDefault()
   }
-  
+
   handleChange(event){
     event.preventDefault();
     this.setState({
       [event.target.name]: event.target.value
     })
-    console.log("In the checkout form ", this.state)
+     console.log("In the checkout form ", this.state)
   }
 
   render() {
-    return (
+   return (
       <form onSubmit={this.handleSubmit}>
 
       <TextField
-        helperText="Enter your address"
-        value={this.state.address}
+        helperText="Enter Address"
         onChange={this.handleChange}
+        name="address"
+        required
       />
 
       <TextField
-        helperText="Enter your Email"
-        value={this.state.address}
+        helperText="Enter Email"
+        type="email"
         onChange={this.handleChange}
+        name="email"
+        required
       />
 
       <TextField
-        helperText="Enter your Credit Card Info"
-        value={this.state.address}
+        helperText="Enter Credit Card"
         onChange={this.handleChange}
+        name="creditCardInfo"
+        required
       />
 
       <Button
