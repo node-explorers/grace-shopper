@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
-import CheckoutForm from './CheckoutForm';
+import CheckoutForm from './CheckoutForm'
 
 import {
   fetchCartThunk,
@@ -33,8 +33,7 @@ function createData(id, name, quantity, price) {
 }
 
 class Cart extends Component {
-
-  constructor(){
+  constructor() {
     super()
     this.state = {
       isHidden: true
@@ -44,13 +43,13 @@ class Cart extends Component {
     this.props.fetchCart()
   }
 
-  toggleHidden () {
+  toggleHidden() {
     this.setState({
       isHidden: !this.state.isHidden
     })
   }
 
-  incrementer = (id, currQuant, event) => {
+  incrementer = async (id, currQuant, event) => {
     if (currQuant === 0 && event.target.name === 'decrementer') return
     const dispatchObject = {
       id,
@@ -157,14 +156,10 @@ class Cart extends Component {
             </Paper>
           )}
 
-
-          <button
-           type="submit"
-           onClick={this.toggleHidden.bind(this)} >
-           Checkout
+          <button type="submit" onClick={this.toggleHidden.bind(this)}>
+            Checkout
           </button>
           {!this.state.isHidden && <CheckoutForm />}
-
 
           <br />
           <span>
@@ -174,7 +169,6 @@ class Cart extends Component {
               Checkout
             </button>
           </span>
-
         </div>
       </Fragment>
     )
