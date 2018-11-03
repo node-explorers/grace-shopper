@@ -13,7 +13,7 @@ import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
 
 import SearchBar from './SearchBar'
-
+import { fetchCartThunk, deleteCartThunk } from '../store/cart'
 import ProductCategory from './ProductCategory'
 
 const styles = {
@@ -37,11 +37,22 @@ const HIKING = '/products/category/hiking'
 class Navbar extends React.Component {
   constructor() {
     super()
+    this.handleClick = this.handleClick.bind(this)
+  }
+
+  handleClick() {
+    this.props.delete(this.props.cart.id)
+    this.props.logOut()
+    this.props.cartObj()
+  }
+
+  componentDidMount() {
+    this.props.cartObj()
   }
 
   render() {
     const { classes } = this.props
-    //console.log(this.props.isLoggedIn)
+    console.log(' Cart in navbar ', this.props.cart)
     return (
       <div className={classes.root}>
         <AppBar position="fixed">
@@ -102,7 +113,7 @@ class Navbar extends React.Component {
                 <div>
                   {/* The navbar will show these links after you log in */}
                   <Link to="/home">Home</Link>
-                  <Link to="#" onClick={this.props.handleClick}>
+                  <Link to="#" onClick={this.handleClick}>
                     Logout
                   </Link>
                 </div>
@@ -126,15 +137,16 @@ class Navbar extends React.Component {
  */
 const mapState = state => {
   return {
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    cart: state.cart
   }
 }
 
 const mapDispatch = dispatch => {
   return {
-    handleClick() {
-      dispatch(logout())
-    }
+    logOut: () => dispatch(logout()),
+    delete: id => dispatch(deleteCartThunk(id)),
+    cartObj: () => dispatch(fetchCartThunk())
   }
 }
 
@@ -144,6 +156,6 @@ export default connect(mapState, mapDispatch)(withStyles(styles)(Navbar))
  * PROP TYPES
  */
 Navbar.propTypes = {
-  handleClick: PropTypes.func.isRequired,
+  //handleClick: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired
 }

@@ -2,13 +2,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import AddProduct from './Admin/addProduct'
+import { fetchCartThunk } from '../store/cart'
 
 /**
  * COMPONENT
  */
 export const UserHome = props => {
   const { email } = props
-
+  //props.cartObj()
   return (
     <div>
       <h3>Welcome, {email}</h3>
@@ -22,12 +23,19 @@ export const UserHome = props => {
  */
 const mapState = state => {
   return {
+    cart: state.cart,
     email: state.user.email,
     isAdmin: state.user.isAdmin
   }
 }
 
-export default connect(mapState)(UserHome)
+function mapDispatch(dispatch) {
+  return {
+    cartObj: () => dispatch(fetchCartThunk())
+  }
+}
+
+export default connect(mapState, mapDispatch)(UserHome)
 
 /**
  * PROP TYPES

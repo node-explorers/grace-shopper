@@ -22,6 +22,7 @@ import { fetchCartThunk } from './store/cart'
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData()
+    this.props.cart()
   }
 
   render() {
@@ -69,8 +70,8 @@ const mapDispatch = dispatch => {
   return {
     loadInitialData() {
       dispatch(me())
-      dispatch(fetchCartThunk())
-    }
+    },
+    cart: () => dispatch(fetchCartThunk())
   }
 }
 
