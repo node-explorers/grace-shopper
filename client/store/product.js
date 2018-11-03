@@ -110,7 +110,8 @@ export const searchProduct = keyword => {
 
 const initialState = {
   products: [],
-  singleProduct: {}
+  singleProduct: {},
+  searchResults: []
 }
 
 //REDUCER
@@ -122,7 +123,7 @@ export default function(state = initialState, action) {
     case GET_SINGLE_PRODUCT:
       return { ...state, singleProduct: action.product }
     case GET_PRODUCT_BY_SEARCH:
-      return action.search
+      return { searchResults: action.search }
     case ADD_PRODUCT:
       return { ...state, products: [...state.products, action.product] }
     case UPDATE_PRODUCT:

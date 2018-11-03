@@ -34,7 +34,8 @@ export class SingleProduct extends React.Component {
     return (
       <div className="sp">
         <img src={singleProduct.imageUrl} />
-
+        <h3>{singleProduct.name}</h3>
+        <p>{singleProduct.description}</p>
         {this.props.isAdmin && <EditProduct />}
       </div>
     )

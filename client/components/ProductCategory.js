@@ -21,7 +21,6 @@ class ProductCategory extends Component {
   }
 
   componentDidUpdate() {
-    console.log('category component update')
     const category = this.props.match.params.name
     if (this.state.category !== category) {
       this.setState({ category })
@@ -30,7 +29,6 @@ class ProductCategory extends Component {
   }
 
   render() {
-    console.log(this.props)
     if (!this.props.category) return <div>No Products</div>
     const { classes } = this.props
 
