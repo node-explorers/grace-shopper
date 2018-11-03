@@ -9,23 +9,7 @@ import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
 import { create } from 'jss'
-
-const dummyItems = [
-  {
-    id: 1,
-    quantity: 2,
-    price: 100,
-    orderId: 1,
-    productId: 1
-  },
-  {
-    id: 2,
-    quantity: 1,
-    price: 125,
-    orderId: 1,
-    productId: 2
-  }
-]
+import { fetchSingleUserOrdersThunk } from '../../store/orders'
 
 const styles = theme => ({
   root: {
@@ -43,31 +27,20 @@ function createData(id, price, status, date) {
 }
 
 class UserOrders extends Component {
+  constructor() {
+    super()
+  }
   componentDidMount() {
     // grab order data from DB
-    // need a backend first tho
-    // const dummyOrder = [
-    //   {
-    //     id: 1,
-    //     totalPrice: 456.99,
-    //     status: 'received',
-    //     address: '672 OakPineBirch Ln',
-    //     email: 'murphy@email.com',
-    //     userId: 1,
-    //     createdAt: '2018-11-02 13:47:10.879905-05'
-    //   }
-    // ]
-    // this.props.orders = [
-    //   {
-    //     id: 1,
-    //     totalPrice: 456.99,
-    //     status: 'received',
-    //     address: '672 OakPineBirch Ln',
-    //     email: 'murphy@email.com',
-    //     userId: 1,
-    //     createdAt: '2018-11-02 13:47:10.879905-05'
-    //   }
-    // ]
+    if (this.props.user.id) {
+      this.props.fetchUserOrders(this.props.user.id)
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.user.id !== prevProps.user.id) {
+      this.props.fetchUserOrders(this.props.user.id)
+    }
   }
 
   render() {
@@ -114,7 +87,7 @@ class UserOrders extends Component {
           </Table>
         </Paper>
       )
-    } else return <div />
+    } else return <span>BUY SOME STUFF!</span>
   }
 }
 
@@ -124,18 +97,17 @@ UserOrders.propTypes = {
 
 const mapStateToProps = state => {
   return {
-    orders: [
-      {
-        id: 1,
-        totalPrice: 456.99,
-        status: 'received',
-        address: '672 OakPineBirch Ln',
-        email: 'murphy@email.com',
-        userId: 1,
-        createdAt: '2018-11-02 13:47:10.879905-05'
-      }
-    ]
+    orders: state.orders,
+    user: state.user
   }
 }
 
-export default connect(mapStateToProps)(withStyles(styles)(UserOrders))
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchUserOrders: id => dispatch(fetchSingleUserOrdersThunk(id))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(
+  withStyles(styles)(UserOrders)
+)

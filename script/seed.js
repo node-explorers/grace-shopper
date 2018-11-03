@@ -151,15 +151,6 @@ const dummyUsers = [
   }
 ]
 
-const dummyOrders = [
-  {
-    totalPrice: 456.99,
-    status: 'received',
-    address: '672 OakPineBirch Ln',
-    email: 'murphy@email.com'
-  }
-]
-
 const seed = async () => {
   await db.sync({ force: true })
   console.log('db synced!')
@@ -170,9 +161,6 @@ const seed = async () => {
       }),
       dummyUsers.map(user => {
         return User.create(user)
-      }),
-      dummyOrders.map(order => {
-        return Order.create(order)
       })
     )
   } catch (err) {
