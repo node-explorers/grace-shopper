@@ -3,8 +3,8 @@ import { connect } from 'react-redux'
 import { fetchProduct, deleteSingleItem } from '../store/product'
 import { withRouter } from 'react-router-dom'
 import EditProduct from './Admin/editProduct'
-
 import { ProductReviews } from './ReviewList'
+import ReviewForm from './ReviewForm'
 
 function mapState(state) {
   return {
@@ -34,6 +34,7 @@ export class SingleProduct extends React.Component {
 
     return (
       <div className="sp">
+        <ReviewForm />
         <img src={singleProduct.imageUrl} />
         <h3>{singleProduct.name}</h3>
         <p>{singleProduct.description}</p>

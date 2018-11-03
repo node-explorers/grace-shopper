@@ -54,8 +54,12 @@ class ReviewList extends Component {
               <ExpansionPanel key={review.id}>
                 <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                   <Typography className={classes.heading}>
-                    <small>{idx}.</small> &ensp; <strong>{review.title}</strong>{' '}
-                    &ensp; Rating:{review.rating}/5
+                    <small>{idx}.</small> &ensp; <strong>{review.title}</strong>
+                    &ensp;&ensp;&ensp; &ensp; Rating:{review.rating}/5
+                    &ensp;&ensp;&ensp; &ensp;
+                    {this.props.category === 'product' && review.user ? (
+                      <strong> {review.user.email}</strong>
+                    ) : null}
                   </Typography>
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails>
