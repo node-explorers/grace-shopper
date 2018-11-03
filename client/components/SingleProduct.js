@@ -1,9 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { fetchProduct } from '../store/product'
+import { fetchProduct, deleteSingleItem } from '../store/product'
 import { withRouter } from 'react-router-dom'
 import EditProduct from './Admin/editProduct'
-import { deleteSingleItem } from '../store/product'
+
+import { ProductReviews } from './ReviewList'
 
 function mapState(state) {
   return {
@@ -37,6 +38,10 @@ export class SingleProduct extends React.Component {
         <h3>{singleProduct.name}</h3>
         <p>{singleProduct.description}</p>
         {this.props.isAdmin && <EditProduct />}
+        <p>All Reviews:</p>
+        {this.props.singleProduct.id ? (
+          <ProductReviews category="product" />
+        ) : null}
       </div>
     )
   }
