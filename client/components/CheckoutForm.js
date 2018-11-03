@@ -40,6 +40,7 @@ class CheckoutForm extends Component {
         helperText="Enter Address"
         onChange={this.handleChange}
         name="address"
+        placeholder="400 Main St. Chicago"
         required
       />
 
@@ -48,13 +49,8 @@ class CheckoutForm extends Component {
         type="email"
         onChange={this.handleChange}
         name="email"
-        required
-      />
-
-      <TextField
-        helperText="Enter Credit Card"
-        onChange={this.handleChange}
-        name="creditCardInfo"
+        placeholder="drone@globex.com"
+        pattern=".+@globex.com" //validate email to include @ & .com
         required
       />
 
