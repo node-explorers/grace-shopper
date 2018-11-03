@@ -15,11 +15,8 @@ import ProductCategory from './components/ProductCategory'
 
 import Cart from './components/Cart'
 import { fetchCartThunk } from './store/cart'
-
 import UserAcct from './components/UserAcct/UserAcct'
-
 import SearchResults from './components/SearchResults'
-
 
 /**
  * COMPONENT
