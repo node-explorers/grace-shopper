@@ -33,7 +33,7 @@ class Routes extends Component {
       <div>
         <Switch>
           {/* Routes placed here are available to all visitors */}
-          <Route exact path="/test" component={UserAcct} />
+          <Route exact path="/yourprofile" component={UserAcct} />
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
 
