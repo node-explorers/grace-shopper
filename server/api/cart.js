@@ -2,6 +2,8 @@ const express = require('express')
 const router = express.Router()
 
 const Cart = require('../db/models/cart')
+const CartItems = require('../db/models/cartItems')
+const User = require('../db/models/user')
 
 //fetch all the items from the cart
 
