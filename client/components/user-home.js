@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import AddProduct from './Admin/addProduct'
 import { fetchCartThunk } from '../store/cart'
+import history from '../history'
 
 /**
  * COMPONENT
@@ -13,7 +14,13 @@ export const UserHome = props => {
   return (
     <div>
       <h3>Welcome, {email}</h3>
-      {props.isAdmin && <AddProduct />}
+      {props.isAdmin && (
+        <div>
+          <AddProduct />
+
+          <button onClick={() => history.push('/orders')}>View Orders</button>
+        </div>
+      )}
     </div>
   )
 }
