@@ -8,6 +8,7 @@ const GET_CART = 'GET_CART'
 const INCREMENT = 'INCREMENT'
 const DELETE_ITEM = 'DELETE_ITEM'
 const ADD_ITEM = 'ADD_ITEM'
+const DELETE_CART = 'DELETE_CART'
 
 //ACTION_CREATORS ----------==============>>>>>>>>>>>>>>>>>>>
 const getAllCartItems = items => ({
@@ -25,6 +26,11 @@ const deleteItem = id => ({
   id
 })
 
+const deleteCart = cart => ({
+  type: DELETE_CART,
+  cart
+})
+
 const addItem = item => ({
   type: ADD_ITEM,
   item
@@ -40,6 +46,13 @@ export const fetchCartThunk = () => {
     } catch (err) {
       console.log(err)
     }
+  }
+}
+
+export const deleteCartThunk = id => {
+  return async dispatch => {
+    const removed = await axios.delete(`/api/cart/${id}`)
+    dispatch(deleteCart(Number(id)))
   }
 }
 
@@ -85,11 +98,13 @@ export const addCartItemThunk = cartItemInfo => {
 }
 
 //INITIAL STATE   ----------==============>>>>>>>>>>>>>>>>>>>
-const initialState = []
+const initialState = {}
 //REDUCER         ----------==============>>>>>>>>>>>>>>>>>>>
 
 export default function(state = initialState, action) {
   switch (action.type) {
+    case DELETE_CART:
+      return {}
     case GET_CART:
       return action.items
     case INCREMENT:

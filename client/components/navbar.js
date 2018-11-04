@@ -15,7 +15,7 @@ import MenuIcon from '@material-ui/icons/Menu'
 import CssBaseline from '@material-ui/core/CssBaseline'
 
 import SearchBar from './SearchBar'
-
+import { fetchCartThunk, deleteCartThunk } from '../store/cart'
 import ProductCategory from './ProductCategory'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
@@ -114,6 +114,17 @@ const HIKING = '/products/category/hiking'
 class Navbar extends React.Component {
   constructor() {
     super()
+    this.handleClick = this.handleClick.bind(this)
+  }
+
+  handleClick() {
+    this.props.delete(this.props.cart.id)
+    this.props.logOut()
+    this.props.cartObj()
+  }
+
+  componentDidMount() {
+    this.props.cartObj()
   }
   state = {
     open: false
@@ -128,9 +139,15 @@ class Navbar extends React.Component {
   }
 
   render() {
+    {
+      /* const { classes } = this.props
+    console.log(' Cart in navbar ', this.props.cart) */
+    }
+
     const { classes, theme } = this.props
     const { open } = this.state
     console.log(this.props.items)
+
     return (
       <div className={classes.root}>
         <CssBaseline />
@@ -185,7 +202,9 @@ class Navbar extends React.Component {
             >
               <Badge
                 badgeContent={
+                  0 /*
                   this.props.items.id ? this.props.items.cartItems.length : 0
+                */
                 }
                 color="secondary"
               >
@@ -196,6 +215,10 @@ class Navbar extends React.Component {
               {this.props.isLoggedIn ? (
                 <div>
                   {/* The navbar will show these links after you log in */}
+
+                  {/* <Link to="/home">Home</Link>
+                  <Link to="#" onClick={this.handleClick}> */}
+
                   <IconButton
                     onClick={() => {
                       history.push('yourprofile')
@@ -207,7 +230,7 @@ class Navbar extends React.Component {
                   <Link
                     className={classes.badges}
                     to="#"
-                    onClick={this.props.handleClick}
+                    onClick={this.handleClick}
                   >
                     Logout
                   </Link>
@@ -269,15 +292,18 @@ class Navbar extends React.Component {
 const mapState = state => {
   return {
     isLoggedIn: !!state.user.id,
+
+    cart: state.cart,
+
     items: state.cart
   }
 }
 
 const mapDispatch = dispatch => {
   return {
-    handleClick() {
-      dispatch(logout())
-    }
+    logOut: () => dispatch(logout()),
+    delete: id => dispatch(deleteCartThunk(id)),
+    cartObj: () => dispatch(fetchCartThunk())
   }
 }
 
@@ -289,7 +315,7 @@ export default connect(mapState, mapDispatch)(
  * PROP TYPES
  */
 Navbar.propTypes = {
-  handleClick: PropTypes.func.isRequired,
+  //  handleClick: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired
