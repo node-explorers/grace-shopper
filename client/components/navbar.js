@@ -15,6 +15,7 @@ import MenuIcon from '@material-ui/icons/Menu'
 import SearchBar from './SearchBar'
 import ProductCategory from './ProductCategory'
 import CategoryDrawer from './CategoriesDrawer'
+import { Drawer } from '@material-ui/core'
 
 const styles = {
   root: {
@@ -29,9 +30,7 @@ const styles = {
   }
 }
 
-const SNOW_SPORTS = '/products/category/snowsports'
-const CAMPING = '/products/category/camping'
-const HIKING = '/products/category/hiking'
+const ALL_PRODUCTS = '/products'
 
 //const Navbar = (props, { handleClick, isLoggedIn }) => {
 class Navbar extends React.Component {
@@ -46,13 +45,7 @@ class Navbar extends React.Component {
       <div className={classes.root}>
         <AppBar position="fixed">
           <Toolbar>
-            <IconButton
-              className={classes.menuButton}
-              color="inherit"
-              aria-label="Menu"
-            >
-              <MenuIcon />
-            </IconButton>
+            <CategoryDrawer />
             <Typography variant="h6" color="inherit" className={classes.grow}>
               NODE EXPLORERS
             </Typography>
@@ -63,39 +56,9 @@ class Navbar extends React.Component {
               color="primary"
               size="large"
               value="snowsports"
-              onClick={() => history.push(SNOW_SPORTS)}
+              onClick={() => history.push(ALL_PRODUCTS)}
             >
-              Snowsports
-            </Button>
-
-            <Button
-              type="button"
-              variant="contained"
-              color="primary"
-              size="large"
-              onClick={() => history.push(CAMPING)}
-            >
-              Camping
-            </Button>
-
-            <Button
-              type="button"
-              variant="contained"
-              color="primary"
-              size="large"
-              onClick={() => history.push(HIKING)}
-            >
-              Hiking
-            </Button>
-
-            <Button
-              type="button"
-              variant="contained"
-              color="primary"
-              size="large"
-              onClick={() => history.push('/products')}
-            >
-              All Products
+              ALL PRODUCTS
             </Button>
             <nav>
               {this.props.isLoggedIn ? (
