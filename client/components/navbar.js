@@ -221,7 +221,7 @@ class Navbar extends React.Component {
 
                   <IconButton
                     onClick={() => {
-                      history.push('yourprofile')
+                      history.push('/yourprofile')
                     }}
                     color="inherit"
                   >

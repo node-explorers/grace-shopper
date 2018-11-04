@@ -57,7 +57,7 @@ router.put('/:id', async (req, res, next) => {
 })
 
 //Route for serving single user order history
-router.get('/:userId', async (req, res, next) => {
+router.get('/user/:userId', async (req, res, next) => {
   try {
     const orderArr = await Order.findAll({
       where: {

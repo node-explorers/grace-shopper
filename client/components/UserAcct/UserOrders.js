@@ -69,7 +69,6 @@ class UserOrders extends Component {
             </TableHead>
             <TableBody>
               {rows.map((row, idx) => {
-                console.log(row)
                 return (
                   <TableRow key={row.id}>
                     <TableCell component="th" scope="row">
@@ -79,7 +78,7 @@ class UserOrders extends Component {
                       {row.status}
                     </TableCell>
                     <TableCell numeric>{row.price}</TableCell>
-                    <TableCell>{row.date}</TableCell>
+                    <TableCell>{row.date.slice(0, 10)}</TableCell>
                   </TableRow>
                 )
               })}

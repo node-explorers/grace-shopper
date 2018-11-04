@@ -33,7 +33,7 @@ class ReviewList extends Component {
       const { data } = await axios.get(
         `/api/reviews/${this.props.category}/${this.props.searchId}`
       )
-      console.log(data)
+
       this.setState({
         reviews: data
       })

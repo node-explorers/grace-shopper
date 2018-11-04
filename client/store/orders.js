@@ -16,7 +16,7 @@ const setNewOrderArray = ordersArray => ({
 export const fetchSingleUserOrdersThunk = id => {
   return async dispatch => {
     try {
-      const { data } = await axios.get(`api/orders/${id}`)
+      const { data } = await axios.get(`api/orders/user/${id}`)
       dispatch(setNewOrderArray(data))
     } catch (err) {
       console.log(err)
