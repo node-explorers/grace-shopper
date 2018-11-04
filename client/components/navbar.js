@@ -13,8 +13,8 @@ import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
 
 import SearchBar from './SearchBar'
-
 import ProductCategory from './ProductCategory'
+import CategoryDrawer from './CategoriesDrawer'
 
 const styles = {
   root: {

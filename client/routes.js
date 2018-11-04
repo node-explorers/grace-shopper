@@ -17,6 +17,7 @@ import Cart from './components/Cart'
 import { fetchCartThunk } from './store/cart'
 import UserAcct from './components/UserAcct/UserAcct'
 import SearchResults from './components/SearchResults'
+import UserManagement from './components/Admin/UserManagement';
 
 /**
  * COMPONENT
@@ -39,6 +40,8 @@ class Routes extends Component {
 
           <Route path="/products/category/:name" component={ProductCategory} />
           <Route path="/products/search/:keyword" component={SearchResults} />
+
+          <Route path="/userManagement" component={UserManagement} />
 
           <Route exact path="/cart" component={Cart} />
           <Route exact path="/products" component={AllProduct} />
