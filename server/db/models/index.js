@@ -1,10 +1,10 @@
 const User = require('./user')
 const Product = require('./product')
-const Order = require('./orders')
+const Order = require('./order')
 const Cart = require('./cart')
 const Review = require('./review')
-const CartItem = require('./cartItems')
-const OrderItem = require('./orderItems')
+const CartItem = require('./cartItem')
+const OrderItem = require('./orderItem')
 /**
  * If we had any associations to make, this would be a great place to put them!
  * ex. if we had another model called BlogPost, we might say:
@@ -23,8 +23,8 @@ Cart.belongsTo(User)
 User.hasMany(Cart)
 
 //CartItem and Cart
-CartItem.belongsTo(Cart)
 Cart.hasMany(CartItem)
+CartItem.belongsTo(Cart)
 
 //CartItem and Product
 CartItem.belongsTo(Product)

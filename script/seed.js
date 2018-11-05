@@ -1,10 +1,15 @@
 'use strict'
 
 const db = require('../server/db')
-const { User } = require('../server/db/models')
-const { Product } = require('../server/db/models')
-const { Order } = require('../server/db/models')
-const { CartItem } = require('../server/db/models')
+const {
+  User,
+  Product,
+  Cart,
+  CartItem,
+  Order,
+  OrderItem,
+  Review
+} = require('../server/db/models')
 
 const dummyProducts = [
   {
@@ -151,12 +156,24 @@ const dummyUsers = [
   }
 ]
 
-const dummyOrders = [
+const dummyCart = [
   {
-    totalPrice: 456.99,
-    status: 'received',
-    address: '672 OakPineBirch Ln',
-    email: 'murphy@email.com'
+    sessionId: 1
+  }
+]
+
+const dummyCartItems = [
+  {
+    quantity: 2,
+    price: 50.0,
+    cartId: 1,
+    productId: 1
+  },
+  {
+    quantity: 1,
+    price: 100.0,
+    cartId: 1,
+    productId: 2
   }
 ]
 
@@ -170,16 +187,43 @@ const seed = async () => {
       }),
       dummyUsers.map(user => {
         return User.create(user)
-      }),
-      dummyOrders.map(order => {
-        return Order.create(order)
       })
     )
   } catch (err) {
-    console.error(err)
+    console.error('error in Product/User create', err)
+  }
+  try {
+    await Promise.all(
+      dummyCart.map(cart => {
+        return Cart.create(cart)
+      })
+    )
+  } catch (err) {
+    console.error('error in cart create', err)
+  }
+  try {
+    await Promise.all(
+      dummyCartItems.map(cartItem => {
+        return CartItem.create(cartItem)
+      })
+    )
+  } catch (err) {
+    console.error('error in cartItem create', err)
   }
 
-  // console.log(`seeded ${users.length} users, and ${products.length} products`)
+  // dummyOrders.map(order => {
+  //   return Order.create(order)
+  // }),
+
+  // const dummyOrders = [
+  //   {
+  //     totalPrice: 456.99,
+  //     status: 'received',
+  //     address: '672 OakPineBirch Ln',
+  //     email: 'murphy@email.com'
+  //   }
+  // ]
+
   console.log(`seeded successfully`)
 }
 
