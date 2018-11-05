@@ -25,20 +25,23 @@ const Orders = db.define('order', {
   }
 })
 
-Orders.convertCartToOrder = async cart => {
+Orders.convertCartToOrder = async (cart, cartInfo) => {
   try {
-    let userId
     if (cart.userId) {
-      userId = cart.userId
+      const userId = cart.userId
+      const order = await Orders.create({
+        totalPrice: cart.totalPrice,
+        userId,
+        address: cartInfo.address,
+        email: cartInfo.email
+      })
+      return order.id
     } else {
-      userId = cart.sessionId
+      const order = await Orders.create({
+        totalPrice: cart.totalPrice
+      })
+      return order.id
     }
-
-    const order = await Orders.create({
-      totalPrice: cart.totalPrice,
-      userId
-    })
-    return order.id
   } catch (error) {
     console.error(error)
   }

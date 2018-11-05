@@ -4,6 +4,7 @@ const GET_ORDER = 'GET_ORDER'
 const GET_SINGLE_ORDER = 'GET_SINGLE_ORDER'
 const UPDATE_ORDER = 'UPDATE_ORDER'
 const GET_O_BY_STATUS = 'GET_O_BY_STATUS'
+const SET_ORDER = 'SET_ORDER'
 
 const getOrder = orders => ({
   type: GET_ORDER,
@@ -22,6 +23,11 @@ const updateOrder = order => ({
 
 const getSingleOrder = order => ({
   type: GET_SINGLE_ORDER,
+  order
+})
+
+const setOrder = order => ({
+  type: SET_ORDER,
   order
 })
 
@@ -55,6 +61,15 @@ export const thunkSearch = status => {
   }
 }
 
+export const createOrder = cartInfo => async dispatch => {
+  try {
+    const order = (await axios.post(`/api/orders`, cartInfo)).data
+    dispatch(setOrder(order))
+  } catch (err) {
+    console.error(err)
+  }
+}
+
 const initialState = {
   orders: [],
   singleOrder: {},
@@ -72,6 +87,9 @@ export default function(state = initialState, action) {
       return { ...state, orders: action.orders }
     case GET_SINGLE_ORDER:
       return { ...state, singleOrder: action.order }
+    case SET_ORDER:
+      return { ...state, orders: [...state.orders, action.order] }
+
     default:
       return state
   }

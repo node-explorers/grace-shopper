@@ -16,14 +16,35 @@ router.get('/', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
-    console.log('*****Req******', req.body)
-    const cart = await Cart.findOne({ where: { sessionId: 'a' } })
-    const cartItemArray = await CartItem.findAll({ where: { cartId: 1 } })
-    const order = await Order.convertCartToOrder(cart)
-    await OrderItem.convertCartToOrder(order, cartItemArray)
-    const newOrder = await Order.findOne({ where: { id: order } })
+    if (!req.session.passport) {
+      const cart = await Cart.findOne({
+        where: {
+          sessionId: req.session.id
+        }
+      })
 
-    res.json(newOrder)
+      const cartItemArray = await CartItem.findAll({
+        where: { cartId: cart.id }
+      })
+
+      const orderId = await Order.convertCartToOrder(cart, req.body)
+      await OrderItem.convertCartItemsToOrderItems(orderId, cartItemArray)
+      const newOrder = await Order.findOne({ where: { id: orderId } })
+
+      res.json(newOrder)
+    } else {
+      const cart = await Cart.findOne({
+        where: { userId: req.session.passport.user }
+      })
+      const cartItemArray = await CartItem.findAll({
+        where: { cartId: cart.id }
+      })
+      const orderId = await Order.convertCartToOrder(cart, req.body)
+      await OrderItem.convertCartItemsToOrderItems(orderId, cartItemArray)
+      const newOrder = await Order.findOne({ where: { id: orderId } })
+
+      res.json(newOrder)
+    }
   } catch (err) {
     next(err)
   }
