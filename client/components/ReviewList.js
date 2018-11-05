@@ -8,6 +8,7 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
 import Typography from '@material-ui/core/Typography'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import axios from 'axios'
+import { fetchAllReviews } from '../store/reviews'
 
 const styles = theme => ({
   root: {
@@ -15,51 +16,55 @@ const styles = theme => ({
   },
   heading: {
     fontSize: theme.typography.pxToRem(15),
-    fontWeight: theme.typography.fontWeightRegular
+    fontWeight: theme.typography.fontWeightRegular,
+    width: '100%',
+    display: 'flex'
+  },
+  split: {
+    flexBasis: '25%'
+  },
+  smallSplit: {
+    flexBasis: '15%'
   }
 })
 
 class ReviewList extends Component {
-  constructor() {
-    super()
-    this.state = {
-      reviews: []
-    }
-  }
-
   //NOTE!!!!!!! ====----==== in order for this route to work, the parent component has to manually pass the category down as a prop
   async componentDidMount() {
     try {
-      const { data } = await axios.get(
-        `/api/reviews/${this.props.category}/${this.props.searchId}`
-      )
-
-      this.setState({
-        reviews: data
-      })
+      const typeObj = {
+        category: this.props.category,
+        id: this.props.searchId
+      }
+      await this.props.fetchAll(typeObj)
     } catch (err) {
       console.log(err)
     }
   }
 
   render() {
-    console.log(this.state.reviews)
     const { classes } = this.props
 
-    if (this.state.reviews.length) {
+    if (this.props.reviews.length) {
       return (
         <div className={classes.root}>
-          {this.state.reviews.map((review, idx) => {
+          {this.props.reviews.map((review, idx) => {
+            let name
+            if (review.user) {
+              name = review.user.email
+            } else name = 'reviewed by guest'
             return (
               <ExpansionPanel key={review.id}>
                 <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                   <Typography className={classes.heading}>
-                    <small>{idx}.</small> &ensp; <strong>{review.title}</strong>
+                    <small className={classes.smallSplit}>{idx}.</small> &ensp;
+                    <strong className={classes.split}>{review.title}</strong>
                     &ensp;&ensp;&ensp; &ensp; Rating:{review.rating}/5
-                    &ensp;&ensp;&ensp; &ensp;
-                    {this.props.category === 'product' && review.user ? (
-                      <strong> {review.user.email}</strong>
+                    &ensp;&ensp;&ensp; &ensp; &ensp;
+                    {this.props.category === 'product' ? (
+                      <strong> {name}</strong>
                     ) : null}
+                    <small>&ensp;{review.createdAt.slice(0, 10)}</small>
                   </Typography>
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails>
@@ -78,20 +83,29 @@ class ReviewList extends Component {
 
 const mapUserReviewsToProps = state => {
   return {
-    searchId: state.user.id
+    searchId: state.user.id,
+    reviews: state.reviews
   }
 }
 
 const mapProductReviewsToProps = state => {
   return {
-    searchId: state.products.singleProduct.id
+    searchId: state.products.singleProduct.id,
+    reviews: state.reviews
   }
 }
 
-export const UserReviews = connect(mapUserReviewsToProps)(
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchAll: typeObj => dispatch(fetchAllReviews(typeObj))
+  }
+}
+
+export const UserReviews = connect(mapUserReviewsToProps, mapDispatchToProps)(
   withStyles(styles)(ReviewList)
 )
 
-export const ProductReviews = connect(mapProductReviewsToProps)(
-  withStyles(styles)(ReviewList)
-)
+export const ProductReviews = connect(
+  mapProductReviewsToProps,
+  mapDispatchToProps
+)(withStyles(styles)(ReviewList))

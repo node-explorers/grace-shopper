@@ -32,4 +32,18 @@ router.get('/product/:productId', async (req, res, next) => {
   }
 })
 
+// create a new review
+router.post('/', async (req, res, next) => {
+  try {
+    const noAssoc = await Review.create(req.body, { returning: true })
+    const newReview = await Review.findById(noAssoc.id, {
+      include: [User]
+    })
+    console.log(newReview)
+    res.json(newReview)
+  } catch (err) {
+    next(err)
+  }
+})
+
 module.exports = router

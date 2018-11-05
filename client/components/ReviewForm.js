@@ -14,6 +14,8 @@ import DialogTitle from '@material-ui/core/DialogTitle'
 import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
 import InputLabel from '@material-ui/core/InputLabel'
+import axios from 'axios'
+import { addNewReviewThunk } from '../store/reviews'
 
 const styles = theme => ({
   container: {
@@ -39,6 +41,9 @@ const styles = theme => ({
   },
   errors: {
     backgroundColor: 'yellow'
+  },
+  buttonColor: {
+    backgroundColor: 'lightBlue'
   }
 })
 
@@ -50,25 +55,58 @@ class ReviewForm extends Component {
       rating: 6,
       description: '',
       titleValid: true,
-      ratingValid: true
+      ratingValid: true,
+      open: false
     }
-  }
-  state = {
-    open: false
+    this.handleClickOpen = this.handleClickOpen.bind(this)
+    this.handleClose = this.handleClose.bind(this)
   }
 
   handleClickOpen = () => {
     this.setState({ open: true })
   }
 
-  handleClose = () => {
-    this.setState({ open: false })
+  handleClose = async () => {
+    if (this.state.title && this.state.rating < 6) {
+      //dispatch post request
+      const bodyObj = {
+        title: this.state.title,
+        rating: this.state.rating,
+        description: this.state.description,
+        productId: this.props.id
+      }
+      if (this.props.user.id) {
+        bodyObj.userId = this.props.user.id
+      }
+      try {
+        await this.props.addReview(bodyObj)
+      } catch (err) {
+        console.err(err)
+      }
+      this.setState({
+        open: false,
+        rating: 6,
+        ratingValid: true,
+        titleValid: true,
+        title: ''
+      })
+    } else {
+      let ratingState = this.state.rating < 6
+      this.setState(prevProps => ({
+        titleValid: !!prevProps.title,
+        ratingValid: ratingState
+      }))
+    }
   }
 
   handleChange = evt => {
-    console.log(evt.target.value)
     this.setState({
       [evt.target.name]: evt.target.value
+    })
+  }
+  forceClose = () => {
+    this.setState({
+      open: false
     })
   }
 
@@ -78,12 +116,12 @@ class ReviewForm extends Component {
 
   render() {
     const { classes } = this.props
-    const width = {
-      width: '450'
-    }
+
     return (
       <div>
-        <Button onClick={this.handleClickOpen}>Leave A Review</Button>
+        <Button className={classes.buttonColor} onClick={this.handleClickOpen}>
+          Leave A Review
+        </Button>
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}
@@ -102,7 +140,9 @@ class ReviewForm extends Component {
                 onChange={this.handleChange}
                 margin="normal"
               />
-              <span className={classes.errors}>title required!</span>
+              {this.state.titleValid ? null : (
+                <span className={classes.errors}> title required!</span>
+              )}
 
               <br />
               <FormControl className={classes.formControl}>
@@ -115,16 +155,17 @@ class ReviewForm extends Component {
                     id: 'age-simple'
                   }}
                 >
-                  <MenuItem value="">
-                    <em>None</em>
-                  </MenuItem>
+                  <MenuItem value={0}>0 stars</MenuItem>
+
                   <MenuItem value={1}>1 star</MenuItem>
                   <MenuItem value={2}>2 stars</MenuItem>
                   <MenuItem value={3}>3 stars</MenuItem>
                   <MenuItem value={4}>4 stars</MenuItem>
                   <MenuItem value={5}>5 stars</MenuItem>
                 </Select>
-                <span className={classes.errors}>rating required!</span>
+                {this.state.ratingValid ? null : (
+                  <span className={classes.errors}> rating required!</span>
+                )}
               </FormControl>
               <TextField
                 onChange={this.handleChange}
@@ -139,6 +180,9 @@ class ReviewForm extends Component {
             </form>
           </DialogContent>
           <DialogActions>
+            <Button onClick={this.forceClose} color="primary">
+              Close
+            </Button>
             <Button onClick={this.handleClose} color="primary">
               Submit Review
             </Button>
@@ -151,7 +195,14 @@ class ReviewForm extends Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.user
+    user: state.user,
+    id: state.products.singleProduct.id
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    addReview: body => dispatch(addNewReviewThunk(body))
   }
 }
 
@@ -159,4 +210,6 @@ ReviewForm.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-export default withStyles(styles)(ReviewForm)
+export default connect(mapStateToProps, mapDispatchToProps)(
+  withStyles(styles)(ReviewForm)
+)
