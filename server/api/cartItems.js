@@ -5,17 +5,17 @@ const CartItem = require('../db/models/cartItems')
 
 router.post('/', async (req, res, next) => {
   try {
-    const itemCreated = await CartItem.findOrCreate({
+    const newItem = await CartItem.findOrCreate({
       where: {
         productId: req.body.productId,
         cartId: req.body.cartId,
         price: req.body.price
       }
     })
-
-    if (itemCreated[1]) {
+    const itemCreated = await CartItem.findById(newItem[0].id)
+    if (newItem[1]) {
       res.status = 201
-      res.json(itemCreated[0])
+      res.json(itemCreated)
     } else {
       res.status = 304
       res.send()
