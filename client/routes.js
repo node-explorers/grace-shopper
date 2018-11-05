@@ -18,6 +18,9 @@ import { fetchCartThunk } from './store/cart'
 import UserAcct from './components/UserAcct/UserAcct'
 import SearchResults from './components/SearchResults'
 import UserManagement from './components/Admin/UserManagement';
+import AllOrder from './components/Admin/AllOrder'
+import SingleOrder from './components/Admin/SingleOrder'
+import StatusResults from './components/Admin/StatusResults'
 
 /**
  * COMPONENT
@@ -25,6 +28,7 @@ import UserManagement from './components/Admin/UserManagement';
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData()
+    this.props.cart()
   }
 
   render() {
@@ -34,16 +38,24 @@ class Routes extends Component {
       <div>
         <Switch>
           {/* Routes placed here are available to all visitors */}
-          <Route exact path="/test" component={UserAcct} />
+          <Route exact path="/yourprofile" component={UserAcct} />
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
 
           <Route path="/products/category/:name" component={ProductCategory} />
-          <Route path="/products/search/:keyword" component={SearchResults} />
-
-          <Route path="/userManagement" component={UserManagement} />
-
+          <Route
+            exact
+            path="/products/search/:keyword"
+            component={SearchResults}
+          />
+          <Route
+            exact
+            path="/orders/search/:status"
+            component={StatusResults}
+          />
           <Route exact path="/cart" component={Cart} />
+          <Route exact path="/orders" component={AllOrder} />
+          <Route exact path="/orders/:id" component={SingleOrder} />
           <Route exact path="/products" component={AllProduct} />
           <Route path="/products/:productId" component={SingleProduct} />
 
@@ -76,8 +88,8 @@ const mapDispatch = dispatch => {
   return {
     loadInitialData() {
       dispatch(me())
-      dispatch(fetchCartThunk())
-    }
+    },
+    cart: () => dispatch(fetchCartThunk())
   }
 }
 

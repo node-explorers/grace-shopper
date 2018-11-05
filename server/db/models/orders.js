@@ -1,5 +1,7 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
+const OrderItem = require('./orderItems')
+const User = require('./user')
 
 const Orders = db.define('order', {
   totalPrice: {
