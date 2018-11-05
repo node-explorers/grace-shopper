@@ -17,6 +17,7 @@ import Cart from './components/Cart'
 import { fetchCartThunk } from './store/cart'
 import UserAcct from './components/UserAcct/UserAcct'
 import SearchResults from './components/SearchResults'
+import UserManagement from './components/Admin/UserManagement'
 import AllOrder from './components/Admin/AllOrder'
 import SingleOrder from './components/Admin/SingleOrder'
 import StatusResults from './components/Admin/StatusResults'
@@ -25,11 +26,6 @@ import StatusResults from './components/Admin/StatusResults'
  * COMPONENT
  */
 class Routes extends Component {
-  componentDidMount() {
-    this.props.loadInitialData()
-    this.props.cart()
-  }
-
   render() {
     const { isLoggedIn } = this.props
 
@@ -83,23 +79,14 @@ const mapState = state => {
   }
 }
 
-const mapDispatch = dispatch => {
-  return {
-    loadInitialData() {
-      dispatch(me())
-    },
-    cart: () => dispatch(fetchCartThunk())
-  }
-}
-
 // The `withRouter` wrapper makes sure that updates are not blocked
 // when the url changes
-export default withRouter(connect(mapState, mapDispatch)(Routes))
+export default withRouter(connect(mapState)(Routes))
 
 /**
  * PROP TYPES
  */
 Routes.propTypes = {
-  loadInitialData: PropTypes.func.isRequired,
+  // loadInitialData: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired
 }

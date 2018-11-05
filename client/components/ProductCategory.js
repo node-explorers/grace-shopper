@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import { getCategoryItems } from '../store/category'
 import MakeCard from './MakeCard'
 import Grid from '@material-ui/core/Grid'
 import { withStyles } from '@material-ui/core/styles'
 import { withRouter } from 'react-router-dom'
-
+import { connect } from 'react-redux'
+import { addCartItemThunk } from '../store/cart'
 class ProductCategory extends Component {
   constructor() {
     super()
@@ -67,13 +67,24 @@ const styles = theme => ({
 
 function mapStateToProps(state) {
   return {
-    category: state.category
+    category: state.category,
+    cart: state.cart
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    getCategoryItems: category => dispatch(getCategoryItems(category))
+    getCategoryItems: category => dispatch(getCategoryItems(category)),
+    addItem: (productId, cartId, price) => {
+      console.log(productId, cartId, price)
+      return dispatch(
+        addCartItemThunk({
+          productId,
+          cartId,
+          price
+        })
+      )
+    }
   }
 }
 
