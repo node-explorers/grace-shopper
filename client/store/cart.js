@@ -92,7 +92,7 @@ export const addCartItemThunk = cartItemInfo => {
         dispatch(addAction)
       }
     } catch (err) {
-      console.err(err)
+      console.error(err)
     }
   }
 }
