@@ -1,7 +1,5 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
-const OrderItem = require('./orderItems')
-const User = require('./user')
 
 const Orders = db.define('order', {
   totalPrice: {
@@ -14,7 +12,8 @@ const Orders = db.define('order', {
   status: {
     type: Sequelize.STRING,
     allowNull: false,
-    validate: { isIn: [['shipped', 'delivered', 'received']] }
+    defaultValue: 'processing',
+    validate: { isIn: [['processing', 'shipped', 'delivered', 'received']] }
   },
   address: {
     type: Sequelize.STRING,
@@ -25,5 +24,24 @@ const Orders = db.define('order', {
     validate: { isEmail: true }
   }
 })
+
+Orders.convertCartToOrder = async cart => {
+  try {
+    let userId
+    if (cart.userId) {
+      userId = cart.userId
+    } else {
+      userId = cart.sessionId
+    }
+
+    const order = await Orders.create({
+      totalPrice: cart.totalPrice,
+      userId
+    })
+    return order.id
+  } catch (error) {
+    console.error(error)
+  }
+}
 
 module.exports = Orders

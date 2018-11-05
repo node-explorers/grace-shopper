@@ -158,8 +158,7 @@ const dummyUsers = [
 
 const dummyCart = [
   {
-<<<<<<< HEAD
-    sessionId: 1
+    sessionId: 'a'
   }
 ]
 
@@ -175,7 +174,11 @@ const dummyCartItems = [
     price: 100.0,
     cartId: 1,
     productId: 2
-=======
+  }
+]
+
+const dummyOrders = [
+  {
     totalPrice: 1000,
     status: 'received',
     address: '123 Cool Blvd',
@@ -259,7 +262,6 @@ const dummyReviews = [
     title: 'This product changed my life',
     productId: 3,
     userId: 3
->>>>>>> master
   }
 ]
 
@@ -306,19 +308,6 @@ const seed = async () => {
   } catch (err) {
     console.error('error in cartItem create', err)
   }
-
-  // dummyOrders.map(order => {
-  //   return Order.create(order)
-  // }),
-
-  // const dummyOrders = [
-  //   {
-  //     totalPrice: 456.99,
-  //     status: 'received',
-  //     address: '672 OakPineBirch Ln',
-  //     email: 'murphy@email.com'
-  //   }
-  // ]
 
   console.log(`seeded successfully`)
 }

@@ -1,10 +1,10 @@
 const User = require('./user')
 const Product = require('./product')
-const Order = require('./order')
+const Order = require('./orders')
 const Cart = require('./cart')
 const Review = require('./review')
-const CartItem = require('./cartItem')
-const OrderItem = require('./orderItem')
+const CartItem = require('./cartItems')
+const OrderItem = require('./orderItems')
 /**
  * If we had any associations to make, this would be a great place to put them!
  * ex. if we had another model called BlogPost, we might say:

@@ -16,10 +16,12 @@ describe('Order routes', () => {
 
   describe('/api/orders/', () => {
     it('Order: POST /api/orders', async () => {
-      const cart = (await Cart.findOne({ where: { sessionId: '1' } })).data
+      const cart = (await Cart.findOne({ where: { sessionId: 'a' } }))
+        .dataValues
       console.log('****CART****', cart)
+
       const res = await request(app)
-        .post('/api/order', cart)
+        .post('/api/orders', cart)
         .expect(200)
 
       expect(res.body).to.be.an('object')

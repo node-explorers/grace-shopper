@@ -1,9 +1,7 @@
 const express = require('express')
 const router = express.Router()
-const User = require('../db/models/user')
 
-const Order = require('../db/models/orders')
-const OrderItem = require('../db/models/orderItems')
+const { User, Order, OrderItem, Cart, CartItem } = require('../db/models')
 
 router.get('/', async (req, res, next) => {
   try {
@@ -17,8 +15,18 @@ router.get('/', async (req, res, next) => {
 })
 
 router.post('/', async (req, res, next) => {
-  const test = await Order.create(req.body)
-  res.json(test)
+  try {
+    console.log('*****Req******', req.body)
+    const cart = await Cart.findOne({ where: { sessionId: 'a' } })
+    const cartItemArray = await CartItem.findAll({ where: { cartId: 1 } })
+    const order = await Order.convertCartToOrder(cart)
+    await OrderItem.convertCartToOrder(order, cartItemArray)
+    const newOrder = await Order.findOne({ where: { id: order } })
+
+    res.json(newOrder)
+  } catch (err) {
+    next(err)
+  }
 })
 
 router.get('/:id', async (req, res, next) => {
