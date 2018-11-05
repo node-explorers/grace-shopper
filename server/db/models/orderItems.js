@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 const Product = require('./product')
+const Orders = require('./orders')
 
 const OrderItem = db.define(
   'orderItem',
@@ -25,7 +26,7 @@ const OrderItem = db.define(
   }
 )
 
-OrderItem.convertCartToOrder = async (orderId, cartItemArray) => {
+OrderItem.convertCartItemsToOrderItems = async (orderId, cartItemArray) => {
   try {
     await Promise.all(
       cartItemArray.map(cartItem => {
@@ -37,6 +38,13 @@ OrderItem.convertCartToOrder = async (orderId, cartItemArray) => {
         })
       })
     )
+    let totalPrice = 0
+    for (let i = 0; i < cartItemArray.length; i++) {
+      totalPrice += Number(cartItemArray[i].price)
+    }
+    console.log(totalPrice)
+
+    await Orders.update({ totalPrice }, { where: { id: orderId } })
   } catch (error) {
     console.error(error)
   }
