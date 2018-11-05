@@ -36,11 +36,16 @@ class Cart extends Component {
   constructor() {
     super()
     this.state = {
-      isHidden: true
+      isHidden: true,
+      price: 0
     }
   }
   componentDidMount() {
-    this.props.fetchCart()
+    this.priceSetter()
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.cart !== prevProps.cart) this.priceSetter()
   }
 
   toggleHidden() {
@@ -78,8 +83,11 @@ class Cart extends Component {
   }
 
   //remove item from cart
-  handleRemove = productId => {
-    this.props.deleteItem(productId)
+  handleRemove = async productId => {
+    console.log(this.props.cart.cartItems)
+    await this.props.deleteItem(productId)
+    console.log(this.props.cart.cartItems)
+    this.priceSetter()
   }
 
   render() {

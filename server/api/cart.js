@@ -23,37 +23,37 @@ router.delete('/:id', async (req, res, next) => {
 })
 
 router.get('/', async (req, res, next) => {
+  // const cart = await Cart.findOrCreate({
+  //   where: { sessionId: req.session.id }
   try {
-    const cart = await Cart.findOrCreate({
-      where: { sessionId: req.session.id }
-    })
-
     if (!req.session.passport) {
-      /* const newCart = await Cart.findOrCreate({
+      const newCart = await Cart.findOrCreate({
         where: { sessionId: req.session.id }
-      }) */
-      res.json(cart[0])
+      })
+      const cart = await Cart.findById(newCart[0].id)
+      res.json(cart)
     } else {
-      /* const cart = await Cart.findAll({
+      const newCart = await Cart.findOrCreate({
         where: {
-          sessionId: req.session.id
-        }
-      }) */
-      //console.log(findExistingCart)
-
-      const [updatedCart, [updat]] = await Cart.update(
-        {
           userId: req.session.passport.user
-        },
-        {
-          returning: true,
-          where: {
-            sessionId: req.session.id
-          }
         }
-      )
+      })
+
+      const cart = await Cart.findById(newCart[0].id)
+
+      // const [updatedCart, [updat]] = await Cart.update(
+      //   {
+      //     userId: req.session.passport.user
+      //   },
+      //   {
+      //     returning: true,
+      //     where: {
+      //       sessionId: req.session.id
+      //     }
+      //   }
+      // )
       //console.log(updat)
-      res.json(updat)
+      res.json(cart)
       /* if (findExistingCart.length !== 0) {
         await findExistingCart[0].update({
           userId: req.session.passport.user,

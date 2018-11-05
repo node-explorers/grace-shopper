@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { NavLink, Link } from 'react-router-dom'
-import { logout } from '../store'
+import { logout, me } from '../store'
 
 import history from '../history'
 import { withStyles } from '@material-ui/core/styles'
@@ -122,9 +122,9 @@ class Navbar extends React.Component {
     this.props.logOut()
     this.props.cartObj()
   }
-
-  componentDidMount() {
-    this.props.cartObj()
+  async componentDidMount() {
+    await this.props.cartObj()
+    this.props.loadInitialData()
   }
   state = {
     open: false
@@ -146,8 +146,7 @@ class Navbar extends React.Component {
 
     const { classes, theme } = this.props
     const { open } = this.state
-    console.log(this.props.items)
-
+    if (!this.props.cart.cartItems) return <div />
     return (
       <div className={classes.root}>
         <CssBaseline />
@@ -201,11 +200,7 @@ class Navbar extends React.Component {
               color="inherit"
             >
               <Badge
-                badgeContent={
-                  0 /*
-                  this.props.items.id ? this.props.items.cartItems.length : 0
-                */
-                }
+                badgeContent={this.props.cart.cartItems.length}
                 color="secondary"
               >
                 <ShoppingCart />
@@ -303,7 +298,10 @@ const mapDispatch = dispatch => {
   return {
     logOut: () => dispatch(logout()),
     delete: id => dispatch(deleteCartThunk(id)),
-    cartObj: () => dispatch(fetchCartThunk())
+    cartObj: () => dispatch(fetchCartThunk()),
+    loadInitialData() {
+      dispatch(me())
+    }
   }
 }
 

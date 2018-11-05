@@ -51,9 +51,6 @@ function MakeCard(props) {
           </CardContent>
         </CardActionArea>
         <CardActions>
-          <Button size="small" color="primary">
-            Reviews
-          </Button>
           <Button
             onClick={() =>
               props.addItem(product.id, props.cart.id, product.price)

@@ -86,7 +86,7 @@ export const deleteCartItemThunk = cartItemDeleteInfo => {
 export const addCartItemThunk = cartItemInfo => {
   return async dispatch => {
     try {
-      const { data } = await axios.post('api/cartItems', cartItemInfo)
+      const { data } = await axios.post('/api/cartItems', cartItemInfo)
       if (data) {
         const addAction = addItem(data)
         dispatch(addAction)
