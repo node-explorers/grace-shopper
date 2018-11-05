@@ -8,10 +8,51 @@ router.get('/', async (req, res, next) => {
       // explicitly select only the id and email fields - even though
       // users' passwords are encrypted, it won't help if we just
       // send everything to anyone who asks!
-      attributes: ['id', 'email']
+      attributes: ['id', 'email', 'isAdmin']
     })
     res.json(users)
   } catch (err) {
     next(err)
   }
 })
+
+router.put('/:userId', async (req, res, next) => {
+  try{
+    let result  = await User.update({
+      isAdmin: req.body.toggAdmin
+    } , {
+      where: { id: req.params.userId}
+    })
+    res.json(result)
+  }catch(err) {
+    next(err)
+  }
+})
+
+router.put('/reset/:userId', async (req, res, next) => {
+  try{
+    let result = await User.update({
+      resetPassword: req.body.bool
+    }, {
+      where: { id: req.params.userId}
+    })
+    res.json(result)
+  }catch(err){
+    next(err)
+  }
+})
+
+router.put('/delete/:userId', async (req, res, next) => {
+  try{
+    let result = await User.destroy({
+      where: {
+        id: req.params.userId
+      }
+    })
+    res.json(result)
+  }catch(err){
+    next(err)
+  }
+})
+
+
