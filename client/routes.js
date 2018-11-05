@@ -22,6 +22,8 @@ import AllOrder from './components/Admin/AllOrder'
 import SingleOrder from './components/Admin/SingleOrder'
 import StatusResults from './components/Admin/StatusResults'
 
+import AdminDashboard from './components/Admin/AdminDashboard'
+
 /**
  * COMPONENT
  */
@@ -58,6 +60,8 @@ class Routes extends Component {
           <Route exact path="/orders/:id" component={SingleOrder} />
           <Route exact path="/products" component={AllProduct} />
           <Route path="/products/:productId" component={SingleProduct} />
+          <Route path="/usermanagement" component ={UserManagement} />
+          <Route path="/admindashboard" component = {AdminDashboard} />
 
           {isLoggedIn && (
             <Switch>

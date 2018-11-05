@@ -280,6 +280,17 @@ class Navbar extends React.Component {
               </ListItem>
             ))}
           </List>
+          <Divider />
+          <List>
+          {this.props.isAdmin && (
+            <div>
+              <h3>Admin Management</h3>
+            <Button onClick={() => history.push('/orders')}>Orders</Button>
+            <Button onClick={() => history.push('/usermanagement')}>User Management</Button>
+            <Button onClick={() => history.push('/addproduct')}>Add Products</Button>
+            </div>)
+          }
+          </List>
         </Drawer>
       </div>
     )
@@ -295,7 +306,8 @@ const mapState = state => {
 
     cart: state.cart,
 
-    items: state.cart
+    items: state.cart,
+    isAdmin: state.user.isAdmin
   }
 }
 
