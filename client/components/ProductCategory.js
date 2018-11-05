@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import { getCategoryItems } from '../store/category'
 import MakeCard from './MakeCard'
 import Grid from '@material-ui/core/Grid'
 import { withStyles } from '@material-ui/core/styles'
 import { withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
 
 class ProductCategory extends Component {
   constructor() {

@@ -17,6 +17,7 @@ import Cart from './components/Cart'
 import { fetchCartThunk } from './store/cart'
 import UserAcct from './components/UserAcct/UserAcct'
 import SearchResults from './components/SearchResults'
+import UserManagement from './components/Admin/UserManagement';
 import AllOrder from './components/Admin/AllOrder'
 import SingleOrder from './components/Admin/SingleOrder'
 import StatusResults from './components/Admin/StatusResults'

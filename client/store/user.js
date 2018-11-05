@@ -6,6 +6,7 @@ import history from '../history'
  */
 const GET_USER = 'GET_USER'
 const REMOVE_USER = 'REMOVE_USER'
+const TOGGLE_ADMIN = 'TOGGLE_ADMIN'
 
 /**
  * INITIAL STATE
@@ -17,6 +18,7 @@ const defaultUser = {}
  */
 const getUser = user => ({type: GET_USER, user})
 const removeUser = () => ({type: REMOVE_USER})
+const toggleAdmin = () => ({type: TOGGLE_ADMIN})
 
 /**
  * THUNK CREATORS
@@ -56,15 +58,42 @@ export const logout = () => async dispatch => {
   }
 }
 
+export const isAdmin = (userId, toggAdmin) => async dispatch => {
+  try{
+     await axios.put(`/api/users/${userId}`, {toggAdmin})
+    //  history.push('/userManagement')
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+export const deleteUser = (userId) => async dispatch => {
+  try{
+    await axios.put(`/api/users/delete/${userId}`)
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+export const passwordReset = (userId, bool) => async dispatch => {
+  try{
+    await axios.put(`/api/users/reset/${userId}`, {bool})
+    // history.push('/userManagement')
+  }catch(err){
+    console.error(err)
+  }
+}
 /**
  * REDUCER
  */
-export default function(state = defaultUser, action) {
+ export default function(state = defaultUser, action) {
   switch (action.type) {
     case GET_USER:
       return action.user
     case REMOVE_USER:
       return defaultUser
+    case TOGGLE_ADMIN:
+      return state
     default:
       return state
   }
