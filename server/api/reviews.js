@@ -39,7 +39,6 @@ router.post('/', async (req, res, next) => {
     const newReview = await Review.findById(noAssoc.id, {
       include: [User]
     })
-    console.log(newReview)
     res.json(newReview)
   } catch (err) {
     next(err)
