@@ -2,25 +2,67 @@ const express = require('express')
 const router = express.Router()
 
 const Cart = require('../db/models/cart')
+const CartItems = require('../db/models/cartItems')
+const User = require('../db/models/user')
 
 //fetch all the items from the cart
 
+router.delete('/:id', async (req, res, next) => {
+  try {
+    const cart = await Cart.destroy({
+      where: {
+        id: req.params.id
+      }
+    })
+    if (cart) {
+      res.status(202).send()
+    }
+  } catch (err) {
+    next(err)
+  }
+})
+
 router.get('/', async (req, res, next) => {
   try {
+    const cart = await Cart.findOrCreate({
+      where: { sessionId: req.session.id }
+    })
+
     if (!req.session.passport) {
-      const newCart = await Cart.findOrCreate({
+      /* const newCart = await Cart.findOrCreate({
+        where: { sessionId: req.session.id }
+      }) */
+      res.json(cart[0])
+    } else {
+      /* const cart = await Cart.findAll({
         where: {
           sessionId: req.session.id
         }
-      })
-      res.json(newCart[0])
-    } else {
-      const existingCart = await Cart.findOrCreate({
-        where: {
+      }) */
+      //console.log(findExistingCart)
+
+      const [updatedCart, [updat]] = await Cart.update(
+        {
           userId: req.session.passport.user
+        },
+        {
+          returning: true,
+          where: {
+            sessionId: req.session.id
+          }
         }
-      })
-      res.json(existingCart[0])
+      )
+      //console.log(updat)
+      res.json(updat)
+      /* if (findExistingCart.length !== 0) {
+        await findExistingCart[0].update({
+          userId: req.session.passport.user,
+          sessionId: req.session.id
+        })
+        res.json(findExistingCart[0])
+      } else {
+        console.log(findExistingCart)
+      } */
     }
   } catch (err) {
     next(err)
