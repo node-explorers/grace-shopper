@@ -284,10 +284,27 @@ class Navbar extends React.Component {
           <List>
           {this.props.isAdmin && (
             <div>
-              <h3>Admin Management</h3>
-            <Button onClick={() => history.push('/orders')}>Orders</Button>
-            <Button onClick={() => history.push('/usermanagement')}>User Management</Button>
-            <Button onClick={() => history.push('/addproduct')}>Add Products</Button>
+            <ListItem
+                button
+                key="Orders"
+                onClick={() =>
+                  history.push('/orders')}>
+            <ListItemIcon>
+            <InboxIcon />
+            </ListItemIcon>
+            <ListItemText primary="Orders/ Edit Order"/>
+            </ListItem>
+
+            <ListItem
+                button
+                key="Add Products"
+                onClick={() =>
+                  history.push('/addproducts')}>
+            <ListItemIcon>
+            <InboxIcon />
+            </ListItemIcon>
+            <ListItemText primary="Add Product"/>
+            </ListItem>
             </div>)
           }
           </List>

@@ -23,6 +23,7 @@ import SingleOrder from './components/Admin/SingleOrder'
 import StatusResults from './components/Admin/StatusResults'
 
 import AdminDashboard from './components/Admin/AdminDashboard'
+import AddProduct from './components/Admin/addProduct'
 
 /**
  * COMPONENT
@@ -60,13 +61,13 @@ class Routes extends Component {
           <Route exact path="/orders/:id" component={SingleOrder} />
           <Route exact path="/products" component={AllProduct} />
           <Route path="/products/:productId" component={SingleProduct} />
-          <Route path="/usermanagement" component ={UserManagement} />
-          <Route path="/admindashboard" component = {AdminDashboard} />
+          <Route path="/addproducts" component={AddProduct} />
+          {/* <Route path="/home" component={UserHome} /> */}
 
           {isLoggedIn && (
             <Switch>
+            <Route path="/home" component ={UserManagement} />
               {/* Routes placed here are only available after logging in */}
-              <Route path="/home" component={UserHome} />
             </Switch>
           )}
           {/* Displays our Login component as a fallback */}
