@@ -45,8 +45,10 @@ class UserManagement extends Component {
   }
 
   render() {
+    console.log("in the component", this.props)
     return (
       <Fragment>
+        { this.props.isAdmin && (
         <Paper>
           <Table>
             <TableHead>
@@ -92,7 +94,7 @@ class UserManagement extends Component {
                       {
                         <Button
                           variant="contained"
-                          color="secondary" 
+                          color="secondary"
                           type="submit"
                           name="deleteUser"
                           onClick={() => this.deleteUser(user.id)}
@@ -107,6 +109,7 @@ class UserManagement extends Component {
             </TableBody>
           </Table>
         </Paper>
+        )}
       </Fragment>
     )
   }
@@ -120,4 +123,10 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(null, mapDispatchToProps)(UserManagement)
+const mapStateToProps = state => {
+  return {
+    isAdmin: state.user.isAdmin
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserManagement)
