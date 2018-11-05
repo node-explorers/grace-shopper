@@ -275,6 +275,34 @@ class Navbar extends React.Component {
               </ListItem>
             ))}
           </List>
+          <Divider />
+          <List>
+          {this.props.isAdmin && (
+            <div>
+            <ListItem
+                button
+                key="Orders"
+                onClick={() =>
+                  history.push('/orders')}>
+            <ListItemIcon>
+            <InboxIcon />
+            </ListItemIcon>
+            <ListItemText primary="Orders/ Edit Order"/>
+            </ListItem>
+
+            <ListItem
+                button
+                key="Add Products"
+                onClick={() =>
+                  history.push('/addproducts')}>
+            <ListItemIcon>
+            <InboxIcon />
+            </ListItemIcon>
+            <ListItemText primary="Add Product"/>
+            </ListItem>
+            </div>)
+          }
+          </List>
         </Drawer>
       </div>
     )
@@ -290,7 +318,8 @@ const mapState = state => {
 
     cart: state.cart,
 
-    items: state.cart
+    items: state.cart,
+    isAdmin: state.user.isAdmin
   }
 }
 
