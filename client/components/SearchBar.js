@@ -19,7 +19,7 @@ class SearchBar extends Component {
   }
   handleSubmit(event) {
     event.preventDefault()
-    console.log(this.state.name)
+
     const name = this.state.name
     this.setState({ name: '' })
     history.push(`/products/search/${name}`)

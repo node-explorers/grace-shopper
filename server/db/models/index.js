@@ -23,8 +23,8 @@ Cart.belongsTo(User)
 User.hasMany(Cart)
 
 //CartItem and Cart
-CartItem.belongsTo(Cart)
 Cart.hasMany(CartItem)
+CartItem.belongsTo(Cart)
 
 //CartItem and Product
 CartItem.belongsTo(Product)

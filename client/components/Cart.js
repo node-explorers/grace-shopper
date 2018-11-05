@@ -172,7 +172,12 @@ class Cart extends Component {
           <button type="submit" onClick={this.toggleHidden.bind(this)}>
             Checkout
           </button>
-          {!this.state.isHidden && <CheckoutForm />}
+          {!this.state.isHidden && (
+            <CheckoutForm
+              cart={this.props.cart}
+              cartItems={this.props.cartItems}
+            />
+          )}
 
           <br />
           <span>

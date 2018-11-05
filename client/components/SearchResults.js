@@ -63,7 +63,6 @@ export class SearchResults extends React.Component {
   }
 
   render() {
-    console.log(this.props)
     if (!this.props.searchResults)
       return <div>No Products Found In Your Search</div>
 
