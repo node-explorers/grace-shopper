@@ -38,7 +38,9 @@ Orders.convertCartToOrder = async (cart, cartInfo) => {
       return order.id
     } else {
       const order = await Orders.create({
-        totalPrice: cart.totalPrice
+        totalPrice: cart.totalPrice,
+        address: cartInfo.address,
+        email: cartInfo.email
       })
       return order.id
     }
