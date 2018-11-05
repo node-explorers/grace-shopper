@@ -81,7 +81,7 @@ class ReviewForm extends Component {
       try {
         await this.props.addReview(bodyObj)
       } catch (err) {
-        console.err(err)
+        console.error(err)
       }
       this.setState({
         open: false,

@@ -24,7 +24,7 @@ export const fetchAllReviews = type => async dispatch => {
     const { data } = await axios.get(`/api/reviews/${type.category}/${type.id}`)
     dispatch(getAllReviews(data))
   } catch (err) {
-    console.err(err)
+    console.error(err)
   }
 }
 
@@ -34,7 +34,7 @@ export const addNewReviewThunk = body => async dispatch => {
 
     dispatch(addReview(data))
   } catch (err) {
-    console.err(err)
+    console.error(err)
   }
 }
 
