@@ -1,9 +1,7 @@
 const express = require('express')
 const router = express.Router()
-const User = require('../db/models/user')
 
-const Order = require('../db/models/orders')
-const OrderItem = require('../db/models/orderItems')
+const { User, Order, OrderItem, Cart, CartItem } = require('../db/models')
 
 router.get('/', async (req, res, next) => {
   try {
@@ -17,8 +15,39 @@ router.get('/', async (req, res, next) => {
 })
 
 router.post('/', async (req, res, next) => {
-  const test = await Order.create(req.body)
-  res.json(test)
+  try {
+    if (!req.session.passport) {
+      const cart = await Cart.findOne({
+        where: {
+          sessionId: req.session.id
+        }
+      })
+
+      const cartItemArray = await CartItem.findAll({
+        where: { cartId: cart.id }
+      })
+
+      const orderId = await Order.convertCartToOrder(cart, req.body)
+      await OrderItem.convertCartItemsToOrderItems(orderId, cartItemArray)
+      const newOrder = await Order.findOne({ where: { id: orderId } })
+
+      res.json(newOrder)
+    } else {
+      const cart = await Cart.findOne({
+        where: { userId: req.session.passport.user }
+      })
+      const cartItemArray = await CartItem.findAll({
+        where: { cartId: cart.id }
+      })
+      const orderId = await Order.convertCartToOrder(cart, req.body)
+      await OrderItem.convertCartItemsToOrderItems(orderId, cartItemArray)
+      const newOrder = await Order.findOne({ where: { id: orderId } })
+
+      res.json(newOrder)
+    }
+  } catch (err) {
+    next(err)
+  }
 })
 
 router.get('/:id', async (req, res, next) => {
