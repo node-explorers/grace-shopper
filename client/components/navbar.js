@@ -122,8 +122,8 @@ class Navbar extends React.Component {
     this.props.logOut()
     this.props.cartObj()
   }
-  componentDidMount() {
-    this.props.cartObj()
+  async componentDidMount() {
+    await this.props.cartObj()
     this.props.loadInitialData()
   }
   state = {
@@ -146,7 +146,7 @@ class Navbar extends React.Component {
 
     const { classes, theme } = this.props
     const { open } = this.state
-
+    if (!this.props.cart.cartItems) return <div />
     return (
       <div className={classes.root}>
         <CssBaseline />
@@ -200,11 +200,7 @@ class Navbar extends React.Component {
               color="inherit"
             >
               <Badge
-                badgeContent={
-                  0 /*
-                  this.props.items.id ? this.props.items.cartItems.length : 0
-                */
-                }
+                badgeContent={this.props.cart.cartItems.length}
                 color="secondary"
               >
                 <ShoppingCart />
