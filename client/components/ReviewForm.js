@@ -127,9 +127,11 @@ class ReviewForm extends Component {
           onClose={this.handleClose}
           aria-labelledby="form-dialog-title"
         >
-          <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+          <DialogTitle id="form-dialog-title">{this.props.name}</DialogTitle>
           <DialogContent>
-            <DialogContentText>Leave a review below</DialogContentText>
+            <DialogContentText>
+              Leave a helpful review, make sure to include a star rating!
+            </DialogContentText>
             <form className={classes.container} noValidate autoComplete="off">
               <TextField
                 name="title"

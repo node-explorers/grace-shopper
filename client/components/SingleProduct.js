@@ -38,7 +38,7 @@ export class SingleProduct extends React.Component {
         <h3>{singleProduct.name}</h3>
         <p>{singleProduct.description}</p>
         {this.props.isAdmin && <EditProduct />}
-        <ReviewForm />
+        <ReviewForm name={singleProduct.name} />
         <p>All Reviews:</p>
         {this.props.singleProduct.id ? (
           <ProductReviews category="product" />
