@@ -16,6 +16,8 @@ import TableCell from '@material-ui/core/TableCell'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
+import history from '../history'
+import OrderReview from './OrderReview';
 
 const styles = theme => ({
   root: {
@@ -80,6 +82,8 @@ class Cart extends Component {
 
   handleCheckout = evt => {
     //do this on checkout
+    history.push('/cart/orderreview')
+
   }
 
   //remove item from cart
@@ -110,7 +114,7 @@ class Cart extends Component {
         createData(item.id, item.product.name, item.quantity, item.price)
       )
     }
-    console.log("in component", this.props.cart.cartItems)
+    // console.log("in component", this.props.cart.cartItems)
     return (
       <Fragment>
         <h2 style={padding}>Your Cart!</h2>
@@ -171,21 +175,13 @@ class Cart extends Component {
             </Paper>
           )}
 
-          <button type="submit" onClick={this.toggleHidden.bind(this)}>
-            Checkout
-          </button>
-          {!this.state.isHidden && (
-            <CheckoutForm
-              cart={this.props.cart}
-              cartItems={this.props.cartItems}
-            />
-          )}
-
           <br />
           <span>
-            <small>Your Total:</small>
-            <h2>{this.state.price}</h2>
-            <button type="button" onClick={this.handleCheckout}>
+            {/* <small>Your Total:</small>
+            <h2>{this.state.price}</h2> */}
+            <button
+               type="button"
+               onClick={this.handleCheckout}>
               Checkout
             </button>
           </span>
@@ -209,7 +205,7 @@ const mapDispatchToProps = dispatch => {
   return {
     fetchCart: () => dispatch(fetchCartThunk()),
     increment: incrementItemInfo =>
-      dispatch(incrementCartItemThunk(incrementItemInfo)),
+    dispatch(incrementCartItemThunk(incrementItemInfo)),
     deleteItem: deleteItemInfo => dispatch(deleteCartItemThunk(deleteItemInfo))
   }
 }

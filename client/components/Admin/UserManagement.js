@@ -10,14 +10,14 @@ import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
 import Button from '@material-ui/core/Button';
 
-
 import {isAdmin, deleteUser, passwordReset} from '../../store/user'
 
 class UserManagement extends Component {
   constructor() {
     super()
     this.state = {
-      users: []
+      users: [],
+      isHidden: false
     }
     this.adminClick = this.adminClick.bind(this)
     this.deleteUser = this.deleteUser.bind(this)
@@ -44,8 +44,13 @@ class UserManagement extends Component {
     this.props.passwordReset(userId, true)
   }
 
+  toggleHidden(){
+    this.setState({
+      isHidden: !this.state.isHidden
+    })
+  }
+
   render() {
-    console.log("in the component", this.props)
     return (
       <Fragment>
         { this.props.isAdmin && (
@@ -62,6 +67,7 @@ class UserManagement extends Component {
             </TableHead>
             <TableBody>
               {this.state.users.map(user => {
+                console.log("Here", user)
                 return (
                   <TableRow key={user.id}>
                     <TableCell>{user.id}</TableCell>
@@ -73,8 +79,8 @@ class UserManagement extends Component {
                           type="submit"
                           name="adminToggle"
                           onClick={() => this.adminClick(user.id, user.isAdmin)}
-                          > Toggle
-                          {/* user.isAdmin === false ? Make Admin : User */}
+                          >
+                          Toggle
                         </Button>
                       }
                     </TableCell>
