@@ -7,6 +7,7 @@ import MenuItem from '@material-ui/core/MenuItem'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import { createOrder } from '../store'
+import history from '../history'
 
 class CheckoutForm extends Component {
   constructor() {
@@ -26,6 +27,7 @@ class CheckoutForm extends Component {
     const cartInfo = this.state
     console.log(cartInfo)
     this.props.createOrder(cartInfo)
+    history.push('/cart/orderreview')
   }
 
   handleChange(event) {
