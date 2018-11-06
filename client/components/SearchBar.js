@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { searchProduct } from '../store/product'
 import history from '../history'
 import SearchIcon from '@material-ui/icons/Search'
+import IconButton from '@material-ui/core/IconButton'
 
 class SearchBar extends Component {
   constructor() {
@@ -37,9 +38,9 @@ class SearchBar extends Component {
           value={this.state.name}
           required
         />
-        <button type="submit" disabled={!isEnabled}>
-          Search
-        </button>
+        <IconButton type="submit" aria-label="Search" disabled={!isEnabled}>
+          <SearchIcon />
+        </IconButton>
       </form>
     )
   }

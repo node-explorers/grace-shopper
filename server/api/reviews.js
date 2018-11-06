@@ -25,7 +25,7 @@ router.get('/product/:productId', async (req, res, next) => {
       },
       include: [User]
     })
-    console.log(productReviews)
+
     res.json(productReviews)
   } catch (err) {
     next(err)

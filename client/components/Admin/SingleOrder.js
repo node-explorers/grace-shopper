@@ -22,7 +22,7 @@ class SingleOrder extends React.Component {
   componentWillUnmount() {}
   render() {
     const { order } = this.props
-    console.log(this.props)
+
     return (
       <div className="sp">
         <img src="" />
