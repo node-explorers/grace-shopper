@@ -19,7 +19,7 @@ class SearchStatus extends Component {
   }
   handleSubmit(event) {
     event.preventDefault()
-    //console.log(this.state.name)
+
     const status = this.state.status
     this.setState({ status: '' })
     history.push(`/orders/search/${status}`)

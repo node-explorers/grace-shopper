@@ -76,7 +76,6 @@ function mapDispatchToProps(dispatch) {
   return {
     getCategoryItems: category => dispatch(getCategoryItems(category)),
     addItem: (productId, cartId, price) => {
-      console.log(productId, cartId, price)
       return dispatch(
         addCartItemThunk({
           productId,

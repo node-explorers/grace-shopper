@@ -38,7 +38,6 @@ export class AllOrder extends React.Component {
   }
 
   render() {
-    //console.log(this.props.orders)
     const { classes } = this.props
     if (!this.props.orders) {
       return <div>Empty</div>

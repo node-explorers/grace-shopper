@@ -8,9 +8,11 @@ import TableCell from '@material-ui/core/TableCell'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
-import Button from '@material-ui/core/Button';
+import Button from '@material-ui/core/Button'
+
 
 import {isAdmin, deleteUser, passwordReset} from '../../store/user'
+
 
 class UserManagement extends Component {
   constructor() {
@@ -35,12 +37,12 @@ class UserManagement extends Component {
     this.props.deleteUser(userId)
   }
 
-  adminClick (userId, adminStatus){
+  adminClick(userId, adminStatus) {
     event.preventDefault()
-   this.props.isAdmin(userId, !adminStatus)
+    this.props.isAdmin(userId, !adminStatus)
   }
 
-  passwordReset (userId){
+  passwordReset(userId) {
     this.props.passwordReset(userId, true)
   }
 
@@ -105,16 +107,16 @@ class UserManagement extends Component {
                           name="deleteUser"
                           onClick={() => this.deleteUser(user.id)}
                           >
-                          Delete
+                            Delete
                           </Button>
-                      }
-                    </TableCell>
-                  </TableRow>
-                )
-              })}
-            </TableBody>
-          </Table>
-        </Paper>
+                        }
+                      </TableCell>
+                    </TableRow>
+                  )
+                })}
+              </TableBody>
+            </Table>
+          </Paper>
         )}
       </Fragment>
     )
@@ -123,9 +125,9 @@ class UserManagement extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-      isAdmin: (userId, adminStatus) => dispatch(isAdmin(userId, adminStatus)),
-      deleteUser: (userId) => dispatch(deleteUser(userId)),
-      passwordReset: (userId) => dispatch(passwordReset(userId, true))
+    isAdmin: (userId, adminStatus) => dispatch(isAdmin(userId, adminStatus)),
+    deleteUser: userId => dispatch(deleteUser(userId)),
+    passwordReset: userId => dispatch(passwordReset(userId, true))
   }
 }
 
