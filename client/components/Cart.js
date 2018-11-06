@@ -88,9 +88,8 @@ class Cart extends Component {
 
   //remove item from cart
   handleRemove = async productId => {
-    console.log(this.props.cart.cartItems)
     await this.props.deleteItem(productId)
-    console.log(this.props.cart.cartItems)
+
     this.priceSetter()
   }
 

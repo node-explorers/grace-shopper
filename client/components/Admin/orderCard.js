@@ -31,34 +31,65 @@ const styles = {
 function OrderCard(props) {
   const { classes, order } = props
 
-  return (
-    <React.Fragment>
-      <Card className={classes.card} raised={false}>
-        <CardActionArea
-          className={classes.actionArea}
-          onClick={() => history.push(`/orders/${order.id}`)}
-        >
-          <CardMedia
-            className={classes.media}
-            image="https://i.vimeocdn.com/portrait/6462071_300x300"
-            title={`${order.user.name}'s Order`}
-          />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="h2">
-              {order.user.name}
-            </Typography>
-            <Typography component="h2">$ {order.totalPrice}</Typography>
-          </CardContent>
-        </CardActionArea>
-        <CardActions>
-          <Button size="small" color="primary">
-            Edit Status
-          </Button>
-          <Button onClick={() => {}} size="small" color="primary" />
-        </CardActions>
-      </Card>
-    </React.Fragment>
-  )
+  if (order.user) {
+    return (
+      <React.Fragment>
+        <Card className={classes.card} raised={false}>
+          <CardActionArea
+            className={classes.actionArea}
+            onClick={() => history.push(`/orders/${order.id}`)}
+          >
+            <CardMedia
+              className={classes.media}
+              image="https://i.vimeocdn.com/portrait/6462071_300x300"
+              title={`${order.user.name}'s Order`}
+            />
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="h2">
+                {order.user.name}
+              </Typography>
+              <Typography component="h2">$ {order.totalPrice}</Typography>
+            </CardContent>
+          </CardActionArea>
+          <CardActions>
+            <Button size="small" color="primary">
+              Edit Status
+            </Button>
+            <Button onClick={() => {}} size="small" color="primary" />
+          </CardActions>
+        </Card>
+      </React.Fragment>
+    )
+  } else {
+    return (
+      <React.Fragment>
+        <Card className={classes.card} raised={false}>
+          <CardActionArea
+            className={classes.actionArea}
+            onClick={() => history.push(`/orders/${order.id}`)}
+          >
+            <CardMedia
+              className={classes.media}
+              image="https://i.vimeocdn.com/portrait/6462071_300x300"
+              title={`Guest's Order`}
+            />
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="h2">
+                {'Guest'}
+              </Typography>
+              <Typography component="h2">$ {order.totalPrice}</Typography>
+            </CardContent>
+          </CardActionArea>
+          <CardActions>
+            <Button size="small" color="primary">
+              Edit Status
+            </Button>
+            <Button onClick={() => {}} size="small" color="primary" />
+          </CardActions>
+        </Card>
+      </React.Fragment>
+    )
+  }
 }
 
 OrderCard.propTypes = {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { withRouter, Route, Switch } from 'react-router-dom'
+import { withRouter, Route, Switch, Redirect } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {
   Login,
@@ -21,23 +21,24 @@ import UserManagement from './components/Admin/UserManagement'
 import AllOrder from './components/Admin/AllOrder'
 import SingleOrder from './components/Admin/SingleOrder'
 import StatusResults from './components/Admin/StatusResults'
-
 import AdminDashboard from './components/Admin/AdminDashboard'
 import AddProduct from './components/Admin/addProduct'
-
 import OrderReview from './components/OrderReview'
+import Home from './components/Home'
 
 /**
  * COMPONENT
  */
 class Routes extends Component {
   render() {
-    const { isLoggedIn } = this.props
+    const { isLoggedIn, isAdmin } = this.props
 
     return (
       <div>
         <Switch>
           {/* Routes placed here are available to all visitors */}
+          <Route exact path="/home" component={Home} />
+          <Route exact path="/" render={() => <Redirect to="/home" />} />
           <Route exact path="/yourprofile" component={UserAcct} />
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
@@ -62,14 +63,10 @@ class Routes extends Component {
            <Route path="/cart/orderreview" component={OrderReview} />
           {/* <Route path="/home" component={UserHome} /> */}
 
-          {isLoggedIn && (
-            <Switch>
-            <Route path="/home" component ={UserManagement} />
-              {/* Routes placed here are only available after logging in */}
-            </Switch>
-          )}
-          {/* Displays our Login component as a fallback */}
-          {/* <Route component={Login} /> */}
+          {isAdmin ? (
+            <Route path="/adminBoard" component={UserManagement} />
+          ) : null}
+          {/* Routes placed here are only available after logging in */}
         </Switch>
       </div>
     )
@@ -83,7 +80,8 @@ const mapState = state => {
   return {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    isAdmin: !!state.user.isAdmin
   }
 }
 
