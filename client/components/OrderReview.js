@@ -7,11 +7,11 @@ import TableCell from '@material-ui/core/TableCell'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
-
+import CheckoutStripe from './Checkout/CheckoutForm'
 import { fetchCartThunk } from '../store/cart'
 import { connect } from 'react-redux'
 
-import CheckoutForm from './CheckoutForm';
+//import CheckoutForm from './CheckoutForm';
 
 const CustomTableCell = withStyles(theme => ({
   head: {
@@ -45,11 +45,11 @@ class OrderReview extends Component {
   }
 
   totalPrice = () => {
-    let total = 0;
-    this.props.cart.cartItems.forEach( item => {
-      total  += item.quantity * +item.price
+    let total = 0
+    this.props.cart.cartItems.forEach(item => {
+      total += item.quantity * +item.price
     })
-    return  `$ ${Number(total).toFixed(2)}`
+    return Number(total).toFixed(2)
   }
 
   render() {
@@ -68,25 +68,27 @@ class OrderReview extends Component {
 
           {this.props.cart.cartItems && (
             <TableBody>
-              {
-                  this.props.cart.cartItems.map(item => {
-                  return (
-                    <TableRow key={item.id}>
-                      <CustomTableCell>{item.product.name}</CustomTableCell>
-                      <CustomTableCell>{item.price}</CustomTableCell>
-                      <CustomTableCell>{item.quantity}</CustomTableCell>
-                    </TableRow>
-                  )
-                }
-              )
-
-           }
-           <TableRow><h3>  Total: </h3>{this.totalPrice()}</TableRow>
+              {this.props.cart.cartItems.map(item => {
+                return (
+                  <TableRow key={item.id}>
+                    <CustomTableCell>{item.product.name}</CustomTableCell>
+                    <CustomTableCell>{item.price}</CustomTableCell>
+                    <CustomTableCell>{item.quantity}</CustomTableCell>
+                  </TableRow>
+                )
+              })}
+              <TableRow>
+                <h3> Total: $</h3>
+                {this.totalPrice()}
+              </TableRow>
             </TableBody>
-          )
-        }
+          )}
         </Table>
-        <CheckoutForm />
+        <CheckoutStripe
+          name="Credit Cart"
+          description="verification"
+          amount={this.totalPrice()}
+        />
       </Paper>
     )
   }

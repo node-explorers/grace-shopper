@@ -1,23 +1,15 @@
 const express = require('express')
 const router = express.Router()
-const sendgrid = require('sendgrid')(
-  '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'
-)
+const sendgrid = require('sendgrid')(process.env.SENDGRID_API)
 const helper = require('sendgrid').mail
-/* const fromEmail = new helper.Email('nodeexplorers@gmail.com')
-const toEmail = new helper.Email('gkane6@student.cscc.edu')
-const subject = 'Sending with SendGrid is Fun'
-const content = new helper.Content(
-  'text/plain',
-  'and easy to do anywhere, even with Node.js'
-)
-const mail = new helper.Mail(fromEmail, subject, toEmail, content) */
 
 const Cart = require('../db/models/cart')
 const CartItems = require('../db/models/cartItems')
 const User = require('../db/models/user')
 
 //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
+
+//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
 
 router.post('/', (req, res, next) => {
   try {

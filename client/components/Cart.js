@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import CheckoutForm from './CheckoutForm'
-
 import {
   fetchCartThunk,
   deleteCartItemThunk,
@@ -17,7 +16,7 @@ import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
 import history from '../history'
-import OrderReview from './OrderReview';
+import OrderReview from './OrderReview'
 
 const styles = theme => ({
   root: {
@@ -78,12 +77,6 @@ class Cart extends Component {
         price: `$ ${Number(sum).toFixed(2)}`
       })
     }
-  }
-
-  handleCheckout = evt => {
-    //do this on checkout
-    history.push('/cart/orderreview')
-
   }
 
   //remove item from cart
@@ -171,19 +164,12 @@ class Cart extends Component {
                   })}
                 </TableBody>
               </Table>
+              <CheckoutForm />
             </Paper>
           )}
 
           <br />
-          <span>
-            {/* <small>Your Total:</small>
-            <h2>{this.state.price}</h2> */}
-            <button
-               type="button"
-               onClick={this.handleCheckout}>
-              Checkout
-            </button>
-          </span>
+          <span />
         </div>
       </Fragment>
     )
@@ -204,7 +190,7 @@ const mapDispatchToProps = dispatch => {
   return {
     fetchCart: () => dispatch(fetchCartThunk()),
     increment: incrementItemInfo =>
-    dispatch(incrementCartItemThunk(incrementItemInfo)),
+      dispatch(incrementCartItemThunk(incrementItemInfo)),
     deleteItem: deleteItemInfo => dispatch(deleteCartItemThunk(deleteItemInfo))
   }
 }
