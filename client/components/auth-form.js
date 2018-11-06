@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { auth } from '../store'
 import { fetchCartThunk } from '../store/cart'
+import Button from '@material-ui/core/Button'
 
 /**
  * COMPONENT
@@ -26,11 +27,22 @@ const AuthForm = props => {
           <input name="password" type="password" />
         </div>
         <div>
-          <button type="submit">{displayName}</button>
+          <Button type="submit" variant="outlined" color="primary" size="large">
+            {displayName}
+          </Button>
         </div>
         {error && error.response && <div> {error.response.data} </div>}
       </form>
-      <a href="/auth/google">{displayName} with Google</a>
+      <div> - OR - </div>
+      <Button
+        type="button"
+        variant="contained"
+        color="secondary"
+        size="large"
+        href="/auth/google"
+      >
+        {displayName} with Google
+      </Button>
     </div>
   )
 }

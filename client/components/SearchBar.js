@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { searchProduct } from '../store/product'
 import history from '../history'
+import SearchIcon from '@material-ui/icons/Search'
 
 class SearchBar extends Component {
   constructor() {
@@ -37,7 +38,7 @@ class SearchBar extends Component {
           required
         />
         <button type="submit" disabled={!isEnabled}>
-          Submit
+          Search
         </button>
       </form>
     )
