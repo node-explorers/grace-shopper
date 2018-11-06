@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const { User } = require('../db/models')
+const adminAuth = require('../customMiddleware')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
@@ -54,7 +55,7 @@ router.put('/password/:userId', async (req, res, next) => {
   }
 })
 
-router.put('/reset/:userId', async (req, res, next) => {
+router.put('/reset/:userId', adminAuth, async (req, res, next) => {
   try {
     let result = await User.update(
       {
@@ -70,11 +71,11 @@ router.put('/reset/:userId', async (req, res, next) => {
   }
 })
 
-router.put('/delete/:userId', async (req, res, next) => {
+router.delete('/', adminAuth, async (req, res, next) => {
   try {
     let result = await User.destroy({
       where: {
-        id: req.params.userId
+        id: Number(req.query.id)
       }
     })
     res.json(result)

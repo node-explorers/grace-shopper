@@ -10,9 +10,7 @@ import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
 import Button from '@material-ui/core/Button'
 
-
-import {isAdmin, deleteUser, passwordReset} from '../../store/user'
-
+import { isAdmin, deleteUser, passwordReset } from '../../store/user'
 
 class UserManagement extends Component {
   constructor() {
@@ -22,8 +20,8 @@ class UserManagement extends Component {
       isHidden: false
     }
     this.adminClick = this.adminClick.bind(this)
-    this.deleteUser = this.deleteUser.bind(this)
     this.passwordReset = this.passwordReset.bind(this)
+    this.handleRemove = this.handleRemove.bind(this)
   }
 
   async componentDidMount() {
@@ -33,8 +31,11 @@ class UserManagement extends Component {
     })
   }
 
-  deleteUser(userId) {
+  handleRemove(userId) {
     this.props.deleteUser(userId)
+    this.setState(prevState => ({
+      users: prevState.users.filter(user => user.id !== userId)
+    }))
   }
 
   adminClick(userId, adminStatus) {
@@ -46,7 +47,7 @@ class UserManagement extends Component {
     this.props.passwordReset(userId, true)
   }
 
-  toggleHidden(){
+  toggleHidden() {
     this.setState({
       isHidden: !this.state.isHidden
     })
@@ -55,57 +56,59 @@ class UserManagement extends Component {
   render() {
     return (
       <Fragment>
-        { this.props.isAdmin && (
-        <Paper>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>User Id</TableCell>
-                <TableCell>User Email</TableCell>
-                <TableCell> Admin/ User</TableCell>
-                <TableCell>Password Reset</TableCell>
-                <TableCell>Delete User</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {this.state.users.map(user => {
-                console.log("Here", user)
-                return (
-                  <TableRow key={user.id}>
-                    <TableCell>{user.id}</TableCell>
-                    <TableCell>{user.email}</TableCell>
-                    <TableCell>
-                      {
-                        <Button
-                          variant="contained"
-                          type="submit"
-                          name="adminToggle"
-                          onClick={() => this.adminClick(user.id, user.isAdmin)}
+        {this.props.isAdmin && (
+          <Paper>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>User Id</TableCell>
+                  <TableCell>User Email</TableCell>
+                  <TableCell> Admin/ User</TableCell>
+                  <TableCell>Password Reset</TableCell>
+                  <TableCell>Delete User</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {this.state.users.map(user => {
+                  console.log('Here', user)
+                  return (
+                    <TableRow key={user.id}>
+                      <TableCell>{user.id}</TableCell>
+                      <TableCell>{user.email}</TableCell>
+                      <TableCell>
+                        {
+                          <Button
+                            variant="contained"
+                            type="submit"
+                            name="adminToggle"
+                            onClick={() =>
+                              this.adminClick(user.id, user.isAdmin)
+                            }
                           >
-                          Toggle
-                        </Button>
-                      }
-                    </TableCell>
-                    <TableCell>
-                      {
-                        <Button
-                        variant="contained"
-                        type="submit"
-                        name="passwordReset"
-                        onClick={() => this.passwordReset(user.id)}
-                        >
-                          Reset
-                        </Button>
-                      }
-                    </TableCell>
-                    <TableCell>
-                      {
-                        <Button
-                          variant="contained"
-                          color="secondary"
-                          type="submit"
-                          name="deleteUser"
-                          onClick={() => this.deleteUser(user.id)}
+                            Toggle
+                          </Button>
+                        }
+                      </TableCell>
+                      <TableCell>
+                        {
+                          <Button
+                            variant="contained"
+                            type="submit"
+                            name="passwordReset"
+                            onClick={() => this.passwordReset(user.id)}
+                          >
+                            Reset
+                          </Button>
+                        }
+                      </TableCell>
+                      <TableCell>
+                        {
+                          <Button
+                            variant="contained"
+                            color="secondary"
+                            type="submit"
+                            name="deleteUser"
+                            onClick={() => this.handleRemove(user.id)}
                           >
                             Delete
                           </Button>
