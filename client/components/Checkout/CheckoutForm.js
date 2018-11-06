@@ -18,7 +18,7 @@ const fromDollarToCent = amount => Math.round(amount * 100)
 
 const successPayment = data => {
   console.log(data)
-  alert('Payment Successful')
+  alert('Payment Successful, an email is on the way with your purchase info!!')
 }
 
 const errorPayment = data => {
