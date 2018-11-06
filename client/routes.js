@@ -21,10 +21,11 @@ import UserManagement from './components/Admin/UserManagement'
 import AllOrder from './components/Admin/AllOrder'
 import SingleOrder from './components/Admin/SingleOrder'
 import StatusResults from './components/Admin/StatusResults'
-
 import AdminDashboard from './components/Admin/AdminDashboard'
 import AddProduct from './components/Admin/addProduct'
+import OrderReview from './components/OrderReview'
 import Home from './components/Home'
+
 /**
  * COMPONENT
  */
@@ -59,6 +60,7 @@ class Routes extends Component {
           <Route exact path="/products" component={AllProduct} />
           <Route path="/products/:productId" component={SingleProduct} />
           <Route path="/addproducts" component={AddProduct} />
+           <Route path="/cart/orderreview" component={OrderReview} />
           {/* <Route path="/home" component={UserHome} /> */}
 
           {isAdmin ? (
