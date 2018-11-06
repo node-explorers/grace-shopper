@@ -65,8 +65,9 @@ const styles = theme => ({
   flexxer: {
     display: 'flex'
   },
-  badges: {
-    justifyContent: 'space-evenly'
+  Administrator: {
+    backgroundColor: 'yellow',
+    color: 'black'
   },
   menuButton: {
     marginLeft: 12,
@@ -144,7 +145,7 @@ class Navbar extends React.Component {
     console.log(' Cart in navbar ', this.props.cart) */
     }
 
-    const { classes, theme } = this.props
+    const { classes, theme, isAdmin } = this.props
     const { open } = this.state
     if (!this.props.cart.cartItems) return <div />
     return (
@@ -165,9 +166,18 @@ class Navbar extends React.Component {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" color="inherit" className={classes.grow}>
+
+            <Typography
+              onClick={() => {
+                history.push('/')
+              }}
+              variant="h6"
+              color="inherit"
+              className={classNames(classes.grow, { hoveredStyle: 'pointer' })}
+            >
               NODE EXPLORERS
             </Typography>
+
             <Button
               className={classes.badges}
               type="button"
@@ -178,16 +188,18 @@ class Navbar extends React.Component {
             >
               All Products
             </Button>
-            <Button
-              className={classes.badges}
-              type="button"
-              variant="contained"
-              color="primary"
-              size="large"
-              onClick={() => history.push('/home')}
-            >
-              Home
-            </Button>
+            {isAdmin ? (
+              <Button
+                className={classes.Administrator}
+                type="button"
+                variant="contained"
+                color="primary"
+                size="large"
+                onClick={() => history.push('./adminBoard')}
+              >
+                Administrator Dashboard
+              </Button>
+            ) : null}
 
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
@@ -277,31 +289,31 @@ class Navbar extends React.Component {
           </List>
           <Divider />
           <List>
-          {this.props.isAdmin && (
-            <div>
-            <ListItem
-                button
-                key="Orders"
-                onClick={() =>
-                  history.push('/orders')}>
-            <ListItemIcon>
-            <InboxIcon />
-            </ListItemIcon>
-            <ListItemText primary="Orders/ Edit Order"/>
-            </ListItem>
+            {this.props.isAdmin && (
+              <div>
+                <ListItem
+                  button
+                  key="Orders"
+                  onClick={() => history.push('/orders')}
+                >
+                  <ListItemIcon>
+                    <InboxIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Orders/ Edit Order" />
+                </ListItem>
 
-            <ListItem
-                button
-                key="Add Products"
-                onClick={() =>
-                  history.push('/addproducts')}>
-            <ListItemIcon>
-            <InboxIcon />
-            </ListItemIcon>
-            <ListItemText primary="Add Product"/>
-            </ListItem>
-            </div>)
-          }
+                <ListItem
+                  button
+                  key="Add Products"
+                  onClick={() => history.push('/addproducts')}
+                >
+                  <ListItemIcon>
+                    <InboxIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Add Product" />
+                </ListItem>
+              </div>
+            )}
           </List>
         </Drawer>
       </div>
