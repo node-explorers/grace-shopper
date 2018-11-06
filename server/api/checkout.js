@@ -7,6 +7,8 @@ const stripe = configureStripe('sk_test_rmSfr8bJnXL1aH9TgPV7NnWR')
 
 const postStripeCharge = res => (stripeErr, stripeRes) => {
   if (stripeErr) {
+    console.log('hereee ')
+    console.log(stripeErr)
     res.status(500).send({ error: stripeErr })
   } else {
     res.status(200).send({ success: stripeRes })

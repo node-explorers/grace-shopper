@@ -16,7 +16,8 @@ class UserManagement extends Component {
   constructor() {
     super()
     this.state = {
-      users: []
+      users: [],
+      isHidden: false
     }
     this.adminClick = this.adminClick.bind(this)
     this.passwordReset = this.passwordReset.bind(this)
@@ -46,8 +47,13 @@ class UserManagement extends Component {
     this.props.passwordReset(userId, true)
   }
 
+  toggleHidden() {
+    this.setState({
+      isHidden: !this.state.isHidden
+    })
+  }
+
   render() {
-    console.log('in the component', this.props)
     return (
       <Fragment>
         {this.props.isAdmin && (
@@ -64,6 +70,7 @@ class UserManagement extends Component {
               </TableHead>
               <TableBody>
                 {this.state.users.map(user => {
+                  console.log('Here', user)
                   return (
                     <TableRow key={user.id}>
                       <TableCell>{user.id}</TableCell>
@@ -78,9 +85,7 @@ class UserManagement extends Component {
                               this.adminClick(user.id, user.isAdmin)
                             }
                           >
-                            {' '}
                             Toggle
-                            {/* user.isAdmin === false ? Make Admin : User */}
                           </Button>
                         }
                       </TableCell>

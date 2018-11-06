@@ -16,12 +16,20 @@ const CURRENCY = 'USD'
 
 const fromDollarToCent = amount => Math.round(amount * 100)
 
-const successPayment = data => {
+const successPayment = async data => {
   console.log(data)
+  const email = (await axios.post('/api/email', {
+    verification: data.data.success.id,
+    amount: data.data.success.amount,
+    email: data.data.success.source.name
+  })).data
+  console.log(email)
+
   alert('Payment Successful, an email is on the way with your purchase info!!')
 }
 
 const errorPayment = data => {
+  console.log(data)
   alert('Payment Error')
 }
 

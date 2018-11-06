@@ -7,6 +7,7 @@ import MenuItem from '@material-ui/core/MenuItem'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import { createOrder } from '../store'
+import history from '../history'
 
 class CheckoutForm extends Component {
   constructor() {
@@ -26,6 +27,7 @@ class CheckoutForm extends Component {
     const cartInfo = this.state
     console.log(cartInfo)
     this.props.createOrder(cartInfo)
+    history.push('/cart/orderreview')
   }
 
   handleChange(event) {
@@ -33,26 +35,23 @@ class CheckoutForm extends Component {
     this.setState({
       [event.target.name]: event.target.value
     })
-    console.log('In the checkout form ', this.state)
   }
 
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
         <TextField
-          helperText="Enter Address"
           onChange={this.handleChange}
           name="address"
-          placeholder="400 Main St. Chicago"
+          placeholder="Enter Address"
           required
         />
 
         <TextField
-          helperText="Enter Email"
           type="email"
           onChange={this.handleChange}
           name="email"
-          placeholder="drone@globex.com"
+          placeholder="Enter Email "
           pattern=".+@globex.com" //validate email to include @ & .com
           required
         />

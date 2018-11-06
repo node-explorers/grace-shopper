@@ -21,22 +21,31 @@ import UserManagement from './components/Admin/UserManagement'
 import AllOrder from './components/Admin/AllOrder'
 import SingleOrder from './components/Admin/SingleOrder'
 import StatusResults from './components/Admin/StatusResults'
-
 import AdminDashboard from './components/Admin/AdminDashboard'
 import AddProduct from './components/Admin/addProduct'
+import OrderReview from './components/OrderReview'
 import Home from './components/Home'
+
 /**
  * COMPONENT
  */
 class Routes extends Component {
+  // componentDidUpdate(prevProps) {
+  //   if (this.props.triggerReset !== prevProps.triggerReset) return true
+  //   return false
+  // }
   render() {
-    const { isLoggedIn, isAdmin } = this.props
+    const { isAdmin, triggerReset, id } = this.props
 
     return (
       <div>
         <Switch>
           {/* Routes placed here are available to all visitors */}
-          <Route exact path="/home" component={Home} />
+          <Route
+            exact
+            path="/home"
+            component={() => <Home reset={triggerReset} />}
+          />
           <Route exact path="/" render={() => <Redirect to="/home" />} />
           <Route exact path="/yourprofile" component={UserAcct} />
           <Route path="/login" component={Login} />
@@ -59,6 +68,7 @@ class Routes extends Component {
           <Route exact path="/products" component={AllProduct} />
           <Route path="/products/:productId" component={SingleProduct} />
           <Route path="/addproducts" component={AddProduct} />
+           <Route path="/cart/orderreview" component={OrderReview} />
           {/* <Route path="/home" component={UserHome} /> */}
 
           {isAdmin ? (
@@ -79,7 +89,9 @@ const mapState = state => {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
     isLoggedIn: !!state.user.id,
-    isAdmin: !!state.user.isAdmin
+    isAdmin: !!state.user.isAdmin,
+    triggerReset: state.user.resetPassword,
+    id: state.user.id
   }
 }
 

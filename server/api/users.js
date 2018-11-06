@@ -33,6 +33,28 @@ router.put('/:userId', async (req, res, next) => {
   }
 })
 
+router.put('/password/:userId', async (req, res, next) => {
+  console.log(req.body)
+  try {
+    await User.update(
+      {
+        password: req.body.newPassword,
+        resetPassword: false
+      },
+      {
+        where: {
+          id: req.params.userId
+        },
+        individualHooks: true
+      }
+    )
+
+    res.sendStatus(204)
+  } catch (err) {
+    next(err)
+  }
+})
+
 router.put('/reset/:userId', adminAuth, async (req, res, next) => {
   try {
     let result = await User.update(
