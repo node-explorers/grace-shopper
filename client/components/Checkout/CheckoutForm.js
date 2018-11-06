@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import StripeCheckout from 'react-stripe-checkout'
+
 const STRIPE_PUBLISHABLE =
   process.env.NODE_ENV === 'production'
     ? 'pk_live_MY_PUBLISHABLE_KEY'
@@ -9,13 +10,14 @@ const STRIPE_PUBLISHABLE =
 const PAYMENT_SERVER_URL =
   process.env.NODE_ENV === 'production'
     ? 'http://myapidomain.com'
-    : 'http://localhost:8080'
+    : '/api/checkout'
 
 const CURRENCY = 'USD'
 
-const fromDollarToCent = amount => amount * 100
+const fromDollarToCent = amount => Math.round(amount * 100)
 
 const successPayment = data => {
+  console.log(data)
   alert('Payment Successful')
 }
 
@@ -27,7 +29,7 @@ const errorPayment = data => {
 
 const onToken = (amount, description) => token => {
   return axios
-    .post('/api/checkout', {
+    .post(PAYMENT_SERVER_URL, {
       description,
       source: token.id,
       currency: CURRENCY,
@@ -36,6 +38,8 @@ const onToken = (amount, description) => token => {
     .then(successPayment)
     .catch(errorPayment)
 }
+//SYNTAX FOR RENDERING CHECKOUT FORM ============>>>>>>>>>>
+//<Checkout name="Credit Card" description="verification" amount={dollar.cents} />
 
 const Checkout = ({ name, description, amount }) => (
   <StripeCheckout
