@@ -25,6 +25,8 @@ import StatusResults from './components/Admin/StatusResults'
 import AdminDashboard from './components/Admin/AdminDashboard'
 import AddProduct from './components/Admin/addProduct'
 
+import OrderReview from './components/OrderReview'
+
 /**
  * COMPONENT
  */
@@ -57,6 +59,7 @@ class Routes extends Component {
           <Route exact path="/products" component={AllProduct} />
           <Route path="/products/:productId" component={SingleProduct} />
           <Route path="/addproducts" component={AddProduct} />
+          <Route path="/orderreview" component={OrderReview} />
           {/* <Route path="/home" component={UserHome} /> */}
 
           {isLoggedIn && (

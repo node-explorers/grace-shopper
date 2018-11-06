@@ -110,6 +110,7 @@ class Cart extends Component {
         createData(item.id, item.product.name, item.quantity, item.price)
       )
     }
+    console.log("in component", this.props.cart.cartItems)
     return (
       <Fragment>
         <h2 style={padding}>Your Cart!</h2>
