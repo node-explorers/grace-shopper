@@ -26,9 +26,8 @@ const deleteItem = id => ({
   id
 })
 
-const deleteCart = cart => ({
-  type: DELETE_CART,
-  cart
+export const deleteCart = () => ({
+  type: DELETE_CART
 })
 
 const addItem = item => ({
@@ -104,7 +103,7 @@ const initialState = {}
 export default function(state = initialState, action) {
   switch (action.type) {
     case DELETE_CART:
-      return {}
+      return { ...state, cartItems: [] }
     case GET_CART:
       return action.items
     case INCREMENT:
