@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const { Product } = require('../db/models')
 const Sequelize = require('sequelize')
+const adminAuth = require('../customMiddleware')
 
 router.get('/', async (req, res, next) => {
   try {
@@ -12,7 +13,7 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.post('/', async (req, res, next) => {
+router.post('/', adminAuth, async (req, res, next) => {
   try {
     let product = await Product.create(req.body)
     res.json(product)
@@ -21,7 +22,7 @@ router.post('/', async (req, res, next) => {
   }
 })
 
-router.put('/:productId', async (req, res, next) => {
+router.put('/:productId', adminAuth, async (req, res, next) => {
   try {
     const productToUpdate = await Product.findById(req.params.id)
     if (productToUpdate) {
