@@ -4,13 +4,11 @@ import StripeCheckout from 'react-stripe-checkout'
 
 const STRIPE_PUBLISHABLE =
   process.env.NODE_ENV === 'production'
-    ? 'pk_live_MY_PUBLISHABLE_KEY'
+    ? 'pk_test_OPpoAfjmyeTltfqxtGlndpfh'
     : 'pk_test_OPpoAfjmyeTltfqxtGlndpfh'
 
 const PAYMENT_SERVER_URL =
-  process.env.NODE_ENV === 'production'
-    ? 'http://myapidomain.com'
-    : '/api/checkout'
+  process.env.NODE_ENV === 'production' ? '/api/checkout' : '/api/checkout'
 
 const CURRENCY = 'USD'
 
