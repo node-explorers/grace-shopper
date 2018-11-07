@@ -52,9 +52,14 @@ router.post('/', async (req, res, next) => {
 
 router.get('/:id', async (req, res, next) => {
   try {
-    const order = await Order.findById(req.params.id)
+    const order = await Order.findAll({
+      where: {
+        id: req.params.id
+      },
+      include: [User, OrderItem]
+    })
     if (order) {
-      res.json(order)
+      res.json(order[0])
     }
   } catch (err) {
     next(err)
