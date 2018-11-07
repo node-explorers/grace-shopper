@@ -9,6 +9,7 @@ const INCREMENT = 'INCREMENT'
 const DELETE_ITEM = 'DELETE_ITEM'
 const ADD_ITEM = 'ADD_ITEM'
 const DELETE_CART = 'DELETE_CART'
+const DELETE_CART_ITEMS = 'DELETE_CART_ITEMS'
 
 //ACTION_CREATORS ----------==============>>>>>>>>>>>>>>>>>>>
 const getAllCartItems = items => ({
@@ -26,14 +27,18 @@ const deleteItem = id => ({
   id
 })
 
-const deleteCart = cart => ({
+const deleteCart = data => ({
   type: DELETE_CART,
-  cart
+  data
 })
 
 const addItem = item => ({
   type: ADD_ITEM,
   item
+})
+
+export const deleteCartItems = () => ({
+  type: DELETE_CART_ITEMS
 })
 
 //THUNKS          ----------==============>>>>>>>>>>>>>>>>>>>
@@ -105,6 +110,8 @@ export default function(state = initialState, action) {
   switch (action.type) {
     case DELETE_CART:
       return {}
+    case DELETE_CART_ITEMS:
+      return { ...state, cartItems: [] }
     case GET_CART:
       return action.items
     case INCREMENT:

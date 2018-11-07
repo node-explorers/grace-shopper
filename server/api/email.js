@@ -11,7 +11,7 @@ const User = require('../db/models/user')
 
 //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
 
-router.post('/', (req, res, next) => {
+router.post('/', async (req, res, next) => {
   try {
     const fromEmail = new helper.Email('nodeexplorers@gmail.com')
     const toEmail = new helper.Email(req.body.email)
@@ -29,11 +29,20 @@ router.post('/', (req, res, next) => {
       path: '/v3/mail/send',
       body: mail.toJSON()
     })
-
+    try {
+      await CartItems.destroy({
+        where: {
+          cartId: req.body.cartId
+        }
+      })
+    } catch (err) {
+      next(err)
+    }
     sendgrid.API(request, function(error, response) {
       if (error) {
         console.log('Error response received')
       }
+
       /* console.log(response.statusCode)
       console.log(response.body)
       console.log(response.headers) */

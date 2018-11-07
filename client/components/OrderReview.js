@@ -46,10 +46,12 @@ class OrderReview extends Component {
 
   totalPrice = () => {
     let total = 0
-    this.props.cart.cartItems.forEach(item => {
-      total += item.quantity * +item.price
-    })
-    return Number(total).toFixed(2)
+    if (this.props.cart.cartItems) {
+      this.props.cart.cartItems.forEach(item => {
+        total += item.quantity * +item.price
+      })
+      return Number(total).toFixed(2)
+    }
   }
 
   render() {
@@ -88,6 +90,7 @@ class OrderReview extends Component {
           name="Credit Cart"
           description="verification"
           amount={this.totalPrice()}
+          cartId={this.props.cart.id}
         />
       </Paper>
     )
