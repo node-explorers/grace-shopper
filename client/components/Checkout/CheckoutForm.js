@@ -8,9 +8,7 @@ const STRIPE_PUBLISHABLE =
     : 'pk_test_OPpoAfjmyeTltfqxtGlndpfh'
 
 const PAYMENT_SERVER_URL =
-  process.env.NODE_ENV === 'production'
-    ? 'https://node-explorers.herokuapp.com'
-    : '/api/checkout'
+  process.env.NODE_ENV === 'production' ? '/api/checkout' : '/api/checkout'
 
 const CURRENCY = 'USD'
 
