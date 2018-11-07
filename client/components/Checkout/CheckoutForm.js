@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import StripeCheckout from 'react-stripe-checkout'
-import { deleteCart } from '../../store/cart'
+import { deleteCartItems } from '../../store/cart'
 import store from '../../store'
 import history from '../../history'
 const STRIPE_PUBLISHABLE =
@@ -26,7 +26,7 @@ const successPayment = async (data, cartId) => {
       email: data.data.success.source.name,
       cartId
     }).data
-    store.dispatch(deleteCart())
+    store.dispatch(deleteCartItems())
     history.push('/home')
   } catch (err) {
     console.error(err)
